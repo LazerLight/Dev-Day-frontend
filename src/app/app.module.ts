@@ -10,11 +10,27 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { LoginComponent } from "./login/login.component";
 import { HomePageComponent } from './home-page/home-page.component';
 import { SignupComponent } from './signup/signup.component';
+import { ProjectsPageComponent } from './projects-page/projects-page.component';
+import { OneProjectComponent } from './one-project/one-project.component';
+import { ProjectService } from "./api/project.service";
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, LoginComponent, HomePageComponent, SignupComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [UserService],
+  declarations: [
+    AppComponent,
+    NotFoundComponent,
+    LoginComponent,
+    HomePageComponent,
+    SignupComponent,
+    ProjectsPageComponent,
+    OneProjectComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule],
+  providers: [
+    UserService,
+    ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

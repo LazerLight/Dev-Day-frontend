@@ -1,12 +1,13 @@
 <header>
   <h1>Dev Day</h1>
   <nav>
-    <a routerLink="/">Home</a>
     <span *ngIf="!userInstance.currentUser">
+      <a routerLink="/">Home</a>
       <a routerLink="/login">Log In</a>
       <a routerLink="/signup">Sign Up</a>
     </span>
     <span *ngIf="userInstance.currentUser">
+      <a routerLink="/projects">Home</a>
       <b>{{userInstance.currentUser.username}}</b>
       <button (click)="logoutClick()">Log Out</button>
     </span>

@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
     this.userInstance
       .postSignup(this.formCreds)
       .then(result => {
-        this.resInstance.navigateByUrl("/");
+        this.resInstance.navigateByUrl("/projects");
       })
       .catch(err => {
         console.log("signup error");

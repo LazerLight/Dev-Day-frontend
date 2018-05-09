@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     this.userInstance
       .postLogin(this.formCreds)
       .then(result => {
-        this.resInstance.navigateByUrl("/");
+        this.resInstance.navigateByUrl("/projects");
       })
       .catch(err => {
         console.log("login error");
