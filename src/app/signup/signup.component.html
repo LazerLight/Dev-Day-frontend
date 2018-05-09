@@ -1,0 +1,16 @@
+<h2>Sign Up</h2>
+
+<form (ngSubmit)="signupSubmit()">
+  <label>
+    Username:
+    <input type="text" [(ngModel)]="formCreds.username" placeholder="blah" name="username">
+  </label>
+  <br>
+  <label>
+    Password:
+    <input type="password" [(ngModel)]="formCreds.password" placeholder="****" name="password">
+  </label>
+  <br>
+
+  <button>Sign Up!</button>
+</form>
