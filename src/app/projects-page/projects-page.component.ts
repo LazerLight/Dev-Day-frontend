@@ -40,4 +40,15 @@ export class ProjectsPageComponent implements OnInit {
       })
   }
 
+  goToProject( projectId ) {
+    this.apiThing.getProject( projectId )
+      .then((( project: Project ) => {
+        this.resThing.navigateByUrl( `/project/${project._id}` )
+      }))
+      .catch((( err ) => {
+        console.log( "goToProject ERROR" );
+        console.log( err );
+      }))
+  }
+
 }
