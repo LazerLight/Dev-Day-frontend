@@ -1,0 +1,24 @@
+<h2>Projects Page</h2>
+
+<!-- 
+  ITEMS À RAJOUTER AU MODÈLE DE PROJET ?
+  - NOM (POUR L'IDENTIFIER)
+  - IMAGE (POUR LA VIGNETTE)
+ -->
+
+<ul>
+  <li *ngFor="let oneProject of projects">
+    <h3>{{oneProject.name}}</h3>
+    <img [src]="oneProject.image">
+    <ul>
+      <li *ngFor="let onePerson of oneProject.usersArray">
+        <h4>{{onePerson.name}}</h4>
+        <img [src]="onePerson.image">
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<!-- FUNCTION YET TO BE CREATED -->
+<!-- PROBABLY WANT TO HAVE IT APPEAR IN A POPUP? -->
+<button>CREATE A NEW PROJECT</button>
