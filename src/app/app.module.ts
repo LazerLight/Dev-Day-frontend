@@ -15,6 +15,7 @@ import { OneProjectComponent } from './one-project/one-project.component';
 import { ProjectService } from "./api/project.service";
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
+import { RouteGuardService } from "./route-guard.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ContactPageComponent } from './contact-page/contact-page.component';
   ],
   providers: [
     UserService,
-    ProjectService],
+    ProjectService,
+    RouteGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
