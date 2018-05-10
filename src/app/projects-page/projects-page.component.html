@@ -1,36 +1,41 @@
 <h2>Projects Page</h2>
 
 
-
+<h3>BELOW THE PROJECTS LIST</h3>
 <ul>
   <li *ngFor="let oneProject of projects">
     <h3>{{oneProject.name}}</h3>
-    <img [src]="oneProject.image">
+    <img [src]="oneProject?.imageUrl">
     <ul>
-      <li *ngFor="let onePerson of oneProject.usersArray">
+      <li *ngFor="let onePerson of oneProject.contributors">
         <h4>{{onePerson.name}}</h4>
         <img [src]="onePerson.image">
       </li>
     </ul>
+    <button>Enter the project</button>
   </li>
 </ul>
 
+<hr>
 
+<h3>BELOW THE FORM TO CREATE A NEW PROJECT</h3>
 <form (ngSubmit)="createProject()" >
-  <label>Name:</label>
-  <input type="text" name="name">
 
-  <label>Image URL:</label>
-  <input type="text" name="imageUrl">
+  <label>Name:</label><br>
+  <input type="text" name="name" [(ngModel)]="newProjectInfo.name"><br><br>
 
-  <label>GitHub URL</label>
-  <input type="text" name="gitHubUrl">
+  <label>Image URL:</label><br>
+  <input type="text" name="imageUrl" [(ngModel)]="newProjectInfo.imageUrl"><br><br>
+  
+  <label>GitHub URL</label><br>
+  <input type="text" name="githubRepoUrl" [(ngModel)]="newProjectInfo.githubRepoUrl"><br><br>
 
-  <label>Trello Board ID</label>
-  <input type="text" name="trelloBoardId">
+  <label>Trello Board ID</label><br>
+  <input type="text" name="trelloBoardId" [(ngModel)]="newProjectInfo.trelloBoardId"><br><br>
 
-  <label>Slack ID</label>
-  <input type="text" name="slackId">
+  <label>Slack ID</label><br>
+  <input type="text" name="slackWorkSpaceDirectory" [(ngModel)]="newProjectInfo.slackWorkSpaceDirectory"><br><br>
 
   <button>Create</button>
+
 </form>

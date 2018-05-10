@@ -31,6 +31,7 @@ export class ProjectsPageComponent implements OnInit {
   createProject() {
     this.apiThing.postProject( this.newProjectInfo )
       .then(() => {
+        console.log( this.newProjectInfo );
         this.resThing.navigateByUrl( "/projects" );
       })
       .catch(( err ) => {

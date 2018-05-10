@@ -40,25 +40,25 @@ export class ProjectService {
 
 export class Project {
   _id: string;
-  ownerId: string;
+  owner: string;
   name: string;
   imageUrl: string;
-  gitHubUrl: string;
+  githubRepoUrl: string;
   trelloBoardId: string;
-  slackId: string;
+  slackWorkSpaceDirectory: string;
   slackUserId: string;
-  usersArray: User[];
+  contributors: User[];
   activityFeed: Object[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export class newProjectInfo {
-  ownerId: string; // Specify that the creating user becomes the owner
+  owner: string; // Specify that the creating user becomes the owner
   name: string;
   imageUrl: string;
-  gitHubUrl: string;
+  githubRepoUrl: string;
   trelloBoardId: string;
-  slackId: string;
-  usersArray: User[]; // Specify that the creating user becomes the first member
+  slackWorkSpaceDirectory: string;
+  contributors: User[]; // Specify that the creating user becomes the first member
 }

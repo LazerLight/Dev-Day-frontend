@@ -26,12 +26,14 @@ import { ContactPageComponent } from './contact-page/contact-page.component';
     ProjectsPageComponent,
     OneProjectComponent,
     AboutPageComponent,
-    ContactPageComponent],
+    ContactPageComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule],
+    FormsModule
+  ],
   providers: [
     UserService,
     ProjectService],
