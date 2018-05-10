@@ -8,8 +8,13 @@ import { Router } from "@angular/router";
   styleUrls: ["./signup.component.css"]
 })
 export class SignupComponent implements OnInit {
+
   formCreds: SignupCredentials = new SignupCredentials();
-  constructor(public userInstance: UserService, private resInstance: Router) {}
+  
+  constructor(
+    public userInstance: UserService,
+    private resInstance: Router
+  ) {}
 
   ngOnInit() {}
   signupSubmit() {

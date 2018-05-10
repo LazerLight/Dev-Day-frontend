@@ -13,6 +13,8 @@ import { SignupComponent } from './signup/signup.component';
 import { ProjectsPageComponent } from './projects-page/projects-page.component';
 import { OneProjectComponent } from './one-project/one-project.component';
 import { ProjectService } from "./api/project.service";
+import { AboutPageComponent } from './about-page/about-page.component';
+import { ContactPageComponent } from './contact-page/contact-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ProjectService } from "./api/project.service";
     HomePageComponent,
     SignupComponent,
     ProjectsPageComponent,
-    OneProjectComponent],
+    OneProjectComponent,
+    AboutPageComponent,
+    ContactPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

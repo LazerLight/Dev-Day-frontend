@@ -6,6 +6,8 @@ import { HomePageComponent } from "./home-page/home-page.component";
 import { SignupComponent } from "./signup/signup.component";
 import { ProjectsPageComponent } from "./projects-page/projects-page.component";
 import { OneProjectComponent } from "./one-project/one-project.component";
+import { AboutPageComponent } from "./about-page/about-page.component";
+import { ContactPageComponent } from "./contact-page/contact-page.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: "signup", component: SignupComponent },
   { path: "projects", component: ProjectsPageComponent },
   { path: "project/:projectId", component: OneProjectComponent },
+  { path: "about", component: AboutPageComponent },
+  { path: "contact", component: ContactPageComponent },
 
   { path: "**", component: NotFoundComponent }
 ];

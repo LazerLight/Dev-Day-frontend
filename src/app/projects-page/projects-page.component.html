@@ -1,10 +1,6 @@
 <h2>Projects Page</h2>
 
-<!-- 
-  ITEMS À RAJOUTER AU MODÈLE DE PROJET ?
-  - NOM (POUR L'IDENTIFIER)
-  - IMAGE (POUR LA VIGNETTE)
- -->
+
 
 <ul>
   <li *ngFor="let oneProject of projects">
@@ -19,6 +15,22 @@
   </li>
 </ul>
 
-<!-- FUNCTION YET TO BE CREATED -->
-<!-- PROBABLY WANT TO HAVE IT APPEAR IN A POPUP? -->
-<button>CREATE A NEW PROJECT</button>
+
+<form (ngSubmit)="createProject()" >
+  <label>Name:</label>
+  <input type="text" name="name">
+
+  <label>Image URL:</label>
+  <input type="text" name="imageUrl">
+
+  <label>GitHub URL</label>
+  <input type="text" name="gitHubUrl">
+
+  <label>Trello Board ID</label>
+  <input type="text" name="trelloBoardId">
+
+  <label>Slack ID</label>
+  <input type="text" name="slackId">
+
+  <button>Create</button>
+</form>

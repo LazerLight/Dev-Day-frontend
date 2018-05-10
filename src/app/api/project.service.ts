@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import "rxjs/operator/toPromise";
+import { User } from './user.service';
 
 @Injectable()
 export class ProjectService {
@@ -18,7 +19,14 @@ export class ProjectService {
   }
 
   // POST /api/projects
-  // Pas encore fait, check autres exemples ? Car dans "phone" on ne l'a pas fait je crois
+  postProject( info: newProjectInfo ) {
+    return this.ajaxThing
+      .post(
+        "http://localhost:3000/api/projects",
+        info
+      )
+      .toPromise();
+  }
 
   // GET /api/project/:projectId
   getProject( projectId ) {
@@ -33,6 +41,8 @@ export class ProjectService {
 export class Project {
   _id: string;
   ownerId: string;
+  name: string;
+  imageUrl: string;
   gitHubUrl: string;
   trelloBoardId: string;
   slackId: string;
@@ -41,4 +51,14 @@ export class Project {
   activityFeed: Object[];
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export class newProjectInfo {
+  ownerId: string; // Specify that the creating user becomes the owner
+  name: string;
+  imageUrl: string;
+  gitHubUrl: string;
+  trelloBoardId: string;
+  slackId: string;
+  usersArray: User[]; // Specify that the creating user becomes the first member
 }
