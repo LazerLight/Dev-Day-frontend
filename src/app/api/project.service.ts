@@ -47,7 +47,7 @@ export class Project {
   trelloBoardId: string;
   slackWorkSpaceDirectory: string;
   slackUserId: string;
-  contributors: User[];
+  contributors: string[] = [];
   activityFeed: Object[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -60,5 +60,5 @@ export class newProjectInfo {
   githubRepoUrl: string;
   trelloBoardId: string;
   slackWorkSpaceDirectory: string;
-  contributors: User[]; // Specify that the creating user becomes the first member
+  contributors: string[] = []; // Specify that the creating user becomes the first member
 }

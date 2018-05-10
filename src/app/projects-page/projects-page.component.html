@@ -5,13 +5,14 @@
 <ul>
   <li *ngFor="let oneProject of projects">
     <h3>{{oneProject.name}}</h3>
-    <img [src]="oneProject?.imageUrl">
-    <ul>
+    <img [src]="oneProject?.imageUrl"><br>
+    <!-- We need to populate the info contained in the userIds to be able to retrieve their name and image -->
+    <!-- <ul>
       <li *ngFor="let onePerson of oneProject.contributors">
         <h4>{{onePerson.name}}</h4>
         <img [src]="onePerson.image">
       </li>
-    </ul>
+    </ul> -->
     <button (click)="goToProject( oneProject._id )">Enter the project</button>
   </li>
 </ul>
