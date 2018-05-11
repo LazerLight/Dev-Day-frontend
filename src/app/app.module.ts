@@ -16,6 +16,8 @@ import { ProjectService } from "./api/project.service";
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { MaterializeModule } from "./app-materialize.module";
+import { RouteGuardService } from "./route-guard.service";
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { MaterializeModule } from "./app-materialize.module";
   ],
   providers: [
     UserService,
-    ProjectService],
+    ProjectService,
+    RouteGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

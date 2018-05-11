@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { UserService } from "./api/user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-root",
@@ -9,7 +10,10 @@ import { UserService } from "./api/user.service";
 export class AppComponent {
   title = "app";
 
-  constructor(public userInstance: UserService) {}
+  constructor(
+    public userInstance: UserService,
+    private resThing: Router
+  ) {}
 
   ngOnInit() {
     this.userInstance.check().catch(err => {
@@ -19,7 +23,11 @@ export class AppComponent {
   }
 
   logoutClick() {
-    this.userInstance.logout().catch(err => {
+    this.userInstance.logout()
+    .then(() => {
+      this.resThing.navigateByUrl( "/" );
+    })
+    .catch(err => {
       console.log("App logout error");
       console.log(err);
     });

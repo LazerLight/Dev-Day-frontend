@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project, ProjectService, newProjectInfo } from "../api/project.service";
 import { Router } from '@angular/router';
+import { UserService, User } from '../api/user.service';
 
 @Component({
   selector: 'app-projects-page',
@@ -11,8 +12,10 @@ export class ProjectsPageComponent implements OnInit {
 
   projects: Project[] = [];
   newProjectInfo: newProjectInfo = new newProjectInfo();
+  currentUserId: string;
   
   constructor(
+    private userThing: UserService,
     private apiThing: ProjectService,
     private resThing: Router
   ) { }
@@ -29,10 +32,21 @@ export class ProjectsPageComponent implements OnInit {
   }
 
   createProject() {
-    this.apiThing.postProject( this.newProjectInfo )
-      .then(() => {
-        console.log( this.newProjectInfo );
-        this.resThing.navigateByUrl( "/projects" );
+    // Checking the current user's info
+    this.userThing.check()
+      .then(( result ) => {
+        // Assigning the current user's ID to a variable
+        this.currentUserId = result.userInfo._id;
+        // Assigning this id to the new project's "owner" key
+        this.newProjectInfo.owner = this.currentUserId;
+        this.newProjectInfo.contributors.push( this.currentUserId );
+        // console.log( this.newProjectInfo.contributors );
+
+        this.apiThing.postProject( this.newProjectInfo )
+          .then(() => {
+            console.log( this.newProjectInfo );
+            this.resThing.navigateByUrl( "/projects" );
+          })
       })
       .catch(( err ) => {
         console.log( "createProject ERROR" );
