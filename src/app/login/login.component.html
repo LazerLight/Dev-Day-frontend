@@ -1,5 +1,6 @@
-<h2>Log In</h2>
 
+<h2>Log In</h2>
+<div class="login-container">
 <form (ngSubmit)="loginSubmit()">
   <label>
     Username:
@@ -12,7 +13,9 @@
   </label>
   <br>
 
-  <button>Log In</button>
+  <button mz-button>Log In</button>
+  <a mz-button routerLink="/signup" align="right" flat="true">Sign Up</a>
 </form>
 
 <a href="http://localhost:3000/api/github/login">Log In with GitHub</a>
+</div>

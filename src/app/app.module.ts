@@ -15,6 +15,7 @@ import { OneProjectComponent } from './one-project/one-project.component';
 import { ProjectService } from "./api/project.service";
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
+import { MaterializeModule } from "./app-materialize.module";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ContactPageComponent } from './contact-page/contact-page.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MaterializeModule
   ],
   providers: [
     UserService,
