@@ -35,13 +35,9 @@ export class ProjectService {
       .toPromise();
   }
 
-  // POST /api/invite-contributor/:projectId/:contributorId
-  postContributor( projectId: string, contributorId: string ) {
+  getUser( username ) {
     return this.ajaxThing
-      .post(
-        `/invite-contributor/${ projectId }/${ contributorId }`,
-        projectId,
-      )
+      .get( `http://localhost:3000/api/invite-contributor/${ username }` )
       .toPromise();
   }
 
@@ -71,4 +67,8 @@ export class newProjectInfo {
   trelloBoardId: string;
   slackWorkSpaceDirectory: string;
   contributors: string[] = []; // Specify that the creating user becomes the first member
+}
+
+export class searchedUser {
+  username: string;
 }
