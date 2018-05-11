@@ -35,6 +35,16 @@ export class ProjectService {
       .toPromise();
   }
 
+  // POST /api/invite-contributor/:projectId/:contributorId
+  postContributor( projectId: string, contributorId: string ) {
+    return this.ajaxThing
+      .post(
+        `/invite-contributor/${ projectId }/${ contributorId }`,
+        projectId,
+      )
+      .toPromise();
+  }
+
 
 }
 
