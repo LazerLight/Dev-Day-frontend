@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Project, ProjectService } from '../api/project.service';
-import { ActivatedRoute } from '@angular/router';
+import { Project, ProjectService, addUserInfo } from '../api/project.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../api/user.service';
 
 @Component({
@@ -13,11 +13,13 @@ export class OneProjectComponent implements OnInit {
   projectId: string;
   project: Project;
   username: string;
-  foundUsers: User;
+  foundUser: User;
+  addUserInfo: addUserInfo = new addUserInfo();
 
   constructor(
     private reqThing: ActivatedRoute,
-    private apiThing: ProjectService
+    private apiThing: ProjectService,
+    private resThing: Router
   ) { }
 
   ngOnInit() {
@@ -43,10 +45,26 @@ export class OneProjectComponent implements OnInit {
   searchUser() {
     this.apiThing.getUser( this.username )
       .then(( result: User ) => {
-        this.foundUsers = result;
+        this.foundUser = result;
       })
       .catch(( err ) => {
         console.log( "searchUser ERROR" );
+        console.log( err );
+      })
+  }
+
+  addUser() {
+    console.log( `Trying to add ${ this.foundUser.username } to ${ this.project.name }!` );
+    
+    this.addUserInfo.projectId = this.projectId;
+    this.addUserInfo.userId = this.foundUser._id;
+
+    this.apiThing.postUser( this.addUserInfo )
+      .then(() => {
+        this.resThing.navigateByUrl( `/project/${ this.projectId }`)
+      })
+      .catch(( err ) => {
+        console.log( "addUser ERROR" );
         console.log( err );
       })
   }

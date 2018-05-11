@@ -29,15 +29,24 @@ export class ProjectService {
   }
 
   // GET /api/project/:projectId
-  getProject( projectId ) {
+  getProject( projectId: string ) {
     return this.ajaxThing
       .get( `http://localhost:3000/api/project/${ projectId }` )
       .toPromise();
   }
 
-  getUser( username ) {
+  getUser( username: string ) {
     return this.ajaxThing
-      .get( `http://localhost:3000/api/invite-contributor/${ username }` )
+      .get( `http://localhost:3000/api/search-user/${ username }` )
+      .toPromise();
+  }
+
+  postUser( info: addUserInfo ) {
+    return this.ajaxThing
+      .post(
+        "http://localhost:3000/api/add-contributor",
+        info
+      )
       .toPromise();
   }
 
@@ -69,6 +78,7 @@ export class newProjectInfo {
   contributors: string[] = []; // Specify that the creating user becomes the first member
 }
 
-export class searchedUser {
-  username: string;
+export class addUserInfo {
+  userId: string;
+  projectId: string;
 }
