@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Project, ProjectService, addUserInfo } from '../api/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../api/user.service';
+import { User, UserService } from '../api/user.service';
 
 @Component({
   selector: 'app-one-project',
@@ -10,6 +10,8 @@ import { User } from '../api/user.service';
 })
 export class OneProjectComponent implements OnInit {
 
+  currentUserId: string;
+  isOwner: boolean;
   projectId: string;
   project: Project;
   username: string;
@@ -19,7 +21,8 @@ export class OneProjectComponent implements OnInit {
   constructor(
     private reqThing: ActivatedRoute,
     private apiThing: ProjectService,
-    private resThing: Router
+    private resThing: Router,
+    private userThing: UserService
   ) { }
 
   ngOnInit() {
@@ -28,6 +31,7 @@ export class OneProjectComponent implements OnInit {
       .subscribe(( myParams ) => {
         this.projectId = myParams.get( "projectId" )
         this.fetchProjectData();
+        this.fetchUserData();
       })
   }
 
@@ -39,6 +43,16 @@ export class OneProjectComponent implements OnInit {
       .catch(( err ) => {
         console.log( "fetProjectData ERROR" );
         console.log( err );
+      })
+  }
+
+  fetchUserData() {
+    // Get the info of the connected user
+    this.userThing.check()
+      .then(( result ) => {
+        this.currentUserId = result.userInfo._id;
+
+        this.isOwner = ( this.currentUserId === this.project.owner );
       })
   }
 

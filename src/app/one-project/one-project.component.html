@@ -4,15 +4,17 @@
 
 <br>
 
-<h5>Want to add a contributor?</h5>
-<form (ngSubmit)="searchUser()" >
+<div *ngIf="isOwner">
+  <h5>Want to add a contributor?</h5>
+  <form (ngSubmit)="searchUser()" >
 
-  <label>Enter user name:</label>
-  <input type="text" name="username" [(ngModel)]="username">
+    <label>Enter user name:</label>
+    <input type="text" name="username" [(ngModel)]="username">
 
-  <button>Search</button>
+    <button>Search</button>
 
-</form>
+  </form>
+</div>
 
 <div *ngIf="foundUser">
   {{foundUser.username}}
