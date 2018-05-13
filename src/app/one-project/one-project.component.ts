@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project, ProjectService, addUserInfo } from '../api/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '../api/user.service';
+import { GithubApiService, githubEventsApiRes, githubIssuesApiRes } from '../api/github-api.service';
 
 @Component({
   selector: 'app-one-project',
@@ -14,6 +15,8 @@ export class OneProjectComponent implements OnInit {
   isOwner: boolean;
   projectId: string;
   project: Project;
+  eventsJSON: Array<githubEventsApiRes> = [];
+  issuesJSON: Array<githubIssuesApiRes> = [];
   username: string;
   foundUser: User;
   addUserInfo: addUserInfo = new addUserInfo();
@@ -21,6 +24,7 @@ export class OneProjectComponent implements OnInit {
   constructor(
     private reqThing: ActivatedRoute,
     private apiThing: ProjectService,
+    public gitAPI: GithubApiService,
     private resThing: Router,
     private userThing: UserService
   ) { }
@@ -33,6 +37,9 @@ export class OneProjectComponent implements OnInit {
         this.fetchProjectData();
         this.fetchUserData();
       })
+
+    this.getRepoEventsFeed();
+    this.getRepoIssuesFeed();
   }
 
   fetchProjectData() {
@@ -46,6 +53,31 @@ export class OneProjectComponent implements OnInit {
       })
   }
 
+
+
+  getRepoEventsFeed(){
+    this.gitAPI.githubEventsFeed("LPsola","Project03-frontend")
+    // this.gitAPI.githubEventsFeed("jaredhanson","passport")    
+      .then((result:any) => {
+        this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result)
+      })
+      .catch((err) => {
+        console.log(`Error getting github feed: ${err}`)
+      })
+  }
+
+  getRepoIssuesFeed(){
+    this.gitAPI.githubIssuesFeed("jaredhanson","passport")
+      .then((result:any) => {
+        this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result)
+        
+        // console.log(`githubIssuesFeed results: this.apiInfo`,result)
+      })
+      .catch((err) => {
+        console.log(`Error getting github feed: ${err}`)
+      })
+    }
+        
   fetchUserData() {
     // Get the info of the connected user
     this.userThing.check()

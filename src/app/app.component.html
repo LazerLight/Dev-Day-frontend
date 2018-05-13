@@ -1,23 +1,42 @@
 <header>
-    <mz-navbar>
-      <a href="/projects" class="brand-logo">Logo</a>
-      <mz-navbar-item-container [align]="'right'">
-        <span *ngIf="!userInstance.currentUser">
-          <mz-navbar-item><a routerLink="/">Home</a></mz-navbar-item>
-          <mz-navbar-item><a routerLink="/login">Log In</a></mz-navbar-item>
-          <mz-navbar-item><a routerLink="/signup">Sign Up</a></mz-navbar-item>
-        </span>
-        
-        
-        <span *ngIf="userInstance.currentUser">
-          <mz-navbar-item><a routerLink="/projects">Home</a></mz-navbar-item>
-          <mz-navbar-item><b>{{userInstance.currentUser.username}}</b></mz-navbar-item>
-          <mz-navbar-item><a class="waves-effect waves-light btn-large" (click)="logoutClick()">Log Out</a></mz-navbar-item>
-        </span>
-        <mz-navbar-item><a routerLink="/">Contact US</a></mz-navbar-item>
-        <mz-navbar-item><a routerLink="/">About Us</a></mz-navbar-item>
-      
-      
+  <mz-navbar>
+    <a href="/projects" class="brand-logo">Logo</a>
+    <mz-navbar-item-container [align]="'right'">
+      <span *ngIf="!userInstance.currentUser">
+        <mz-navbar-item>
+          <a routerLink="/">Home</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a routerLink="/bot">Bot test</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a routerLink="/login">Log In</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a routerLink="/signup">Sign Up</a>
+        </mz-navbar-item>
+      </span>
+
+
+      <span *ngIf="userInstance.currentUser">
+        <mz-navbar-item>
+          <a routerLink="/projects">Home</a>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <b>{{userInstance.currentUser.username}}</b>
+        </mz-navbar-item>
+        <mz-navbar-item>
+          <a class="waves-effect waves-light btn-large" (click)="logoutClick()">Log Out</a>
+        </mz-navbar-item>
+      </span>
+      <mz-navbar-item>
+        <a routerLink="/">Contact US</a>
+      </mz-navbar-item>
+      <mz-navbar-item>
+        <a routerLink="/">About Us</a>
+      </mz-navbar-item>
+
+
     </mz-navbar-item-container>
   </mz-navbar>
 </header>

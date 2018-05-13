@@ -7,10 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -20,10 +17,12 @@
       "prefix": "app",
       "styles": [
         "styles.css",
+        "../node_modules/conversational-form/dist/conversational-form.min.css",
         "../node_modules/materialize-css/dist/css/materialize.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/conversational-form/dist/conversational-form.min.js",
         "../node_modules/materialize-css/dist/js/materialize.min.js"
       ],
       "environmentSource": "environments/environment.ts",
