@@ -17,6 +17,7 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { MaterializeModule } from "./app-materialize.module";
 import { RouteGuardService } from "./route-guard.service";
+import { BotFormComponent } from './bot-form/bot-form.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RouteGuardService } from "./route-guard.service";
     ProjectsPageComponent,
     OneProjectComponent,
     AboutPageComponent,
-    ContactPageComponent
+    ContactPageComponent,
+    BotFormComponent
   ],
   imports: [
     BrowserModule,

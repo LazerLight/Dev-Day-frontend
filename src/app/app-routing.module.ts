@@ -9,17 +9,23 @@ import { OneProjectComponent } from "./one-project/one-project.component";
 import { AboutPageComponent } from "./about-page/about-page.component";
 import { ContactPageComponent } from "./contact-page/contact-page.component";
 import { RouteGuardService } from "./route-guard.service";
+import { BotFormComponent } from "./bot-form/bot-form.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
+  { path: "bot", component: BotFormComponent },
   { path: "login", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   { path: "about", component: AboutPageComponent },
   { path: "contact", component: ContactPageComponent },
-  { path: "", canActivate: [ RouteGuardService ], children:[
-    { path: "projects", component: ProjectsPageComponent },
-    { path: "project/:projectId", component: OneProjectComponent },
-  ]},
+  {
+    path: "",
+    canActivate: [RouteGuardService],
+    children: [
+      { path: "projects", component: ProjectsPageComponent },
+      { path: "project/:projectId", component: OneProjectComponent }
+    ]
+  },
 
   { path: "**", component: NotFoundComponent }
 ];
