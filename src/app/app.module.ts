@@ -16,8 +16,9 @@ import { ProjectService } from "./api/project.service";
 import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { MaterializeModule } from "./app-materialize.module";
-import { RouteGuardService } from "./route-guard.service";
 import { GithubApiService } from "./api/github-api.service";
+import { RouteGuardService } from "./api/route-guard.service";
+import { IsContributorPipe } from './pipes-folder/is-contributor.pipe';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { GithubApiService } from "./api/github-api.service";
     ProjectsPageComponent,
     OneProjectComponent,
     AboutPageComponent,
-    ContactPageComponent
+    ContactPageComponent,
+    IsContributorPipe
   ],
   imports: [
     BrowserModule,

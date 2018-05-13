@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Project, ProjectService } from '../api/project.service';
-import { ActivatedRoute } from '@angular/router';
+import { Project, ProjectService, addUserInfo } from '../api/project.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User, UserService } from '../api/user.service';
 import { GithubApiService, githubEventsApiRes, githubIssuesApiRes } from '../api/github-api.service';
 
 @Component({
@@ -10,15 +11,22 @@ import { GithubApiService, githubEventsApiRes, githubIssuesApiRes } from '../api
 })
 export class OneProjectComponent implements OnInit {
 
+  currentUserId: string;
+  isOwner: boolean;
   projectId: string;
   project: Project;
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
+  username: string;
+  foundUser: User;
+  addUserInfo: addUserInfo = new addUserInfo();
 
   constructor(
     private reqThing: ActivatedRoute,
     private apiThing: ProjectService,
     public gitAPI: GithubApiService,
+    private resThing: Router,
+    private userThing: UserService
   ) { }
 
   ngOnInit() {
@@ -27,6 +35,7 @@ export class OneProjectComponent implements OnInit {
       .subscribe(( myParams ) => {
         this.projectId = myParams.get( "projectId" )
         this.fetchProjectData();
+        this.fetchUserData();
       })
 
     this.getRepoEventsFeed();
@@ -51,7 +60,6 @@ export class OneProjectComponent implements OnInit {
     // this.gitAPI.githubEventsFeed("jaredhanson","passport")    
       .then((result:any) => {
         this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result)
-        console.log(`githubEventsFeed results: this.apiInfo`,result)
       })
       .catch((err) => {
         console.log(`Error getting github feed: ${err}`)
@@ -67,6 +75,43 @@ export class OneProjectComponent implements OnInit {
       })
       .catch((err) => {
         console.log(`Error getting github feed: ${err}`)
+      })
+    }
+        
+  fetchUserData() {
+    // Get the info of the connected user
+    this.userThing.check()
+      .then(( result ) => {
+        this.currentUserId = result.userInfo._id;
+
+        this.isOwner = ( this.currentUserId === this.project.owner );
+      })
+  }
+
+  searchUser() {
+    this.apiThing.getUser( this.username )
+      .then(( result: User ) => {
+        this.foundUser = result;
+      })
+      .catch(( err ) => {
+        console.log( "searchUser ERROR" );
+        console.log( err );
+      })
+  }
+
+  addUser() {
+    console.log( `Trying to add ${ this.foundUser.username } to ${ this.project.name }!` );
+    
+    this.addUserInfo.projectId = this.projectId;
+    this.addUserInfo.userId = this.foundUser._id;
+
+    this.apiThing.postUser( this.addUserInfo )
+      .then(() => {
+        this.resThing.navigateByUrl( `/project/${ this.projectId }`)
+      })
+      .catch(( err ) => {
+        console.log( "addUser ERROR" );
+        console.log( err );
       })
   }
 

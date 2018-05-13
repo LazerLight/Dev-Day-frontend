@@ -8,7 +8,7 @@ import { ProjectsPageComponent } from "./projects-page/projects-page.component";
 import { OneProjectComponent } from "./one-project/one-project.component";
 import { AboutPageComponent } from "./about-page/about-page.component";
 import { ContactPageComponent } from "./contact-page/contact-page.component";
-import { RouteGuardService } from "./route-guard.service";
+import { RouteGuardService } from "./api/route-guard.service";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },

@@ -46,6 +46,25 @@
 
 <img [src]="project?.imageUrl">
 
+<br>
+
+<div *ngIf="isOwner">
+  <h5>Want to add a contributor?</h5>
+  <form (ngSubmit)="searchUser()" >
+
+    <label>Enter user name:</label>
+    <input type="text" name="username" [(ngModel)]="username">
+
+    <button>Search</button>
+
+  </form>
+</div>
+
+<div *ngIf="foundUser">
+  {{foundUser.username}}
+  <button (click)="addUser()">Add</button>
+</div>
+
 <h3>CURRENTS TASKS AT HAND</h3>
 <!-- Make it a separate component? -->
 <ul>
