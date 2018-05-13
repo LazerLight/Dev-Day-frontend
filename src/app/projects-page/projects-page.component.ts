@@ -17,41 +17,43 @@ export class ProjectsPageComponent implements OnInit {
   constructor(
     private userThing: UserService,
     private apiThing: ProjectService,
-    private resThing: Router
+    private resThing: Router,
   ) { }
 
   ngOnInit() {
     this.apiThing.getProjects()
       .then(( projectsList: Project[] ) => {
         this.projects = projectsList;
+        this.fetchUserData();
       })
       .catch(( err ) => {
         console.log( "getProjects ERROR" );
         console.log( err );
       })
   }
-
-  createProject() {
-    // Checking the current user's info
+  
+  fetchUserData() {
+    // Get the info of the connected user
     this.userThing.check()
       .then(( result ) => {
-        // Assigning the current user's ID to a variable
         this.currentUserId = result.userInfo._id;
-        // Assigning this id to the new project's "owner" key
-        this.newProjectInfo.owner = this.currentUserId;
-        this.newProjectInfo.contributors.push( this.currentUserId );
-        // console.log( this.newProjectInfo.contributors );
+      })
+  }
 
-        this.apiThing.postProject( this.newProjectInfo )
-          .then(() => {
-            console.log( this.newProjectInfo );
-            this.resThing.navigateByUrl( "/projects" );
-          })
-      })
-      .catch(( err ) => {
-        console.log( "createProject ERROR" );
-        console.log( err );
-      })
+  createProject() {
+    this.newProjectInfo.owner = this.currentUserId;
+    this.newProjectInfo.contributors.push( this.currentUserId );
+
+    this.apiThing.postProject( this.newProjectInfo )
+      .then(() => {
+        console.log( this.newProjectInfo );
+        this.resThing.navigateByUrl( "/projects" );
+    })
+    // })
+    .catch(( err ) => {
+      console.log( "createProject ERROR" );
+      console.log( err );
+    })
   }
 
   goToProject( projectId ) {
@@ -64,5 +66,7 @@ export class ProjectsPageComponent implements OnInit {
         console.log( err );
       }))
   }
+
+
 
 }

@@ -8,17 +8,18 @@ import { AppComponent } from "./app.component";
 import { UserService } from "./api/user.service";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { LoginComponent } from "./login/login.component";
-import { HomePageComponent } from './home-page/home-page.component';
-import { SignupComponent } from './signup/signup.component';
-import { ProjectsPageComponent } from './projects-page/projects-page.component';
-import { OneProjectComponent } from './one-project/one-project.component';
+import { HomePageComponent } from "./home-page/home-page.component";
+import { SignupComponent } from "./signup/signup.component";
+import { ProjectsPageComponent } from "./projects-page/projects-page.component";
+import { OneProjectComponent } from "./one-project/one-project.component";
 import { ProjectService } from "./api/project.service";
-import { AboutPageComponent } from './about-page/about-page.component';
-import { ContactPageComponent } from './contact-page/contact-page.component';
+import { AboutPageComponent } from "./about-page/about-page.component";
+import { ContactPageComponent } from "./contact-page/contact-page.component";
 import { MaterializeModule } from "./app-materialize.module";
-import { RouteGuardService } from "./route-guard.service";
-import { BotFormComponent } from './bot-form/bot-form.component';
-
+import { BotFormComponent } from "./bot-form/bot-form.component";
+import { GithubApiService } from "./api/github-api.service";
+import { RouteGuardService } from "./api/route-guard.service";
+import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BotFormComponent } from './bot-form/bot-form.component';
     OneProjectComponent,
     AboutPageComponent,
     ContactPageComponent,
-    BotFormComponent
+    BotFormComponent,
+    IsContributorPipe
   ],
   imports: [
     BrowserModule,
@@ -40,10 +42,7 @@ import { BotFormComponent } from './bot-form/bot-form.component';
     FormsModule,
     MaterializeModule
   ],
-  providers: [
-    UserService,
-    ProjectService,
-    RouteGuardService],
+  providers: [UserService, ProjectService, RouteGuardService, GithubApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,32 +1,76 @@
 <h2>Welcome to "{{project?.name}}"</h2>
 
+<div class="git-commit-container">
+  <mz-collection>
+    <mz-collection-header><h4>Github Repo Push Events</h4></mz-collection-header>
+    <mz-collection-item *ngFor="let oneEvent of eventsJSON" [avatar]="true">
+      <img mz-avatar [src]="oneEvent.actor.avatar_url">
+      <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
+      <div><b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
+    </mz-collection-item>
+  </mz-collection>
+</div>
+<div class="git-commit-container">
+  <mz-collection>
+    <mz-collection-header><h4>Latest Open Github Repo Issues</h4></mz-collection-header>
+    <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
+      <img mz-avatar [src]="oneIssue.user.avatar_url">
+      <div class="title">"{{oneIssue.title}}"</div>
+      
+      <mz-collapsible
+      [mode]="'expandable'"
+      [onClose]="closeFunctionCallback"
+      [onOpen]="openFunctionCallback"
+      [popout]="true">
+      <mz-collapsible-item [active]="false">
+        <mz-collapsible-item-header>
+          <b>Click Here for toggle issue details</b>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+            {{oneIssue.body}}
+            <br>
+            <b>Total Comments: </b><a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
+            
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+    
+    
+    
+    <div><b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
+      <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
+    </div>
+  </mz-collection-item>
+</mz-collection>
+</div>
+
 <img [src]="project?.imageUrl">
 
 <br>
 
-<h5>Want to add a contributor?</h5>
-<form (ngSubmit)="searchUser()" >
+<div *ngIf="isOwner">
+  <h5>Want to add a contributor?</h5>
+  <form (ngSubmit)="searchUser()" >
 
-  <label>Enter user name:</label>
-  <input type="text" name="username" [(ngModel)]="username">
+    <label>Enter user name:</label>
+    <input type="text" name="username" [(ngModel)]="username">
 
-  <button>Search</button>
+    <button>Search</button>
 
-</form>
+  </form>
+</div>
 
-<ul>
-  <li *ngFor="let oneUser of foundUsers">
-    {{oneUser.username}}
-    <button>Add</button>
-  </li>
-</ul>
+<div *ngIf="foundUser">
+  {{foundUser.username}}
+  <button (click)="addUser()">Add</button>
+</div>
 
 <h3>CURRENTS TASKS AT HAND</h3>
 <!-- Make it a separate component? -->
 <ul>
   <!-- We probably want to retrieve the current cards from the user directly, instead of going through the project? -->
   <li>
-
+    
   </li>
 </ul>
 
