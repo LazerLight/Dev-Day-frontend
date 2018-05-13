@@ -17,7 +17,7 @@ export class ProjectsPageComponent implements OnInit {
   constructor(
     private userThing: UserService,
     private apiThing: ProjectService,
-    private resThing: Router
+    private resThing: Router,
   ) { }
 
   ngOnInit() {
@@ -64,5 +64,7 @@ export class ProjectsPageComponent implements OnInit {
         console.log( err );
       }))
   }
+
+
 
 }

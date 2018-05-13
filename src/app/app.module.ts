@@ -17,6 +17,7 @@ import { AboutPageComponent } from './about-page/about-page.component';
 import { ContactPageComponent } from './contact-page/contact-page.component';
 import { MaterializeModule } from "./app-materialize.module";
 import { RouteGuardService } from "./route-guard.service";
+import { GithubApiService } from "./api/github-api.service";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { RouteGuardService } from "./route-guard.service";
   providers: [
     UserService,
     ProjectService,
-    RouteGuardService],
+    RouteGuardService,
+    GithubApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
