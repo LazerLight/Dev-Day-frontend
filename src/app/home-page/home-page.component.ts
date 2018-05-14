@@ -7,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HomePageComponent implements OnInit {
-
+  logo: string;
   
 
-  constructor() { }
+  constructor(){
+    this.logo = 'assets/images/verticalLogoLight.png' 
+   }
 
   ngOnInit() {
   }
