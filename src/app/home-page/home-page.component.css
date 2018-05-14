@@ -1,4 +1,22 @@
+/* Dark green: #00b421 */
+/* Light green: #7ecd88*/
+.home-body{
+    height: 800px;
+    background-color: rgb(245, 245, 245);
+    margin: auto 10px;
+}
+
+
 .login-container{
     margin: 0 auto;
     max-width: 300px;
+}
+
+.brand-container {
+    text-align: center;
+    margin: auto 105px;
+}
+.brand-container h2{
+    color: #00b421;
+    margin-top: 10px;
 }

@@ -21,6 +21,7 @@ import { GithubApiService } from "./api/github-api.service";
 import { RouteGuardService } from "./api/route-guard.service";
 import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
 import { TrelloService } from "./api/trello.service";
+import { CardService } from "./api/card.service";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,17 @@ import { TrelloService } from "./api/trello.service";
     FormsModule,
     MaterializeModule
   ],
+<<<<<<< HEAD
   providers: [UserService, ProjectService, RouteGuardService, GithubApiService, TrelloService],
+=======
+  providers: [
+    UserService,
+    ProjectService,
+    RouteGuardService,
+    GithubApiService,
+    CardService
+  ],
+>>>>>>> 07a8a47d99348e0e0b7b9b11a8506722a4cc8539
   bootstrap: [AppComponent]
 })
 export class AppModule {}

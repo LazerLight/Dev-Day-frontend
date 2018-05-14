@@ -13,7 +13,6 @@ import { RouteGuardService } from "./api/route-guard.service";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
-  { path: "bot", component: BotFormComponent },
   { path: "login", component: LoginComponent },
   { path: "signup", component: SignupComponent },
   { path: "about", component: AboutPageComponent },
@@ -23,7 +22,8 @@ const routes: Routes = [
     canActivate: [RouteGuardService],
     children: [
       { path: "projects", component: ProjectsPageComponent },
-      { path: "project/:projectId", component: OneProjectComponent }
+      { path: "project/:projectId", component: OneProjectComponent },
+      { path: "project/:projectId/bot", component: BotFormComponent }
     ]
   },
 

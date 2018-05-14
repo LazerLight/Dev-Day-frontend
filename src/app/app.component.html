@@ -1,13 +1,10 @@
 <header>
   <mz-navbar>
-    <a href="/projects" class="brand-logo">Logo</a>
+    <a routerLink="/projects" class="brand-logo"><img [src]="brandLogo"></a>
     <mz-navbar-item-container [align]="'right'">
       <span *ngIf="!userInstance.currentUser">
         <mz-navbar-item>
           <a routerLink="/">Home</a>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <a routerLink="/bot">Bot test</a>
         </mz-navbar-item>
         <mz-navbar-item>
           <a routerLink="/login">Log In</a>
@@ -25,6 +22,7 @@
         <mz-navbar-item>
           <b>{{userInstance.currentUser.username}}</b>
         </mz-navbar-item>
+
         <mz-navbar-item>
           <a class="waves-effect waves-light btn-large" (click)="logoutClick()">Log Out</a>
         </mz-navbar-item>
@@ -47,6 +45,22 @@
 
 <hr>
 
-<footer>
-  <p>Made with 💩 at Ironhack</p>
-</footer>
+<footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Footer Content</h5>
+          <h6 class="grey-text text-lighten-4">Dev Day by Leo Punsola, Lucas Montenoise and Rodrigo Ley as their third project of Ironhack</h6>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" routerLink="/">Contact Us</a></li>
+            <li><a class="grey-text text-lighten-3" routerLink="/">About Us</a></li>
+            <li><a target="_blank" class="grey-text text-lighten-3" href="https://github.com/LPsola/Project03-frontend">Github #1</a></li>
+            <li><a target="_blank" class="grey-text text-lighten-3" href="https://github.com/LPsola/Project03-backend">Github #2</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>

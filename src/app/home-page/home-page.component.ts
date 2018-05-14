@@ -6,7 +6,14 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home-page.component.css"]
 })
 export class HomePageComponent implements OnInit {
-  constructor() {}
+  logo: string;
+  
 
-  ngOnInit() {}
+  constructor(){
+    this.logo = 'assets/images/verticalLogoLight.png' 
+   }
+
+  ngOnInit() {
+  }
+
 }
