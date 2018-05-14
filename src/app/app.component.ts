@@ -16,10 +16,14 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
-    this.userInstance.check().catch(err => {
-      console.log("App login check error");
-      console.log(err);
-    });
+    this.userInstance.check()
+      .then(() => {
+        this.resThing.navigateByUrl( "/projects" );
+      })
+      .catch(err => {
+        console.log("App login check error");
+        console.log(err);
+      });
   }
 
   logoutClick() {

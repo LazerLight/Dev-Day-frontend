@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project, ProjectService, newProjectInfo } from "../api/project.service";
 import { Router } from '@angular/router';
 import { UserService, User } from '../api/user.service';
+import { TrelloService } from '../api/trello.service';
 
 @Component({
   selector: 'app-projects-page',
@@ -10,7 +11,8 @@ import { UserService, User } from '../api/user.service';
 })
 export class ProjectsPageComponent implements OnInit {
 
-  projects: Project[] = [];
+  // projects: Project[] = [];
+  projects: any = [];
   newProjectInfo: newProjectInfo = new newProjectInfo();
   currentUserId: string;
   
@@ -18,17 +20,31 @@ export class ProjectsPageComponent implements OnInit {
     private userThing: UserService,
     private apiThing: ProjectService,
     private resThing: Router,
+    private trelloService: TrelloService
   ) { }
 
   ngOnInit() {
-    this.apiThing.getProjects()
-      .then(( projectsList: Project[] ) => {
-        this.projects = projectsList;
+    this.trelloService.getBoards()
+      .then(( boards ) => {
+        console.log( boards );
+        this.projects = boards;
         this.fetchUserData();
       })
       .catch(( err ) => {
         console.log( "getProjects ERROR" );
         console.log( err );
+      })
+  }
+
+  authUser() {
+    this.trelloService.authUser()
+      .then(( success ) => {
+        console.log( "authUser SUCCESS" );
+        console.log( success );
+      })
+      .catch(( error ) => {
+        console.log( "authUser ERROR" );
+        console.log( error );
       })
   }
   

@@ -34,11 +34,11 @@ export class BotFormComponent implements OnInit {
 
     try {
       SpeechSynthesisUtterance =
-        window.webkitSpeechSynthesisUtterance ||
-        window.mozSpeechSynthesisUtterance ||
-        window.msSpeechSynthesisUtterance ||
-        window.oSpeechSynthesisUtterance ||
-        window.SpeechSynthesisUtterance;
+        (<any>window).webkitSpeechSynthesisUtterance ||
+        (<any>window).mozSpeechSynthesisUtterance ||
+        (<any>window).msSpeechSynthesisUtterance ||
+        (<any>window).oSpeechSynthesisUtterance ||
+        (<any>window).SpeechSynthesisUtterance;
     } catch (e) {
       console.log(
         "Example support range: https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance#Browser_compatibility"

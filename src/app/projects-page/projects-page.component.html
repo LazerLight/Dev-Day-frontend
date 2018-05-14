@@ -1,18 +1,13 @@
 <h2>Projects Page</h2>
 
+<button (click)="authUser()" >AUTHORIZE TRELLO</button>
 
 <h3>BELOW THE PROJECTS LIST</h3>
 <ul>
-  <li *ngFor="let oneProject of (projects | isContributor: currentUserId )">
+  <li *ngFor="let oneProject of projects">
+  <!-- (projects | isContributor: currentUserId ) -->
     <h3>{{oneProject.name}}</h3>
     <img [src]="oneProject?.imageUrl"><br>
-    <!-- We need to populate the info contained in the userIds to be able to retrieve their name and image -->
-    <!-- <ul>
-      <li *ngFor="let onePerson of oneProject.contributors">
-        <h4>{{onePerson.name}}</h4>
-        <img [src]="onePerson.image">
-      </li>
-    </ul> -->
     <button (click)="goToProject( oneProject._id )">Enter the project</button>
   </li>
 </ul>
