@@ -20,6 +20,7 @@ import { BotFormComponent } from "./bot-form/bot-form.component";
 import { GithubApiService } from "./api/github-api.service";
 import { RouteGuardService } from "./api/route-guard.service";
 import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
+import { CardService } from "./api/card.service";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,13 @@ import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
     FormsModule,
     MaterializeModule
   ],
-  providers: [UserService, ProjectService, RouteGuardService, GithubApiService],
+  providers: [
+    UserService,
+    ProjectService,
+    RouteGuardService,
+    GithubApiService,
+    CardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

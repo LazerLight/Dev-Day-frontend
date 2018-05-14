@@ -5,7 +5,8 @@
 <ul>
   <li *ngFor="let oneProject of (projects | isContributor: currentUserId )">
     <h3>{{oneProject.name}}</h3>
-    <img [src]="oneProject?.imageUrl"><br>
+    <img [src]="oneProject?.imageUrl">
+    <br>
     <!-- We need to populate the info contained in the userIds to be able to retrieve their name and image -->
     <!-- <ul>
       <li *ngFor="let onePerson of oneProject.contributors">
@@ -20,22 +21,37 @@
 <hr>
 
 <h3>BELOW THE FORM TO CREATE A NEW PROJECT</h3>
-<form (ngSubmit)="createProject()" >
+<form (ngSubmit)="createProject()">
 
-  <label>Name:</label><br>
-  <input type="text" name="name" [(ngModel)]="newProjectInfo.name"><br><br>
+  <label>Name:</label>
+  <br>
+  <input type="text" name="name" [(ngModel)]="newProjectInfo.name">
+  <br>
+  <br>
 
-  <label>Image URL:</label><br>
-  <input type="text" name="imageUrl" [(ngModel)]="newProjectInfo.imageUrl"><br><br>
-  
-  <label>GitHub URL</label><br>
-  <input type="text" name="githubRepoUrl" [(ngModel)]="newProjectInfo.githubRepoUrl"><br><br>
+  <label>Image URL:</label>
+  <br>
+  <input type="text" name="imageUrl" [(ngModel)]="newProjectInfo.imageUrl">
+  <br>
+  <br>
 
-  <label>Trello Board ID</label><br>
-  <input type="text" name="trelloBoardId" [(ngModel)]="newProjectInfo.trelloBoardId"><br><br>
+  <label>GitHub URL</label>
+  <br>
+  <input type="text" name="githubRepoUrl" [(ngModel)]="newProjectInfo.githubRepoUrl">
+  <br>
+  <br>
 
-  <label>Slack ID</label><br>
-  <input type="text" name="slackWorkSpaceDirectory" [(ngModel)]="newProjectInfo.slackWorkSpaceDirectory"><br><br>
+  <label>Trello Board ID</label>
+  <br>
+  <input type="text" name="trelloBoardId" [(ngModel)]="newProjectInfo.trelloBoardId">
+  <br>
+  <br>
+
+  <label>Slack ID</label>
+  <br>
+  <input type="text" name="slackWorkSpaceDirectory" [(ngModel)]="newProjectInfo.slackWorkSpaceDirectory">
+  <br>
+  <br>
 
   <button>Create</button>
 
