@@ -16,6 +16,7 @@ export class ProjectsPageComponent implements OnInit {
   projects: Project[] = [];
   newProjectInfo: newProjectInfo = new newProjectInfo();
   currentUserId: string;
+  autocomplete: { data: { [key: string]: string } };
 
   constructor(
     private userThing: UserService,
@@ -29,6 +30,9 @@ export class ProjectsPageComponent implements OnInit {
       .then((projectsList: Project[]) => {
         this.projects = projectsList;
         this.fetchUserData();
+      })
+      .then(() => {
+        this.setAutocomplete(this.projects);
       })
       .catch(err => {
         console.log("getProjects ERROR");
@@ -70,5 +74,16 @@ export class ProjectsPageComponent implements OnInit {
         console.log("goToProject ERROR");
         console.log(err);
       });
+  }
+
+  setAutocomplete(projectList) {
+    const autoCompleteData = {};
+    projectList.forEach(elem => {
+      autoCompleteData[elem.name] = null;
+    });
+
+    this.autocomplete = {
+      data: autoCompleteData
+    };
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UserService } from "./api/user.service";
 import { Router } from "@angular/router";
 
@@ -8,12 +8,17 @@ import { Router } from "@angular/router";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  
   title = "app";
+  brandLogo: string;
 
   constructor(
     public userInstance: UserService,
     private resThing: Router
-  ) {}
+  ) {
+    this.brandLogo = 'assets/images/favicon.png' 
+
+  }
 
   ngOnInit() {
     this.userInstance.check().catch(err => {
