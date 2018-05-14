@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "conversational-form": "^0.9.80",
     "core-js": "^2.4.1",
     "jquery": "^3.3.1",
     "materialize-css": "^0.100.2",
