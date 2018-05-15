@@ -1,18 +1,27 @@
 <h2>Welcome to "{{project?.name}}"</h2>
 
+<div class="bot-redirect">
+  <button (click)="goToBot( project._id )">GET YOUR DAY STARTED</button>
+</div>
+
 <div class="git-commit-container">
   <mz-collection>
-    <mz-collection-header><h4>Github Repo Push Events</h4></mz-collection-header>
+    <mz-collection-header>
+      <h4>Github Repo Push Events</h4>
+    </mz-collection-header>
     <mz-collection-item *ngFor="let oneEvent of eventsJSON" [avatar]="true">
       <img mz-avatar [src]="oneEvent.actor.avatar_url">
       <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
-      <div><b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
+      <div>
+        <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
     </mz-collection-item>
   </mz-collection>
 </div>
 <div class="git-commit-container">
   <mz-collection>
-    <mz-collection-header><h4>Latest Open Github Repo Issues</h4></mz-collection-header>
+    <mz-collection-header>
+      <h4>Latest Open Github Repo Issues</h4>
+    </mz-collection-header>
     <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
       <img mz-avatar [src]="oneIssue.user.avatar_url">
       <div class="title">"{{oneIssue.title}}"</div>
@@ -58,10 +67,6 @@
       <button>Search</button>
       
     </form> -->
-    
-    
-    
-    
     
     
     <div class="section">

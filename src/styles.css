@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+.bot {
+  height: 70vh;
+}
+
+.bot-form {
+  visibility: hidden;
+}
