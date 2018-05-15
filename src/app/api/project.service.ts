@@ -50,6 +50,12 @@ export class ProjectService {
       .toPromise();
   }
 
+  getUsers(){
+    return this.ajaxThing
+    .get( "http://localhost:3000/api/all-users" )
+    .toPromise();
+  }
+
 
 }
 

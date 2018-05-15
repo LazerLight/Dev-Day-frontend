@@ -20,6 +20,10 @@ export class OneProjectComponent implements OnInit {
   username: string;
   foundUser: User;
   addUserInfo: addUserInfo = new addUserInfo();
+  autocomplete: { data: { [key: string]: string } };
+  users: User[] = [];
+
+
 
   constructor(
     private reqThing: ActivatedRoute,
@@ -51,6 +55,18 @@ export class OneProjectComponent implements OnInit {
         console.log( "fetProjectData ERROR" );
         console.log( err );
       })
+    
+    this.apiThing.getUsers()
+      .then((usersList: User[]) =>{
+        this.users = usersList
+      })
+      .then(()=>{
+        this.setAutocomplete(this.users)
+      })
+      .catch(( err ) => {
+        console.log( "getProjects ERROR" );
+        console.log( err );
+      })
   }
 
 
@@ -71,7 +87,6 @@ export class OneProjectComponent implements OnInit {
       .then((result:any) => {
         this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result)
         
-        // console.log(`githubIssuesFeed results: this.apiInfo`,result)
       })
       .catch((err) => {
         console.log(`Error getting github feed: ${err}`)
@@ -89,6 +104,7 @@ export class OneProjectComponent implements OnInit {
   }
 
   searchUser() {
+    console.log("Search user is firing",this)
     this.apiThing.getUser( this.username )
       .then(( result: User ) => {
         this.foundUser = result;
@@ -113,6 +129,13 @@ export class OneProjectComponent implements OnInit {
         console.log( "addUser ERROR" );
         console.log( err );
       })
+  }
+
+  setAutocomplete(userList) {
+    this.autocomplete = {
+      data: userList
+    };
+
   }
 
 }
