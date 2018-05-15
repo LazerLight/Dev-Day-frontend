@@ -13,7 +13,7 @@ import { TrelloService } from '../api/trello.service';
 export class ProjectsPageComponent implements OnInit {
 
 
-  projects: any = [];
+  boards: any = [];
   newProjectInfo: newProjectInfo = new newProjectInfo();
   currentUserId: string;
   autocomplete: { data: { [key: string]: string } };
@@ -26,19 +26,8 @@ export class ProjectsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.trelloService.getBoards()
-      .then(( boards ) => {
-        console.log( boards );
-        this.projects = boards;
-        this.fetchUserData();
-      })
-      .then(() => {
-        this.setAutocomplete(this.projects);
-      })
-      .catch(err => {
-        console.log("getProjects ERROR");
-        console.log(err);
-      });
+    this.fetchUserData();
+    this.authUser();
   }
 
 
@@ -47,16 +36,22 @@ export class ProjectsPageComponent implements OnInit {
       .then(( success ) => {
         console.log( "authUser SUCCESS" );
         console.log( success );
+        return this.trelloService.getBoards();
+      })
+      .then(( boards ) => {
+        console.log( boards );
+        this.boards = boards;
+        this.setAutocomplete(this.boards);
       })
       .catch(( error ) => {
-        console.log( "authUser ERROR" );
+        console.log( "TRELLO ERROR" );
         console.log( error );
       })
   }
   
   fetchUserData() {
     // Get the info of the connected user
-    this.userThing.check().then(result => {
+    return this.userThing.check().then(result => {
       this.currentUserId = result.userInfo._id;
     });
   }

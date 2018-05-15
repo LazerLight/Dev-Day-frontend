@@ -4,14 +4,6 @@ declare var Trello: any;
 
 @Injectable()
 export class TrelloService {
-
-  authenticationSuccess = function() {
-    console.log('Successful authentication');
-  };
-  
-  authenticationFailure = function() {
-    console.log('Failed authentication');
-  };
   
   constructor(
 
@@ -26,8 +18,8 @@ export class TrelloService {
           read: 'true',
           write: 'true' },
           expiration: 'never',
-          success: this.authenticationSuccess,
-          error: this.authenticationFailure
+          success,
+          error
         });
     })
   }
