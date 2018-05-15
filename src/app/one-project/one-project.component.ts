@@ -23,6 +23,10 @@ export class OneProjectComponent implements OnInit {
   username: string;
   foundUser: User;
   addUserInfo: addUserInfo = new addUserInfo();
+  autocomplete: { data: { [key: string]: string } };
+  users: User[] = [];
+
+
 
   constructor(
     private reqThing: ActivatedRoute,
@@ -50,10 +54,23 @@ export class OneProjectComponent implements OnInit {
       .then((result: Project) => {
         this.project = result;
       })
-      .catch(err => {
-        console.log("fetProjectData ERROR");
-        console.log(err);
-      });
+      .catch(( err ) => {
+        console.log( "fetProjectData ERROR" );
+        console.log( err );
+      })
+    
+    this.apiThing
+      .getUsers()
+      .then((usersList: User[]) =>{
+        this.users = usersList
+      })
+      .then(()=>{
+        this.setAutocomplete(this.users)
+      })
+      .catch(( err ) => {
+        console.log( "getProjects ERROR" );
+        console.log( err );
+      })
   }
 
   getRepoEventsFeed() {
@@ -119,6 +136,13 @@ export class OneProjectComponent implements OnInit {
         console.log("addUser ERROR");
         console.log(err);
       });
+  }
+
+  setAutocomplete(userList) {
+    this.autocomplete = {
+      data: userList
+    };
+
   }
 
   goToBot(projectId) {
