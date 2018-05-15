@@ -25,30 +25,32 @@
     <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
       <img mz-avatar [src]="oneIssue.user.avatar_url">
       <div class="title">"{{oneIssue.title}}"</div>
-
-      <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback" [popout]="true">
-        <mz-collapsible-item [active]="false">
-          <mz-collapsible-item-header>
-            <b>Click Here for toggle issue details</b>
-          </mz-collapsible-item-header>
-          <mz-collapsible-item-body>
-            {{oneIssue.body}}
-            <br>
-            <b>Total Comments: </b>
-            <a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
-
-          </mz-collapsible-item-body>
-        </mz-collapsible-item>
-      </mz-collapsible>
-
-
-
-      <div>
-        <b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
-        <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
-      </div>
-    </mz-collection-item>
-  </mz-collection>
+      
+      <mz-collapsible
+      [mode]="'expandable'"
+      [onClose]="closeFunctionCallback"
+      [onOpen]="openFunctionCallback"
+      [popout]="true">
+      <mz-collapsible-item [active]="false">
+        <mz-collapsible-item-header>
+          <b>Click Here for toggle issue details</b>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          {{oneIssue.body}}
+          <br>
+          <b>Total Comments: </b><a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
+          
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+    
+    
+    
+    <div><b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
+      <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
+    </div>
+  </mz-collection-item>
+</mz-collection>
 </div>
 
 <img [src]="project?.imageUrl">
@@ -56,32 +58,57 @@
 <br>
 
 <div *ngIf="isOwner">
-  <h5>Want to add a contributor?</h5>
-  <form (ngSubmit)="searchUser()">
-
-    <label>Enter user name:</label>
-    <input type="text" name="username" [(ngModel)]="username">
-
-    <button>Search</button>
-
-  </form>
-</div>
-
-<div *ngIf="foundUser">
-  {{foundUser.username}}
-  <button (click)="addUser()">Add</button>
-</div>
-
-<h3>CURRENTS TASKS AT HAND</h3>
-<!-- Make it a separate component? -->
-<ul>
-  <!-- We probably want to retrieve the current cards from the user directly, instead of going through the project? -->
-  <li>
-
-  </li>
-</ul>
-
-<hr>
-
-<h3>STATS ABOUT THE PROJECT</h3>
-<!-- Make it a separate component? -->
+  <!-- <h5>Want to add a contributor?</h5>
+    <form (ngSubmit)="searchUser()" >
+      
+      <label>Enter user name:</label>
+      <input type="text" name="username" [(ngModel)]="username">
+      
+      <button>Search</button>
+      
+    </form> -->
+    
+    
+    <div class="section">
+      
+      <h5 class="light">Username Search</h5>
+      
+      <div class="row m-valign-wrapper">
+        <form (ngSubmit)="searchUser()" >
+          <mz-input-container class="col s12 m6">
+            <input mz-input
+            [label]="'User Name'"
+            [autocomplete]="autocomplete"
+            id="autocomplete-input"
+            type="text"
+            name="username" [(ngModel)]="username">
+          </mz-input-container>
+          <button>Search</button>
+        </form>
+        
+      </div>
+    </div>
+    
+    
+  </div>
+    
+    
+    <div *ngIf="foundUser">
+      {{foundUser.username}}
+      {{foundUser.email}}
+      <button (click)="addUser()">Add</button>
+    </div>
+  <h3>CURRENTS TASKS AT HAND</h3>
+  <!-- Make it a separate component? -->
+  <ul>
+    <!-- We probably want to retrieve the current cards from the user directly, instead of going through the project? -->
+    <li>
+      
+    </li>
+  </ul>
+  
+  <hr>
+  
+  <h3>STATS ABOUT THE PROJECT</h3>
+  <!-- Make it a separate component? -->
+  
