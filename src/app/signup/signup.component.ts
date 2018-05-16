@@ -10,15 +10,11 @@ import { environment } from "../../environments/environment.prod";
 })
 export class SignupComponent implements OnInit {
   githubUrl: string;
-  
 
   formCreds: SignupCredentials = new SignupCredentials();
-  environment = environment
-  constructor(
-    public userInstance: UserService,
-    private resInstance: Router
-  ) { 
-    this.githubUrl = `${environment.backUrl}/api/github/login`
+  environment = environment;
+  constructor(public userInstance: UserService, private resInstance: Router) {
+    this.githubUrl = `${environment.backUrl}/api/github/login`;
   }
 
   ngOnInit() {}

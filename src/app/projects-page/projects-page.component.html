@@ -8,7 +8,7 @@
   <li *ngFor="let oneBoard of boards">
   <!-- (projects | isContributor: currentUserId ) -->
     <h3>{{oneBoard?.name}}</h3>
-    <img [src]="oneBoard.prefs.backgroundImageScaled[2].url"><br>
+    <img [src]="oneBoard.prefs && oneBoard.prefs.backgroundImageScaled && oneBoard.prefs.backgroundImageScaled[2] && oneBoard.prefs.backgroundImageScaled[2].url"><br>
     <button (click)="goToBoard( oneBoard?.id )">Enter the project</button>
   </li>
 </ul>

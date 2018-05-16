@@ -24,6 +24,12 @@ export class TrelloService {
     })
   }
 
+  getMyUser() {
+    return new Promise(( success, error ) => {
+      Trello.get( "/members/me", success, error );
+    });
+  }
+
   getBoards() {
     return new Promise(( success, error ) => {
       Trello.get( '/member/me/boards', success, error );
@@ -44,7 +50,14 @@ export class TrelloService {
 
   getLists( boardShortLink: string ) {
     return new Promise(( success, error ) => {
-      Trello.get( `boards/${ boardShortLink }/lists?cards=open&card_fields=name&filter=open&fields=name`, success, error );
+      Trello.get( `boards/${ boardShortLink }/lists`, success, error );
+      // ?cards=open&card_fields=name&filter=open&fields=name
     });
+  }
+
+  getCards( listId: string ) {
+    return new Promise(( success, error ) => {
+      Trello.get( `lists/${ listId }/cards`, success, error );
+    })
   }
 }

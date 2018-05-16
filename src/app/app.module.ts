@@ -23,6 +23,7 @@ import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
 import { TrelloService } from "./api/trello.service";
 import { CardService } from "./api/card.service";
 import { OneBoardComponent } from './one-board/one-board.component';
+import { FilterCardsPipe } from './pipes-folder/filter-cards.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { OneBoardComponent } from './one-board/one-board.component';
     ContactPageComponent,
     BotFormComponent,
     IsContributorPipe,
-    OneBoardComponent
+    OneBoardComponent,
+    FilterCardsPipe
   ],
   imports: [
     BrowserModule,
