@@ -9,6 +9,8 @@ import { environment } from "../../environments/environment.prod";
   styleUrls: ["./signup.component.css"]
 })
 export class SignupComponent implements OnInit {
+  githubUrl: string;
+  
 
   formCreds: SignupCredentials = new SignupCredentials();
   environment = environment
@@ -16,7 +18,7 @@ export class SignupComponent implements OnInit {
     public userInstance: UserService,
     private resInstance: Router
   ) { 
-
+    this.githubUrl = `${environment.backUrl}/api/github/login`
   }
 
   ngOnInit() {}

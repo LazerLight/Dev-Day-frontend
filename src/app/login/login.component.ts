@@ -11,12 +11,14 @@ import { environment } from "../../environments/environment.prod";
 export class LoginComponent implements OnInit {
   formCreds: LoginCredentials = new LoginCredentials();
   logo: string;
-  environment = environment
+  githubUrl: string;
 
 
 
   constructor(public userInstance: UserService, private resInstance: Router) {
-    this.logo = 'assets/images/verticalLogoLight.png' 
+    this.logo = 'assets/images/verticalLogoLight.png'
+    this.githubUrl = `${environment.backUrl}/api/github/login`
+
   }
   
   ngOnInit() {}

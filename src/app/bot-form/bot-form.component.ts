@@ -20,7 +20,7 @@ export class BotFormComponent implements OnInit {
   listId: string;
   currentUserId: string;
   formDataList: string;
-  formDataCard: string;
+  formDataCard: string[] = [];
   constructor(
     private reqThing: ActivatedRoute,
     private resThing: Router,
@@ -30,12 +30,10 @@ export class BotFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("blah");
     this.reqThing.paramMap.subscribe(myParams => {
       this.projectId = myParams.get("projectId");
       this.fetchProjectData();
       this.fetchUserData();
-      // setInterval(() => this.fetchCardName(), 2000);
     });
 
     // test with projects
@@ -96,7 +94,7 @@ export class BotFormComponent implements OnInit {
           // loading voices
           synth = window.speechSynthesis;
           msg = new SpeechSynthesisUtterance();
-          window.speechSynthesis.onvoiceschanged = e => {
+          window.speechSynthesis.onvoiceschanged = function(e) {
             var voices = synth.getVoices();
             msg.voice = voices[0]; // <-- Alex
             msg.lang = msg.voice.lang;
@@ -104,13 +102,13 @@ export class BotFormComponent implements OnInit {
           synth.getVoices();
 
           // here we want to control the Voice input availability, so we don't end up with speech overlapping voice-input
-          msg.onstart = event => {
+          msg.onstart = function(event) {
             // on message end, so deactivate input
             console.log("voice: deactivate 1");
             botForm.userInput.deactivate();
           };
 
-          msg.onend = event => {
+          msg.onend = function(event) {
             // on message end, so reactivate input
             botForm.userInput.reactivate();
           };
@@ -131,7 +129,7 @@ export class BotFormComponent implements OnInit {
         },
         // set awaiting callback, as we will await the speak in this example
         awaitingCallback: true,
-        cancelInput: () => {
+        cancelInput: function() {
           console.log("voice: CANCEL");
           finalTranscript = null;
           if (recognition) {
@@ -140,7 +138,7 @@ export class BotFormComponent implements OnInit {
             recognition.stop();
           }
         },
-        input: (resolve, reject, mediaStream) => {
+        input: function(resolve, reject, mediaStream) {
           console.log("voice: INPUT");
 
           if (recognition) recognition.stop();
@@ -150,7 +148,7 @@ export class BotFormComponent implements OnInit {
           recognition.continuous = false;
           recognition.interimResults = false;
 
-          recognition.onresult = event => {
+          recognition.onresult = function(event) {
             for (var i = event.resultIndex; i < event.results.length; ++i) {
               if (event.results[i].isFinal) {
                 finalTranscript += event.results[i][0].transcript;
@@ -158,11 +156,11 @@ export class BotFormComponent implements OnInit {
             }
           };
 
-          recognition.onerror = event => {
+          recognition.onerror = function(event) {
             reject(event.error);
           };
 
-          recognition.onend = event => {
+          recognition.onend = function(event) {
             if (finalTranscript && finalTranscript !== "") {
               resolve(finalTranscript);
             }
@@ -182,23 +180,9 @@ export class BotFormComponent implements OnInit {
         "property: " +
           liveAnswer[liveAnswerKeySplit[liveAnswerKeySplit.length - 1]]
       );
-      console.log("YAAAAA: " + typeof this.formDataCard);
-      this.formDataCard =
+      this.formDataCard.push =
         liveAnswer[liveAnswerKeySplit[liveAnswerKeySplit.length - 1]];
-      this.cards.forEach(oneCard => {
-        if (this.formDataCard === undefined) {
-          console.log("heheheh");
-        } else if (this.formDataCard === oneCard.name) {
-          console.log("lalalalal");
-        } else {
-          console.log("blalalala");
-          return;
-        }
-      });
-      console.log(this.cards);
-      // this.formDataCard =
-      //   liveAnswer[liveAnswerKeySplit[liveAnswerKeySplit.length - 1]];
-      console.log("FORM DATA CARD: " + this.formDataCard);
+      console.log(this.formDataCard);
       console.log(
         "dto....",
         dto.text,
@@ -272,6 +256,7 @@ export class BotFormComponent implements OnInit {
             .then((cardsList: Card[]) => {
               this.cards = cardsList;
               setTimeout(() => this.botSetup(), 0);
+              console.log("blahblah" + this.formDataCard);
             });
         });
       })
@@ -319,12 +304,7 @@ export class BotFormComponent implements OnInit {
       console.log("userData success");
     });
   }
-
-  // fetchCardName() {
-  //   console.log("UPDATED FORMCARD: " + this.formDataCard);
-  // }
 }
-
 // to get elements create an object like we did in class and in ng oninit fill up that object, then feed database upon submit.
 
 // // In case we want to remove spoken voice and keep mic input
