@@ -20,7 +20,16 @@ export class BotFormComponent implements OnInit {
   listId: string;
   currentUserId: string;
   formDataList: string;
-  formDataCard: string;
+  formDataCard: string[] = [];
+  i: number = 0;
+  testArray: string[] = [];
+  taskDurationTotal: number = 0;
+  lastTaskDuration: number = 0;
+  testCardsArray: Object[] = [];
+  testCardsArraySecurity: string[] = [];
+  spliceIndexFinder: string[] = [];
+  testCardsArraySpliceIndex: number;
+
   constructor(
     private reqThing: ActivatedRoute,
     private resThing: Router,
@@ -98,7 +107,7 @@ export class BotFormComponent implements OnInit {
           msg = new SpeechSynthesisUtterance();
           window.speechSynthesis.onvoiceschanged = e => {
             var voices = synth.getVoices();
-            msg.voice = voices[0]; // <-- Alex
+            msg.voice = voices[7]; // <-- Alex
             msg.lang = msg.voice.lang;
           };
           synth.getVoices();
@@ -174,31 +183,148 @@ export class BotFormComponent implements OnInit {
     }
     const flowCallback = (dto, success, error) => {
       let liveAnswer = botForm.getFormData(true);
-      let liveAnswerKey = Object.keys(liveAnswer).toString();
-      let liveAnswerKeySplit = liveAnswerKey.split(",");
-      let liveAnswerProperty = liveAnswerKey[liveAnswerKey];
-      console.log("key: " + liveAnswerKey);
-      console.log(
-        "property: " +
-          liveAnswer[liveAnswerKeySplit[liveAnswerKeySplit.length - 1]]
-      );
-      console.log("YAAAAA: " + typeof this.formDataCard);
-      this.formDataCard =
-        liveAnswer[liveAnswerKeySplit[liveAnswerKeySplit.length - 1]];
-      this.cards.forEach(oneCard => {
-        if (this.formDataCard === undefined) {
-          console.log("heheheh");
-        } else if (this.formDataCard === oneCard.name) {
-          console.log("lalalalal");
-        } else {
-          console.log("blalalala");
-          return;
+      let keys = Object.keys(liveAnswer);
+      let liveAnswerKey = keys[keys.length - 1];
+      console.log("whole answer:", liveAnswer);
+      console.log("key:", liveAnswerKey);
+      console.log("property:", liveAnswer[liveAnswerKey]);
+      if (this.taskDurationTotal <= 8) {
+        this.formDataCard.push(liveAnswer[liveAnswerKey].toString());
+      }
+
+      console.log("FORM DATA CARD:", this.formDataCard);
+      console.log("SPLICE INDEX FINDER:", this.spliceIndexFinder);
+      console.log(this.formDataCard[this.formDataCard.length - 1]);
+      if (this.formDataCard[this.formDataCard.length - 1] === "end-convo") {
+        this.resThing.navigateByUrl(`/project/${this.projectId}`);
+      }
+      if (this.taskDurationTotal <= 8) {
+        let spliceIndex;
+        this.cards.forEach(oneCard => {
+          this.formDataCard.forEach(oneDataCard => {
+            let testTag = {};
+            if (
+              oneDataCard === oneCard.name &&
+              this.formDataCard.indexOf(oneDataCard) ===
+                this.formDataCard.length - 1
+            ) {
+              console.log("data vard vs. card loop", oneDataCard, oneCard.name);
+              spliceIndex = this.spliceIndexFinder.indexOf(oneCard.name);
+              if (this.taskDurationTotal + oneCard.taskDuration <= 8) {
+                this.taskDurationTotal += oneCard.taskDuration;
+                this.lastTaskDuration = oneCard.taskDuration;
+                console.log(
+                  "total task duration in loop",
+                  this.taskDurationTotal
+                );
+              } else {
+                alert(
+                  `Looks like you already have 8 hours of work lined up for your day! Should be enough, plus you have to save some for tomorrow 😇`
+                );
+                this.resThing.navigateByUrl(`/project/${this.projectId}`);
+              }
+              console.log(oneDataCard, oneCard.name);
+              return;
+            } else if (!this.testCardsArraySecurity.includes(oneCard.name)) {
+              {
+                (testTag["tag"] = "option"),
+                  (testTag["cf-label"] = oneCard.name),
+                  (testTag["value"] = oneCard.name);
+              }
+              this.testCardsArraySecurity.push(oneCard.name);
+              this.testCardsArray.push(testTag);
+              this.spliceIndexFinder.push(oneCard.name);
+              console.log("testcardsarray: ", this.testCardsArray);
+            } else {
+              return;
+            }
+          });
+        });
+        console.log("total task duration post loop", this.taskDurationTotal);
+        console.log("indexFinder", this.testCardsArraySecurity);
+        console.log("testsecurity", this.testCardsArraySecurity);
+        console.log("testcardsarray: ", this.testCardsArray);
+
+        console.log("splice Index", spliceIndex);
+        if (spliceIndex !== undefined) {
+          console.log("bula");
+          console.log("1 array", this.testCardsArray);
+          console.log("1 array length", this.testCardsArray.length);
+          console.log("1 array splice index", this.spliceIndexFinder);
+          console.log(
+            "1 array  splice index length",
+            this.spliceIndexFinder.length
+          );
+          this.testCardsArray.splice(spliceIndex, 1);
+          this.spliceIndexFinder.splice(spliceIndex, 1);
         }
-      });
-      console.log(this.cards);
-      // this.formDataCard =
-      //   liveAnswer[liveAnswerKeySplit[liveAnswerKeySplit.length - 1]];
-      console.log("FORM DATA CARD: " + this.formDataCard);
+        console.log("2 array", this.testCardsArray);
+        console.log("2 array length", this.testCardsArray.length);
+        console.log("2 array splice index", this.spliceIndexFinder);
+        console.log(
+          "2 array  splice index length",
+          this.spliceIndexFinder.length
+        );
+        if (
+          this.testCardsArray.length <= 0 &&
+          this.testCardsArraySecurity.length > 0
+        ) {
+          alert(
+            `Looks like you are out of tasks for the day! Fill out your Trello board and come back when you're ready`
+          );
+          this.resThing.navigateByUrl(`/project/${this.projectId}`);
+        }
+        if (this.formDataCard.length === 1) {
+          botForm.addTags([
+            {
+              // select group
+              tag: "select",
+              name: "task2",
+              "cf-questions": `Great! What will you be starting your day with?`,
+              children: this.testCardsArray
+            }
+          ]);
+        } else if (this.taskDurationTotal === 8) {
+          botForm.addTags([
+            {
+              // select group
+              tag: "select",
+              name: "end-message",
+              "cf-questions": `Looks like you're ready to start your day!`,
+              children: [
+                {
+                  tag: "option",
+                  "cf-label": "Let's Go!",
+                  value: "end-convo"
+                }
+              ]
+            }
+          ]);
+        } else {
+          botForm.addTags([
+            {
+              // select group
+              tag: "select",
+              name: "task2",
+              "cf-questions": `Sounds good, you've chosen to work on {previous-answer}. I've booked this task in your dashboard to last ${
+                this.lastTaskDuration
+              } hours as decided by your team. What will you be doing next? (you still have ${8 -
+                this
+                  .taskDurationTotal} hours left in your day) || Cool! {previous-answer} should be a great challenge! It should last ${
+                this.lastTaskDuration
+              } hours according to your PM. What will be your next challenge? (you still have ${8 -
+                this.taskDurationTotal} hours left in your day) `,
+              children: this.testCardsArray
+            }
+          ]);
+        }
+      } else {
+        alert(
+          `Looks like you already have 8 hours of work lined up for your day! Should be enough, plus you have to save some for tomorrow 😇`
+        );
+        this.resThing.navigateByUrl(`/project/${this.projectId}`);
+      }
+
       console.log(
         "dto....",
         dto.text,
@@ -206,6 +332,7 @@ export class BotFormComponent implements OnInit {
         error,
         botForm.getFormData(true)
       );
+
       success();
     };
 
@@ -237,9 +364,10 @@ export class BotFormComponent implements OnInit {
         }
         //
         console.log("Formdata:", formData);
-        console.log("Formdata, serialized:", formDataSerialized.opinion[0]);
+        console.log("Formdata, serialized:", formDataSerialized);
         this.formDataList = formDataSerialized.opinion[0];
 
+        console.log("da fuq?");
         this.resThing.navigateByUrl(`/project/${this.projectId}`);
       }
     });
@@ -404,3 +532,25 @@ export class BotFormComponent implements OnInit {
 //   };
 // }
 // //
+
+// [
+//   {
+//     // select group
+//     "tag": "select",
+//     "name": "country",
+//     "cf-questions": "First tag value: {first-tag}&& + follow-up",
+//     "cf-input-placeholder": "Some copy",
+//     "multiple": false,
+//     "children":[
+//       {
+//         "tag": "option",
+//         "cf-label": "USA",
+//         "value": "usa"
+//       },
+//       {
+//         "tag": "option",
+//         "cf-label": "UK",
+//         "value": "uk"
+//       }
+//     ]
+//   }]

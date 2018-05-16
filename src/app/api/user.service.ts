@@ -52,7 +52,9 @@ export class UserService {
       });
   }
 
-  updateCurrentCards() {}
+  updateCurrentCards() {
+    return this.ajaxInstance;
+  }
   archiveCurrentCards() {}
 }
 

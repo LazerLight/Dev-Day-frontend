@@ -1,23 +1,19 @@
 <div class="bot">
   <form id="my-form-element" class="bot-form">
-
     <fieldset>
-      <label for="name">What's your name?</label>
-      <input required cf-questions="Hi there! What's your name? 😊" type="text" class="form-control" name="name" id="name">
-    </fieldset>
-    <fieldset>
-      <label for="opinion">Will conversational interfaces be everywhere?</label>
-      <select cf-questions="Good morning! What project will you be working on today?" name="opinion" id="opinion" class="form-control">
-        <option *ngFor="let oneCard of cards">
-          <p (click)="fetchCardName()" class="one-data">{{oneCard.name}}</p>
+      <label for="dayStart">Ready to start the day?</label>
+      <select cf-questions="Hey there! Are you ready to start your day??" name="start" id="start" class="form-control">
+        <option>
+          <p>Yes</p>
         </option>
-      </select>
-    </fieldset>
-    <fieldset>
-      <label for="opinion">Will conversational interfaces be everywhere?</label>
-      <select cf-questions="Good morning! What project will you be working on today?" name="opinion" id="opinion" class="form-control">
-        <option *ngFor="let oneCard of cards">
-          <p class="one-data">{{oneCard.name}}</p>
+        <option>
+          <p>Hell Yeah!</p>
+        </option>
+        <option>
+          <p>Definitely</p>
+        </option>
+        <option>
+          <p>Sure</p>
         </option>
       </select>
     </fieldset>
