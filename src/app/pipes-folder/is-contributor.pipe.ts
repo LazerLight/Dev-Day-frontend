@@ -6,14 +6,14 @@ import { Project } from '../api/project.service';
 })
 export class IsContributorPipe implements PipeTransform {
 
-  transform(value: Project[], currentUserId: string): Project[] {
+  transform( value: Project[], currentUserId: string ): Project[] {
     if( !value ) {
       return [];
     }
 
     const filteredProjects: Project[] = [];
 
-    value.forEach(( oneProject) => {
+    value.forEach(( oneProject ) => {
       if( oneProject.contributors.includes( currentUserId )) {
         filteredProjects.push( oneProject );
       }

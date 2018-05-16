@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginCredentials, UserService } from "../api/user.service";
 import { Router } from "@angular/router";
-import { environment } from "../../environments/environment.prod";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-login",
@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   constructor(public userInstance: UserService, private resInstance: Router) {
     this.logo = 'assets/images/verticalLogoLight.png'
     this.githubUrl = `${environment.backUrl}/api/github/login`
-
   }
   
   ngOnInit() {}
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.userInstance
       .postLogin(this.formCreds)
       .then(result => {
-        this.resInstance.navigateByUrl("/projects");
+        this.resInstance.navigateByUrl("/boards");
       })
       .catch(err => {
         console.log("login error");

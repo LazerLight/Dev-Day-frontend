@@ -15,11 +15,14 @@ import { TrelloService } from "../api/trello.service";
 })
 export class OneBoardComponent implements OnInit {
   currentUserId: string;
+  myUser;
   
   boardId: string;
   board;
   members;
   lists;
+  doingList;
+  doingCards;
   
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
@@ -43,8 +46,8 @@ export class OneBoardComponent implements OnInit {
     // Get the URL parameters for this route
     this.reqThing.paramMap.subscribe(myParams => {
       this.boardId = myParams.get( "boardId" );
+      this.getMyUser();
       this.fetchBoardData();
-      this.fetchUserData();
     });
 
     this.getRepoEventsFeed();
@@ -66,12 +69,25 @@ export class OneBoardComponent implements OnInit {
       })
       .then(( lists ) => {
         this.lists = lists;
+        console.log( "LISTS" );
         console.log( this.lists );
+
+        this.doingList = this.lists.filter( l => l.name === "DOING" )
+        console.log( "DOING LIST" );
+        console.log( this.doingList );
+        return this.trelloThing.getCards( this.doingList[0].id )
+      })
+      .then(( cards ) => {
+        this.doingCards = cards;
+        console.log( "DOING CARDS" );
+        console.log( this.doingCards );
+        console.log( "TYPE OF CARD MEMBER ID", typeof this.doingCards[0].idMembers[0] );
+        console.log( "TYPE OF CURRENT USER ID", typeof this.currentUserId );
       })
       .catch(( error ) => {
         console.log( "fetchBoardData ERROR" );
         console.log( error );
-      })
+      });
   }
 
   getRepoEventsFeed() {
@@ -99,12 +115,31 @@ export class OneBoardComponent implements OnInit {
       });
   }
 
+  getMyUser() {
+    this.trelloThing.getMyUser()
+      .then(( myUser ) => {
+        this.myUser = myUser;
+        console.log( "MY ID", this.myUser.id );
+      })
+      .catch(( error ) => {
+        console.log( error );
+      })
+  }
+
   fetchUserData() {
     // Get the info of the connected user
-    this.userThing.check().then(result => {
-      console.log( result );
-      this.currentUserId = result.userInfo._id;
-    });
+    this.userThing.check()
+      .then( result => {
+        console.log( "USER" );
+        console.log( result );
+        this.currentUserId = result.userInfo._id;
+        console.log( "USER ID" );
+        console.log( this.currentUserId );
+      })
+      .catch(( err ) => {
+        console.log( "fetchUserData ERROR" );
+        console.log( err );
+      })
   }
 
   setAutocomplete(userList) {

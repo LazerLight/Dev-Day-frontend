@@ -17,9 +17,10 @@
   DISPLAY BOARD MEMBERS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
+<h4>Members</h4>
 <ul>
   <li *ngFor="let oneMember of members">
-    <h4>{{oneMember.fullName}}</h4>
+    <p>{{oneMember.fullName}}</p>
   </li>
 </ul>
 
@@ -30,8 +31,13 @@
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
  <ul>
-    <li *ngFor="let oneList of lists">
-      <h4>{{oneList}}</h4>
+    <li *ngFor="let oneList of doingList">
+      <h4>{{oneList.name}}</h4>
+      <ul>
+        <li *ngFor="let oneCard of (doingCards | filterCards: myUser.id)">
+          <p>{{oneCard.name}}</p>
+        </li>
+      </ul>
     </li>
   </ul>
 

@@ -47,6 +47,7 @@ export class ProjectsPageComponent implements OnInit {
         console.log( error );
       })
   }
+
   
   fetchUserData() {
     // Get the info of the connected user
