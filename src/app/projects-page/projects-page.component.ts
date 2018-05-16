@@ -39,7 +39,6 @@ export class ProjectsPageComponent implements OnInit {
         return this.trelloService.getBoards();
       })
       .then(( boards ) => {
-        console.log( boards );
         this.boards = boards;
         this.setAutocomplete(this.boards);
       })
@@ -73,9 +72,21 @@ export class ProjectsPageComponent implements OnInit {
       });
   }
 
+  goToBoard( boardId ) {
+    this.trelloService.getBoard( boardId )
+      .then(( success ) => {
+        console.log( "getBoard SUCCESS" );
+        // console.log( success );
+        this.resThing.navigateByUrl( `/board/${ boardId }` );
+      })
+      .catch(( error ) => {
+        console.log( "getBoard ERROR" );
+        console.log( error );
+      })
+  }
+
   goToProject(projectId) {
-    this.apiThing
-      .getProject(projectId)
+    this.apiThing.getProject(projectId)
       .then((project: Project) => {
         this.resThing.navigateByUrl(`/project/${project._id}`);
       })

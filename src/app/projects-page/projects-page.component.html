@@ -9,7 +9,7 @@
   <!-- (projects | isContributor: currentUserId ) -->
     <h3>{{oneBoard?.name}}</h3>
     <img [src]="oneBoard.prefs.backgroundImageScaled[2].url"><br>
-    <button (click)="goToProject( oneBoard?._id )">Enter the project</button>
+    <button (click)="goToBoard( oneBoard?.id )">Enter the project</button>
   </li>
 </ul>
 

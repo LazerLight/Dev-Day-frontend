@@ -8,7 +8,7 @@
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
 <div class="bot-redirect">
-  <button (click)="goToBot( project._id )">GET YOUR DAY STARTED</button>
+  <button (click)="goToBot( board?.id )">GET YOUR DAY STARTED</button>
 </div>
 
 
@@ -19,9 +19,21 @@
  -->
 <ul>
   <li *ngFor="let oneMember of members">
-    <h4>{{oneMember.id}}</h4>
+    <h4>{{oneMember.fullName}}</h4>
   </li>
 </ul>
+
+
+
+<!-- 
+  DISPLAY BOARD LISTS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+ <ul>
+    <li *ngFor="let oneList of lists">
+      <h4>{{oneList}}</h4>
+    </li>
+  </ul>
 
 <!-- 
   INVITATION FORM

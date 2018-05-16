@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Project, ProjectService, addUserInfo } from "../api/project.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { User, UserService } from "../api/user.service";
 import {
@@ -10,23 +9,22 @@ import {
 import { TrelloService } from "../api/trello.service";
 
 @Component({
-  selector: "app-one-project",
-  templateUrl: "./one-project.component.html",
-  styleUrls: ["./one-project.component.css"]
+  selector: 'app-one-board',
+  templateUrl: './one-board.component.html',
+  styleUrls: ['./one-board.component.css']
 })
-export class OneProjectComponent implements OnInit {
+export class OneBoardComponent implements OnInit {
   currentUserId: string;
-  isOwner: boolean;
   
-  projectId: string;
-  project: Project;
+  boardId: string;
+  board;
+  members;
+  lists;
   
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
   
   username: string;
-  foundUser: User;
-  addUserInfo: addUserInfo = new addUserInfo();
 
   autocomplete: { data: { [key: string]: string } };
   users: User[] = [];
@@ -35,7 +33,6 @@ export class OneProjectComponent implements OnInit {
 
   constructor(
     private reqThing: ActivatedRoute,
-    private apiThing: ProjectService,
     public gitAPI: GithubApiService,
     private resThing: Router,
     private userThing: UserService,
@@ -45,8 +42,8 @@ export class OneProjectComponent implements OnInit {
   ngOnInit() {
     // Get the URL parameters for this route
     this.reqThing.paramMap.subscribe(myParams => {
-      this.projectId = myParams.get( "projectId" );
-      this.fetchProjectData();
+      this.boardId = myParams.get( "boardId" );
+      this.fetchBoardData();
       this.fetchUserData();
     });
 
@@ -54,26 +51,26 @@ export class OneProjectComponent implements OnInit {
     this.getRepoIssuesFeed();
   }
 
-  fetchProjectData() {
-    this.apiThing.getProject( this.projectId )
-      .then((result: Project) => {
-        this.project = result;
+  fetchBoardData() {
+    this.trelloThing.getBoard( this.boardId )
+      .then(( board ) => {
+        this.board = board;
+        console.log( "BOARD CONSOLE LOG", this.board );
+        return this.trelloThing.getMembers( this.boardId )
       })
-      .catch(( err ) => {
-        console.log( "fetchProjectData ERROR" );
-        console.log( err );
+      .then(( members ) => {
+        this.members = members;
+        console.log( "MEMBERS HERE" );
+        console.log( this.members );
+        return this.trelloThing.getLists( this.boardId )
       })
-    
-    this.apiThing.getUsers()
-      .then((usersList: User[]) =>{
-        this.users = usersList
+      .then(( lists ) => {
+        this.lists = lists;
+        console.log( this.lists );
       })
-      .then(()=>{
-        this.setAutocomplete(this.users)
-      })
-      .catch(( err ) => {
-        console.log( "getProjects ERROR" );
-        console.log( err );
+      .catch(( error ) => {
+        console.log( "fetchBoardData ERROR" );
+        console.log( error );
       })
   }
 
@@ -105,42 +102,9 @@ export class OneProjectComponent implements OnInit {
   fetchUserData() {
     // Get the info of the connected user
     this.userThing.check().then(result => {
+      console.log( result );
       this.currentUserId = result.userInfo._id;
-
-      // Commented because we do not have a project ID anymore
-      // this.isOwner = this.currentUserId === this.project.owner;
     });
-  }
-
-  searchUser() {
-    this.apiThing
-      .getUser(this.username)
-      .then((result: User) => {
-        this.foundUser = result;
-      })
-      .catch(err => {
-        console.log("searchUser ERROR");
-        console.log(err);
-      });
-  }
-
-  addUser() {
-    console.log(
-      `Trying to add ${this.foundUser.username} to ${this.project.name}!`
-    );
-
-    this.addUserInfo.projectId = this.projectId;
-    this.addUserInfo.userId = this.foundUser._id;
-
-    this.apiThing
-      .postUser(this.addUserInfo)
-      .then(() => {
-        this.resThing.navigateByUrl(`/project/${this.projectId}`);
-      })
-      .catch(err => {
-        console.log("addUser ERROR");
-        console.log(err);
-      });
   }
 
   setAutocomplete(userList) {
@@ -149,10 +113,10 @@ export class OneProjectComponent implements OnInit {
     };
   }
 
-  goToBot(projectId) {
-    this.apiThing.getProject(projectId)
-      .then((project: Project) => {
-        this.resThing.navigateByUrl(`/project/${project._id}/bot`);
+  goToBot( boardId ) {
+    this.trelloThing.getBoard( boardId )
+      .then(( board ) => {
+        this.resThing.navigateByUrl(`/board/${ boardId }/bot`);
       })
       .catch(err => {
         console.log("goToProject ERROR");
