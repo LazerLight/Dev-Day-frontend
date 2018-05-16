@@ -52,6 +52,7 @@ export class OneProjectComponent implements OnInit {
 
     this.getRepoEventsFeed();
     this.getRepoIssuesFeed();
+    this.getRepoPullReqFeed()
   }
 
   fetchProjectData() {
@@ -96,6 +97,20 @@ export class OneProjectComponent implements OnInit {
         this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result);
 
         // console.log(`githubIssuesFeed results: this.apiInfo`,result)
+      })
+      .catch(err => {
+        console.log(`Error getting github feed: ${err}`);
+      });
+  }
+
+  getRepoPullReqFeed() {
+    this.gitAPI
+      .githubPullReqFeed("jaredhanson", "passport")
+      .then((result: any) => {
+        
+        this.issuesJSON = result;
+
+        console.log(`getRepoPullReqFeed results: this.apiInfo`,result)
       })
       .catch(err => {
         console.log(`Error getting github feed: ${err}`);
