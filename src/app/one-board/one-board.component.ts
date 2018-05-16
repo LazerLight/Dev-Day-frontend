@@ -48,7 +48,7 @@ export class OneBoardComponent implements OnInit {
 
   ngOnInit() {
     // Get the URL parameters for this route
-    this.reqThing.paramMap.subscribe(myParams => {
+    this.reqThing.paramMap.subscribe( myParams => {
       this.boardId = myParams.get( "boardId" );
       this.getMyUser();
       this.fetchBoardData();
