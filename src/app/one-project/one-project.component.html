@@ -1,5 +1,5 @@
 
-<h2>Welcome to "{{board?.name}}"</h2>
+<h2>Welcome to "{{project?.name}}"</h2>
 
 
 
@@ -7,9 +7,9 @@
   BOT REDIRECT
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
-<div class="bot-redirect">
+<!-- <div class="bot-redirect">
   <button (click)="goToBot( project._id )">GET YOUR DAY STARTED</button>
-</div>
+</div> -->
 
 
 
@@ -17,17 +17,17 @@
   DISPLAY BOARD MEMBERS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
-<ul>
+<!-- <ul>
   <li *ngFor="let oneMember of members">
     <h4>{{oneMember.id}}</h4>
   </li>
-</ul>
+</ul> -->
 
 <!-- 
   INVITATION FORM
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
-<div *ngIf="isOwner">  
+<!-- <div *ngIf="isOwner">  
       
       <div class="section">
         
@@ -58,7 +58,7 @@
       </div>
 
     <hr>
-
+ -->
 
 
 <!-- 
@@ -91,7 +91,7 @@
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  -->
 
-<div class="git-commit-container">
+<!-- <div class="git-commit-container">
   <mz-collection>
     <mz-collection-header>
       <h4>Github Repo Push Events</h4>
@@ -140,4 +140,4 @@
 </mz-collection>
 </div>
 
-
+ -->
