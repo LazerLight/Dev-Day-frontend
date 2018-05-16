@@ -21,8 +21,12 @@ export class OneBoardComponent implements OnInit {
   board;
   members;
   lists;
+  backlogList;
   doingList;
+  donelist;
+  backlogCards;
   doingCards;
+  doneCards;
   
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
@@ -54,6 +58,17 @@ export class OneBoardComponent implements OnInit {
     this.getRepoIssuesFeed();
   }
 
+  getMyUser() {
+    this.trelloThing.getMyUser()
+      .then(( myUser ) => {
+        this.myUser = myUser;
+        console.log( "MY ID", this.myUser.id );
+      })
+      .catch(( error ) => {
+        console.log( error );
+      })
+  }
+
   fetchBoardData() {
     this.trelloThing.getBoard( this.boardId )
       .then(( board ) => {
@@ -72,10 +87,14 @@ export class OneBoardComponent implements OnInit {
         console.log( "LISTS" );
         console.log( this.lists );
 
+        this.backlogList = this.lists.filter( l => l.name === "BACKLOG" )
         this.doingList = this.lists.filter( l => l.name === "DOING" )
+        this.donelist = this.lists.filter( l => l.name === "DONE" )
         console.log( "DOING LIST" );
+        console.log( this.backlogList );
         console.log( this.doingList );
-        return this.trelloThing.getCards( this.doingList[0].id )
+        console.log( this.donelist );
+        return this.trelloThing.getCards( this.doingList[0].id );
       })
       .then(( cards ) => {
         this.doingCards = cards;
@@ -83,10 +102,40 @@ export class OneBoardComponent implements OnInit {
         console.log( this.doingCards );
         console.log( "TYPE OF CARD MEMBER ID", typeof this.doingCards[0].idMembers[0] );
         console.log( "TYPE OF CURRENT USER ID", typeof this.currentUserId );
+        return this.trelloThing.getCards( this.backlogList[0].id );
+      })
+      .then(( cards ) => {
+        this.backlogCards = cards;
+        return this.trelloThing.getCards( this.donelist[0].id );
+      })
+      .then(( cards ) => {
+        this.doneCards = cards;
       })
       .catch(( error ) => {
         console.log( "fetchBoardData ERROR" );
         console.log( error );
+      });
+  }
+
+  moveToDoing( cardId, doingListId ) {
+    this.trelloThing.moveToDoing( cardId, doingListId, this.myUser.id )
+      .then(() => {
+        console.log( "Card moved to doing!" );
+      })
+      .catch(( err ) => {
+        console.log( "moveToDoing ERROR" );
+        console.log( err );
+      })
+  }
+
+  moveToDone( cardId, donelistId ) {
+    this.trelloThing.moveToDone( cardId, donelistId )
+      .then(() => {
+        console.log( "Card moved to done!" );
+      })
+      .catch(( err ) => {
+        console.log( "moveToDone ERROR" );
+        console.log( err );
       });
   }
 
@@ -113,17 +162,6 @@ export class OneBoardComponent implements OnInit {
       .catch(err => {
         console.log(`Error getting github feed: ${err}`);
       });
-  }
-
-  getMyUser() {
-    this.trelloThing.getMyUser()
-      .then(( myUser ) => {
-        this.myUser = myUser;
-        console.log( "MY ID", this.myUser.id );
-      })
-      .catch(( error ) => {
-        console.log( error );
-      })
   }
 
   fetchUserData() {

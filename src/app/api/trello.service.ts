@@ -51,13 +51,24 @@ export class TrelloService {
   getLists( boardShortLink: string ) {
     return new Promise(( success, error ) => {
       Trello.get( `boards/${ boardShortLink }/lists`, success, error );
-      // ?cards=open&card_fields=name&filter=open&fields=name
     });
   }
 
   getCards( listId: string ) {
     return new Promise(( success, error ) => {
       Trello.get( `lists/${ listId }/cards`, success, error );
+    })
+  }
+
+  moveToDoing( cardId: string, doingListId: string, currentUserId: string ) {
+    return new Promise(( success, error ) => {
+      Trello.put( `cards/${ cardId }?idMembers=${ currentUserId }&idList=${ doingListId }`, success, error );
+    })
+  }
+
+  moveToDone( cardId: string, doneListId: string ) {
+    return new Promise(( success, error ) => {
+      Trello.put( `cards/${ cardId }?idList=${ doneListId }`, success, error );
     })
   }
 }
