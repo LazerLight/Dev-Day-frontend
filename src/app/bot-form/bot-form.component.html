@@ -9,15 +9,16 @@
       <label for="opinion">Will conversational interfaces be everywhere?</label>
       <select cf-questions="Good morning! What project will you be working on today?" name="opinion" id="opinion" class="form-control">
         <option *ngFor="let oneCard of cards">
-          <p (click)="fetchCardName()" class="one-data">{{oneCard.name}}</p>
+          <p>{{oneCard.name}}</p>
         </option>
       </select>
     </fieldset>
     <fieldset>
       <label for="opinion">Will conversational interfaces be everywhere?</label>
-      <select cf-questions="Good morning! What project will you be working on today?" name="opinion" id="opinion" class="form-control">
-        <option *ngFor="let oneCard of cards">
-          <p class="one-data">{{oneCard.name}}</p>
+      <select cf-questions="Good morning! {previous-answer} What project will you be working on today?" name="opinion" id="opinion"
+        class="form-control">
+        <option *ngFor="let oneData of formDataCard">
+          <p>{{oneData}}</p>
         </option>
       </select>
     </fieldset>

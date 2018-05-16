@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import "rxjs/operator/toPromise";
 import { User } from './user.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProjectService {
@@ -14,7 +15,7 @@ export class ProjectService {
   // GET /api/projects
   getProjects() {
     return this.ajaxThing
-      .get( "http://localhost:3000/api/projects" )
+      .get( `${environment.backUrl}/api/projects` )
       .toPromise();
   }
 
@@ -22,7 +23,7 @@ export class ProjectService {
   postProject( info: newProjectInfo ) {
     return this.ajaxThing
       .post(
-        "http://localhost:3000/api/projects",
+        `${environment.backUrl}/api/projects`,
         info
       )
       .toPromise();
@@ -31,20 +32,20 @@ export class ProjectService {
   // GET /api/project/:projectId
   getProject( projectId: string ) {
     return this.ajaxThing
-      .get( `http://localhost:3000/api/project/${ projectId }` )
+      .get( `${environment.backUrl}/api/project/${ projectId }` )
       .toPromise();
   }
 
   getUser( username: string ) {
     return this.ajaxThing
-      .get( `http://localhost:3000/api/search-user/${ username }` )
+      .get( `${environment.backUrl}/api/search-user/${ username }` )
       .toPromise();
   }
 
   postUser( info: addUserInfo ) {
     return this.ajaxThing
       .post(
-        "http://localhost:3000/api/add-contributor",
+        `${environment.backUrl}/api/add-contributor`,
         info
       )
       .toPromise();
@@ -52,7 +53,7 @@ export class ProjectService {
 
   getUsers(){
     return this.ajaxThing
-    .get( "http://localhost:3000/api/all-users" )
+    .get( `${environment.backUrl}/api/all-users` )
     .toPromise();
   }
 
