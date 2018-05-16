@@ -65,4 +65,10 @@ export class TrelloService {
       Trello.put( `cards/${ cardId }?idMembers=${ currentUserId }&idList=${ doingListId }`, success, error );
     })
   }
+
+  moveToDone( cardId: string, doneListId: string ) {
+    return new Promise(( success, error ) => {
+      Trello.put( `cards/${ cardId }?idList=${ doneListId }`, success, error );
+    })
+  }
 }

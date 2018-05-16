@@ -35,6 +35,7 @@
 <ul>
   <li *ngFor="let oneCard of (doingCards | filterCards: myUser.id)">
     <p>{{oneCard.name}}</p>
+    <button (click)="moveToDone( oneCard.id, lists[2].id )" >Move to DONE</button>
   </li>
 </ul>
 

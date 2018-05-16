@@ -128,6 +128,17 @@ export class OneBoardComponent implements OnInit {
       })
   }
 
+  moveToDone( cardId, donelistId ) {
+    this.trelloThing.moveToDone( cardId, donelistId )
+      .then(() => {
+        console.log( "Card moved to done!" );
+      })
+      .catch(( err ) => {
+        console.log( "moveToDone ERROR" );
+        console.log( err );
+      });
+  }
+
   getRepoEventsFeed() {
     this.gitAPI
       .githubEventsFeed("LPsola", "Project03-frontend")
