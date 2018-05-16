@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { SignupCredentials, UserService } from "../api/user.service";
 import { Router } from "@angular/router";
-import { environment } from "../../environments/environment.prod";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-signup",
