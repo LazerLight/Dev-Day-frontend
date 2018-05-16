@@ -10,6 +10,7 @@ import { AboutPageComponent } from "./about-page/about-page.component";
 import { ContactPageComponent } from "./contact-page/contact-page.component";
 import { BotFormComponent } from "./bot-form/bot-form.component";
 import { RouteGuardService } from "./api/route-guard.service";
+import { OneBoardComponent } from "./one-board/one-board.component";
 
 const routes: Routes = [
   { path: "", component: HomePageComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
     children: [
       { path: "projects", component: ProjectsPageComponent },
       { path: "project/:projectId", component: OneProjectComponent },
-      { path: "project/:projectId/bot", component: BotFormComponent }
+      { path: "board/:boardId/bot", component: BotFormComponent },
+      { path: "board/:boardId", component: OneBoardComponent }
     ]
   },
 

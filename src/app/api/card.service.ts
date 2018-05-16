@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import "rxjs/operator/toPromise";
 import { Project } from "./project.service";
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class CardService {
@@ -10,13 +11,13 @@ export class CardService {
   // GET list of Lists for one Project
   getLists(projectId: string) {
     return this.ajaxThing
-      .get(`http://localhost:3000/api/project/${projectId}/lists`)
+      .get(`${environment.backUrl}/api/project/${projectId}/lists`)
       .toPromise();
   }
   // GET Cards LIST for one List of one Project
   getCards(projectId: string, listId: string) {
     return this.ajaxThing
-      .get(`http://localhost:3000/api/project/${projectId}/${listId}/cards`)
+      .get(`${environment.backUrl}/api/project/${projectId}/${listId}/cards`)
       .toPromise();
   }
 }

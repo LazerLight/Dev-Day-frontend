@@ -20,7 +20,10 @@ import { BotFormComponent } from "./bot-form/bot-form.component";
 import { GithubApiService } from "./api/github-api.service";
 import { RouteGuardService } from "./api/route-guard.service";
 import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
+import { TrelloService } from "./api/trello.service";
 import { CardService } from "./api/card.service";
+import { OneBoardComponent } from './one-board/one-board.component';
+import { FilterCardsPipe } from './pipes-folder/filter-cards.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { CardService } from "./api/card.service";
     AboutPageComponent,
     ContactPageComponent,
     BotFormComponent,
-    IsContributorPipe
+    IsContributorPipe,
+    OneBoardComponent,
+    FilterCardsPipe
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,8 @@ import { CardService } from "./api/card.service";
     ProjectService,
     RouteGuardService,
     GithubApiService,
-    CardService
+    CardService,
+    TrelloService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,10 +1,97 @@
+
 <h2>Welcome to "{{project?.name}}"</h2>
 
-<div class="bot-redirect">
-  <button (click)="goToBot( project._id )">GET YOUR DAY STARTED</button>
-</div>
 
-<div class="git-commit-container">
+
+<!-- 
+  BOT REDIRECT
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+<!-- <div class="bot-redirect">
+  <button (click)="goToBot( project._id )">GET YOUR DAY STARTED</button>
+</div> -->
+
+
+
+<!-- 
+  DISPLAY BOARD MEMBERS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+<!-- <ul>
+  <li *ngFor="let oneMember of members">
+    <h4>{{oneMember.id}}</h4>
+  </li>
+</ul> -->
+
+<!-- 
+  INVITATION FORM
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+<!-- <div *ngIf="isOwner">  
+      
+      <div class="section">
+        
+        <h5 class="light">Username Search</h5>
+        
+        <div class="row m-valign-wrapper">
+          <form (ngSubmit)="searchUser()" >
+            <mz-input-container class="col s12 m6">
+              <input mz-input
+              [label]="'User Name'"
+              [autocomplete]="autocomplete"
+              id="autocomplete-input"
+              type="text"
+              name="username" [(ngModel)]="username">
+            </mz-input-container>
+            <button>Search</button>
+          </form>
+          
+        </div>
+      </div>
+      
+    </div>
+      
+      <div *ngIf="foundUser">
+        {{foundUser.username}}
+        {{foundUser.email}}
+        <button (click)="addUser()">Add</button>
+      </div>
+
+    <hr>
+ -->
+
+
+<!-- 
+  CURRENT TASKS AT HAND
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+    <h3>CURRENTS TASKS AT HAND</h3>
+
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    
+    <hr>
+
+
+
+<!-- 
+  STATS ABOUT THE PROJECT
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+    <h3>STATS ABOUT THE PROJECT</h3>
+    <!-- Make it a separate component? -->
+
+
+
+<!-- 
+  GITHUB FEEDS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+
+<!-- <div class="git-commit-container">
   <mz-collection>
     <mz-collection-header>
       <h4>Github Repo Push Events</h4>
@@ -53,62 +140,4 @@
 </mz-collection>
 </div>
 
-<img [src]="project?.imageUrl">
-
-<br>
-
-<div *ngIf="isOwner">
-  <!-- <h5>Want to add a contributor?</h5>
-    <form (ngSubmit)="searchUser()" >
-      
-      <label>Enter user name:</label>
-      <input type="text" name="username" [(ngModel)]="username">
-      
-      <button>Search</button>
-      
-    </form> -->
-    
-    
-    <div class="section">
-      
-      <h5 class="light">Username Search</h5>
-      
-      <div class="row m-valign-wrapper">
-        <form (ngSubmit)="searchUser()" >
-          <mz-input-container class="col s12 m6">
-            <input mz-input
-            [label]="'User Name'"
-            [autocomplete]="autocomplete"
-            id="autocomplete-input"
-            type="text"
-            name="username" [(ngModel)]="username">
-          </mz-input-container>
-          <button>Search</button>
-        </form>
-        
-      </div>
-    </div>
-    
-    
-  </div>
-    
-    
-    <div *ngIf="foundUser">
-      {{foundUser.username}}
-      {{foundUser.email}}
-      <button (click)="addUser()">Add</button>
-    </div>
-  <h3>CURRENTS TASKS AT HAND</h3>
-  <!-- Make it a separate component? -->
-  <ul>
-    <!-- We probably want to retrieve the current cards from the user directly, instead of going through the project? -->
-    <li>
-      
-    </li>
-  </ul>
-  
-  <hr>
-  
-  <h3>STATS ABOUT THE PROJECT</h3>
-  <!-- Make it a separate component? -->
-  
+ -->

@@ -7,6 +7,7 @@ import {
   githubEventsApiRes,
   githubIssuesApiRes
 } from "../api/github-api.service";
+import { TrelloService } from "../api/trello.service";
 
 @Component({
   selector: "app-one-project",
@@ -16,13 +17,17 @@ import {
 export class OneProjectComponent implements OnInit {
   currentUserId: string;
   isOwner: boolean;
+  
   projectId: string;
   project: Project;
+  
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
+  
   username: string;
   foundUser: User;
   addUserInfo: addUserInfo = new addUserInfo();
+
   autocomplete: { data: { [key: string]: string } };
   users: User[] = [];
 
@@ -33,13 +38,14 @@ export class OneProjectComponent implements OnInit {
     private apiThing: ProjectService,
     public gitAPI: GithubApiService,
     private resThing: Router,
-    private userThing: UserService
+    private userThing: UserService,
+    private trelloThing: TrelloService
   ) {}
 
   ngOnInit() {
     // Get the URL parameters for this route
     this.reqThing.paramMap.subscribe(myParams => {
-      this.projectId = myParams.get("projectId");
+      this.projectId = myParams.get( "projectId" );
       this.fetchProjectData();
       this.fetchUserData();
     });
@@ -49,18 +55,16 @@ export class OneProjectComponent implements OnInit {
   }
 
   fetchProjectData() {
-    this.apiThing
-      .getProject(this.projectId)
+    this.apiThing.getProject( this.projectId )
       .then((result: Project) => {
         this.project = result;
       })
       .catch(( err ) => {
-        console.log( "fetProjectData ERROR" );
+        console.log( "fetchProjectData ERROR" );
         console.log( err );
       })
     
-    this.apiThing
-      .getUsers()
+    this.apiThing.getUsers()
       .then((usersList: User[]) =>{
         this.users = usersList
       })
@@ -103,7 +107,8 @@ export class OneProjectComponent implements OnInit {
     this.userThing.check().then(result => {
       this.currentUserId = result.userInfo._id;
 
-      this.isOwner = this.currentUserId === this.project.owner;
+      // Commented because we do not have a project ID anymore
+      // this.isOwner = this.currentUserId === this.project.owner;
     });
   }
 
@@ -142,12 +147,10 @@ export class OneProjectComponent implements OnInit {
     this.autocomplete = {
       data: userList
     };
-
   }
 
   goToBot(projectId) {
-    this.apiThing
-      .getProject(projectId)
+    this.apiThing.getProject(projectId)
       .then((project: Project) => {
         this.resThing.navigateByUrl(`/project/${project._id}/bot`);
       })

@@ -1,0 +1,161 @@
+
+<h2>Welcome to "{{board?.name}}"</h2>
+
+
+
+<!-- 
+  BOT REDIRECT
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+<div class="bot-redirect">
+  <button (click)="goToBot( board?.id )">GET YOUR DAY STARTED</button>
+</div>
+
+
+
+<!-- 
+  DISPLAY BOARD MEMBERS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+<h4>Members</h4>
+<ul>
+  <li *ngFor="let oneMember of members">
+    <p>{{oneMember.fullName}}</p>
+  </li>
+</ul>
+
+
+
+<!-- 
+  DISPLAY BOARD LISTS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ -->
+ <ul>
+    <li *ngFor="let oneList of doingList">
+      <h4>{{oneList.name}}</h4>
+      <ul>
+        <li *ngFor="let oneCard of (doingCards | filterCards: myUser.id)">
+          <p>{{oneCard.name}}</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+<!-- 
+  INVITATION FORM
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+<!-- <div *ngIf="isOwner">  
+  
+  <div class="section">
+    
+    <h5 class="light">Username Search</h5>
+    
+    <div class="row m-valign-wrapper">
+      <form (ngSubmit)="searchUser()" >
+        <mz-input-container class="col s12 m6">
+          <input mz-input
+          [label]="'User Name'"
+          [autocomplete]="autocomplete"
+          id="autocomplete-input"
+          type="text"
+          name="username" [(ngModel)]="username">
+        </mz-input-container>
+        <button>Search</button>
+      </form>
+      
+    </div>
+  </div>
+  
+</div> -->
+
+<!-- <div *ngIf="foundUser">
+  {{foundUser.username}}
+  {{foundUser.email}}
+  <button (click)="addUser()">Add</button>
+</div> -->
+
+<hr>
+
+
+
+<!-- 
+  CURRENT TASKS AT HAND
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+<h3>CURRENTS TASKS AT HAND</h3>
+
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+
+<hr>
+
+
+
+<!-- 
+  STATS ABOUT THE PROJECT
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+<h3>STATS ABOUT THE PROJECT</h3>
+<!-- Make it a separate component? -->
+
+
+
+<!-- 
+  GITHUB FEEDS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+
+<div class="git-commit-container">
+  <mz-collection>
+    <mz-collection-header>
+      <h4>Github Repo Push Events</h4>
+    </mz-collection-header>
+    <mz-collection-item *ngFor="let oneEvent of eventsJSON" [avatar]="true">
+      <img mz-avatar [src]="oneEvent.actor.avatar_url">
+      <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
+      <div>
+        <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
+      </mz-collection-item>
+    </mz-collection>
+  </div>
+  <div class="git-commit-container">
+    <mz-collection>
+      <mz-collection-header>
+        <h4>Latest Open Github Repo Issues</h4>
+      </mz-collection-header>
+      <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
+        <img mz-avatar [src]="oneIssue.user.avatar_url">
+        <div class="title">"{{oneIssue.title}}"</div>
+        
+        <mz-collapsible
+        [mode]="'expandable'"
+        [onClose]="closeFunctionCallback"
+        [onOpen]="openFunctionCallback"
+        [popout]="true">
+        <mz-collapsible-item [active]="false">
+          <mz-collapsible-item-header>
+            <b>Click Here for toggle issue details</b>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+            {{oneIssue.body}}
+            <br>
+            <b>Total Comments: </b><a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
+            
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
+      </mz-collapsible>
+      
+      
+      
+      <div><b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
+        <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
+      </div>
+    </mz-collection-item>
+  </mz-collection>
+</div>
+
+
