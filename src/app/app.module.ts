@@ -22,6 +22,7 @@ import { RouteGuardService } from "./api/route-guard.service";
 import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
 import { TrelloService } from "./api/trello.service";
 import { CardService } from "./api/card.service";
+import { OneBoardComponent } from './one-board/one-board.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CardService } from "./api/card.service";
     AboutPageComponent,
     ContactPageComponent,
     BotFormComponent,
-    IsContributorPipe
+    IsContributorPipe,
+    OneBoardComponent
   ],
   imports: [
     BrowserModule,
