@@ -7,7 +7,7 @@ const mat_modules = [
     MzButtonModule,
     MzCollectionModule,
     MzCollapsibleModule,
-    MzInputModule
+    MzInputModule,
 ]
 @NgModule({
     imports: [

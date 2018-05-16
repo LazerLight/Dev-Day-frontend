@@ -16,7 +16,7 @@
 <!-- 
   DISPLAY BOARD MEMBERS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- -->
+-->
 <h4>Members</h4>
 <ul>
   <li *ngFor="let oneMember of members">
@@ -29,17 +29,17 @@
 <!-- 
   DISPLAY BOARD LISTS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- -->
- <ul>
-    <li *ngFor="let oneList of doingList">
-      <h4>{{oneList.name}}</h4>
-      <ul>
-        <li *ngFor="let oneCard of (doingCards | filterCards: myUser.id)">
-          <p>{{oneCard.name}}</p>
-        </li>
-      </ul>
-    </li>
-  </ul>
+-->
+<ul>
+  <li *ngFor="let oneList of doingList">
+    <h4>{{oneList.name}}</h4>
+    <ul>
+      <li *ngFor="let oneCard of (doingCards | filterCards: myUser.id)">
+        <p>{{oneCard.name}}</p>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 <!-- 
   INVITATION FORM
@@ -109,7 +109,124 @@
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
 
-<div class="git-commit-container">
+<div class="github-container">
+<mz-collapsible
+[mode]="'expandable'"
+[onClose]="closeFunctionCallback"
+[onOpen]="openFunctionCallback"
+[popout]="true">
+
+<mz-collapsible-item [active]="false">
+  <mz-collapsible-item-header>
+    <h4>Open Github Pull Requests</h4>
+  </mz-collapsible-item-header>
+  <mz-collapsible-item-body>
+    
+    <mz-collection>
+      <mz-collection-item *ngFor="let onePullReq of pullReqJSON" [avatar]="true">
+        <img mz-avatar [src]="onePullReq.user.avatar_url">
+        <div class="title">"{{onePullReq.title}}"</div>
+        
+        <mz-collapsible
+        [mode]="'expandable'"
+        [onClose]="closeFunctionCallback"
+        [onOpen]="openFunctionCallback"
+        [popout]="true">
+        <mz-collapsible-item [active]="false">
+          <mz-collapsible-item-header>
+            <b>Click Here for toggle pull details</b>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+            {{onePullReq.body}}
+            <br>
+            <b>Assignees:</b> {{onePullReq.assignees}}
+            <br> 
+            <b>Requested Reviewers:</b> {{onePullReq.requested_reviewers}}
+            <br>
+            <a [href]="onePullReq.html_url" target="_blank">Pull Request Link</a>    
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
+      </mz-collapsible>
+      
+      
+      <div><b>Created By:</b> {{onePullReq.user.login}} on {{onePullReq.created_at | date :'short'}}.
+        <b>Last Updated:</b> {{onePullReq.updated_at | date :'short'}} 
+      </div>
+    </mz-collection-item>
+  </mz-collection>
+  
+</mz-collapsible-item-body>
+</mz-collapsible-item>
+
+
+
+<mz-collapsible-item [active]="false">
+  <mz-collapsible-item-header>
+    <h4>Github Repo Push Events</h4>
+  </mz-collapsible-item-header>
+  <mz-collapsible-item-body>
+    
+    
+    <mz-collection>
+      <mz-collection-item *ngFor="let oneEvent of eventsJSON" [avatar]="true">
+        <img mz-avatar [src]="oneEvent.actor.avatar_url">
+        <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
+        <div>
+          <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
+        </mz-collection-item>
+      </mz-collection>
+      
+    </mz-collapsible-item-body>
+  </mz-collapsible-item>
+  
+  
+  
+  
+  <mz-collapsible-item [active]="false">
+    <mz-collapsible-item-header>
+      <h4>Latest Open Github Repo Issues</h4>
+    </mz-collapsible-item-header>
+    <mz-collapsible-item-body>  
+      <mz-collection>
+        
+        <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
+          <img mz-avatar [src]="oneIssue.user.avatar_url">
+          <div class="title">"{{oneIssue.title}}"</div>
+          
+          <mz-collapsible
+          [mode]="'expandable'"
+          [onClose]="closeFunctionCallback"
+          [onOpen]="openFunctionCallback"
+          [popout]="true">
+          <mz-collapsible-item [active]="false">
+            <mz-collapsible-item-header>
+              <b>Click Here for toggle issue details</b>
+            </mz-collapsible-item-header>
+            <mz-collapsible-item-body>
+              {{oneIssue.body}}
+              <br>
+              <b>Total Comments: </b><a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
+              
+            </mz-collapsible-item-body>
+          </mz-collapsible-item>
+        </mz-collapsible>
+           
+        <div><b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
+          <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
+        </div>
+      </mz-collection-item>
+    </mz-collection>
+    
+  </mz-collapsible-item-body>
+
+
+
+  
+</mz-collapsible-item>
+</mz-collapsible>
+</div>
+
+<!-- <div class="git-commit-container">
   <mz-collection>
     <mz-collection-header>
       <h4>Github Repo Push Events</h4>
@@ -121,8 +238,10 @@
         <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
       </mz-collection-item>
     </mz-collection>
-  </div>
-  <div class="git-commit-container">
+  </div> -->
+  
+  
+ <!--  <div class="git-commit-container">
     <mz-collection>
       <mz-collection-header>
         <h4>Latest Open Github Repo Issues</h4>
@@ -155,7 +274,50 @@
         <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
       </div>
     </mz-collection-item>
-  </mz-collection>
-</div>
+  </mz-collection> 
+</div>-->
+
+
+<!-- <div class="git-pullReq-container">
+  <mz-collection>
+    <mz-collection-header>
+      <h4>Open Github Pull Requests</h4>
+    </mz-collection-header>
+    <mz-collection-item *ngFor="let onePullReq of pullReqJSON" [avatar]="true">
+      <img mz-avatar [src]="onePullReq.user.avatar_url">
+      <div class="title">"{{onePullReq.title}}"</div>
+      
+      <mz-collapsible
+      [mode]="'expandable'"
+      [onClose]="closeFunctionCallback"
+      [onOpen]="openFunctionCallback"
+      [popout]="true">
+      <mz-collapsible-item [active]="false">
+        <mz-collapsible-item-header>
+          <b>Click Here for toggle pull details</b>
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body>
+          {{onePullReq.body}}
+          <br>
+          <b>Assignees:</b> {{onePullReq.assignees}}
+          <br> 
+          <b>Requested Reviewers:</b> {{onePullReq.requested_reviewers}}
+          <br>
+          <a [href]="onePullReq.html_url" target="_blank">Pull Request Link</a>    
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+    
+    
+    <div><b>Created By:</b> {{onePullReq.user.login}} on {{onePullReq.created_at | date :'short'}}.
+      <b>Last Updated:</b> {{onePullReq.updated_at | date :'short'}} 
+    </div>
+  </mz-collection-item>
+</mz-collection>
+</div> -->
+
+
+
+
 
 
