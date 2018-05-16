@@ -65,10 +65,8 @@ export class Project {
   owner: string;
   name: string;
   imageUrl: string;
-  githubRepoUrl: string;
+  githubRepoName: string;
   trelloBoardId: string;
-  slackWorkSpaceDirectory: string;
-  slackUserId: string;
   contributors: string[] = [];
   activityFeed: Object[];
   createdAt?: Date;
@@ -79,9 +77,8 @@ export class newProjectInfo {
   owner: string; // Specify that the creating user becomes the owner
   name: string;
   imageUrl: string;
-  githubRepoUrl: string;
+  githubRepoName: string;
   trelloBoardId: string;
-  slackWorkSpaceDirectory: string;
   contributors: string[] = []; // Specify that the creating user becomes the first member
 }
 

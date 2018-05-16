@@ -21,6 +21,13 @@ export class GithubApiService {
     .toPromise();
   }
 
+  githubPullReqFeed(repoOwner, repoName) {
+    return this.ajaxs
+    .get(`https://api.github.com/repos/${repoOwner}/${repoName}/pulls`)
+    .toPromise();
+  }
+
+
   filterGithubEventsFeed(apiResponseJSON){
     const filteredArr = apiResponseJSON.filter(elem =>{
       return elem.type === "PushEvent"
@@ -53,4 +60,14 @@ export class githubIssuesApiRes {
   type: String;
   actor: Array<any>;
   payload: Array<any>;
+}
+
+export class githubPullsApiRes {
+  title: String;
+  body: String;
+  user: Array<any>;
+  created: String;
+  urlToRequest: String;
+  assignees: Array<any>;
+  requested_reviewers: Array<any>;
 }

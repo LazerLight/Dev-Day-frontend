@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { SignupCredentials, UserService } from "../api/user.service";
 import { Router } from "@angular/router";
-import { environment } from "../../environments/environment";
+import { environment } from "../../environments/environment.prod";
 
 @Component({
   selector: "app-signup",
@@ -10,15 +10,11 @@ import { environment } from "../../environments/environment";
 })
 export class SignupComponent implements OnInit {
   githubUrl: string;
-  
 
   formCreds: SignupCredentials = new SignupCredentials();
-  environment = environment
-  constructor(
-    public userInstance: UserService,
-    private resInstance: Router
-  ) { 
-    this.githubUrl = `${environment.backUrl}/api/github/login`
+  environment = environment;
+  constructor(public userInstance: UserService, private resInstance: Router) {
+    this.githubUrl = `${environment.backUrl}/api/github/login`;
   }
 
   ngOnInit() {}

@@ -41,7 +41,7 @@ export class Card {
   labels: Object[]; // depends on trello format
   comments: Object[]; // depends on trello format
   contributors: string[] = [];
-  taskDuration: string[] = [];
+  taskDuration: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
