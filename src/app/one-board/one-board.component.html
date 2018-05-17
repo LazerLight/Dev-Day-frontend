@@ -14,6 +14,21 @@
 
 
 <!-- 
+  GITHUB URL
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+<div *ngIf="isAdmin">
+
+  <form (ngSubmit)="changeGitHubUrl()">
+    <label>Repo's GitHub URL</label>
+    <input [(ngModel)]="gitHubUrl.url" name="GitHubUrl" type="text">
+    <button>Set GitHub URL</button>
+  </form>
+
+</div>
+
+
+<!-- 
   DISPLAY BOARD MEMBERS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
