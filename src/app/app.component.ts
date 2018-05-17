@@ -9,12 +9,11 @@ import { Router } from "@angular/router";
 })
 export class AppComponent {
   
-  title = "app";
   brandLogo: string;
 
   constructor(
     public userInstance: UserService,
-    private resThing: Router
+    private resThing: Router,
   ) {
     this.brandLogo = 'assets/images/favicon.png' 
 

@@ -16,8 +16,7 @@ export class RouteGuardService implements CanActivate {
       return true;
     }
 
-    return this.userThing
-      .check()
+    return this.userThing.check()
       .then(result => {
         const isGood = Boolean(result.userInfo);
         if (!isGood) {

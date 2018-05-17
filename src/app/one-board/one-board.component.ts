@@ -56,6 +56,7 @@ export class OneBoardComponent implements OnInit {
 
     this.getRepoEventsFeed();
     this.getRepoIssuesFeed();
+    console.log( "BOARDS", this.board );
   }
 
   getMyUser() {
