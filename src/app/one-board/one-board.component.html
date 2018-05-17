@@ -20,7 +20,8 @@
 <h4>Members</h4>
 <ul>
   <li *ngFor="let oneMember of members">
-    <p>{{oneMember.fullName}}</p>
+    <p>{{oneMember.member.fullName}}</p>
+    <img src="{{oneMember.member.avatarUrl}}/170.png">
   </li>
 </ul>
 
@@ -40,13 +41,13 @@
     </li>
   </ul>
 
-  <h4>{{backlogList[0].name}}</h4>
+  <!-- <h4>{{backlogList[0].name}}</h4>
   <ul>
     <li *ngFor="let oneCard of backlogCards">
       <p>{{oneCard.name}}</p>
       <button (click)="moveToDoing( oneCard.id, lists[1].id )" >Move to DOING</button>
     </li>
-  </ul>
+  </ul> -->
 
 </div>
 

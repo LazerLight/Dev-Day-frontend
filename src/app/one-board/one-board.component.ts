@@ -57,7 +57,6 @@ export class OneBoardComponent implements OnInit {
 
     this.getRepoEventsFeed();
     this.getRepoIssuesFeed();
-    console.log( "BOARDS", this.board );
   }
 
 
@@ -81,30 +80,22 @@ export class OneBoardComponent implements OnInit {
       })
       .then(( members ) => {
         this.members = members;
-        // console.log( "MEMBERS HERE" );
-        // console.log( this.members );
         return this.trelloThing.getLists( this.boardId )
       })
       .then(( lists ) => {
         this.lists = lists;
-        // console.log( "LISTS" );
-        // console.log( this.lists );
 
         this.backlogList = this.lists.filter( l => l.name === "BACKLOG" )
         this.doingList = this.lists.filter( l => l.name === "DOING" )
         this.donelist = this.lists.filter( l => l.name === "DONE" )
         console.log( "DOING LIST" );
-        console.log( this.backlogList );
         console.log( this.doingList );
-        console.log( this.donelist );
         return this.trelloThing.getCards( this.doingList[0].id );
       })
       .then(( cards ) => {
         this.doingCards = cards;
         console.log( "DOING CARDS" );
         console.log( this.doingCards );
-        console.log( "TYPE OF CARD MEMBER ID", typeof this.doingCards[0].idMembers[0] );
-        console.log( "TYPE OF CURRENT USER ID", typeof this.currentUserId );
         return this.trelloThing.getCards( this.backlogList[0].id );
       })
       .then(( cards ) => {
@@ -113,6 +104,7 @@ export class OneBoardComponent implements OnInit {
       })
       .then(( cards ) => {
         this.doneCards = cards;
+        console.log( "MEMBERS", this.members );
       })
       .catch(( error ) => {
         console.log( "fetchBoardData ERROR" );
@@ -194,7 +186,7 @@ export class OneBoardComponent implements OnInit {
   //     })
   // }
 
-  setAutocomplete(userList) {
+  setAutocomplete( userList ) {
     this.autocomplete = {
       data: userList
     };
@@ -203,11 +195,11 @@ export class OneBoardComponent implements OnInit {
   goToBot( boardId ) {
     this.trelloThing.getBoard( boardId )
       .then(( board ) => {
-        this.resThing.navigateByUrl(`/board/${ boardId }/bot`);
+        this.resThing.navigateByUrl( `/board/${ boardId }/bot` );
       })
       .catch(err => {
-        console.log("goToProject ERROR");
-        console.log(err);
+        console.log( "goToProject ERROR" );
+        console.log( err );
       });
   }
 
