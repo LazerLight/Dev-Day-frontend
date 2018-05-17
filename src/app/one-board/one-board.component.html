@@ -17,12 +17,13 @@
   GITHUB URL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<div *ngIf="isAdmin">
+<div>
 
   <form (ngSubmit)="changeGitHubUrl()">
     <label>Repo's GitHub URL</label>
-    <input [(ngModel)]="gitHubUrl.url" name="GitHubUrl" type="text">
-    <button>Set GitHub URL</button>
+    <input [(ngModel)]="gitHubUrl.repoName" name="GitHubRepoName" type="text" placeholder="GitHub Repo Name">
+    <input [(ngModel)]="gitHubUrl.repoOwner" name="GitHubRepoOwner" type="text" placeholder="GitHub Repo Owner">
+    <button>Set GitHub Feed</button>
   </form>
 
 </div>
@@ -89,22 +90,21 @@
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
 
-<button mz-button (click)="bottomSheetModal.open() ">Modal</button>
+<div class="col s12 m3">
+      <button mz-button (click)="basicModal.open()">Modal</button>
 
-<mz-modal #bottomSheetModal [fixedFooter]="true " [bottomSheet]="false " [options]="modalOptions ">
-  <mz-modal-header>
-    <h4>Modal</h4>
-  </mz-modal-header>
-  <mz-modal-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </mz-modal-content>
-  <mz-modal-footer>
-    <button mz-button [flat]="true " mz-modal-close>Close</button>
-  </mz-modal-footer>
-</mz-modal>
+      <mz-modal #basicModal>
+        <mz-modal-header>
+          <h4>Modal Title</h4>
+        </mz-modal-header>
+        <mz-modal-content>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </mz-modal-content>
+        <mz-modal-footer>
+          <button mz-button [flat]="true" mz-modal-close>Close</button>
+        </mz-modal-footer>
+      </mz-modal>
+</div>
 
 <!-- 
   INVITATION FORM
@@ -174,23 +174,22 @@
 -->
 
 <div class="github-container ">
-  <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
-        " [popout]="true ">
+  <mz-collapsible
+  [mode]="'expandable'"
+  [popout]="true">
+  <mz-collapsible-item [active]="false">
 
-    <mz-collapsible-item [active]="false ">
-      <mz-collapsible-item-header>
+    <mz-collapsible-item-header>
         <h4>Open Github Pull Requests</h4>
       </mz-collapsible-item-header>
-      <mz-collapsible-item-body>
 
+      <mz-collapsible-item-body>
         <mz-collection>
           <mz-collection-item *ngFor="let onePullReq of pullReqJSON " [avatar]="true ">
             <img mz-avatar [src]="onePullReq.user.avatar_url ">
             <div class="title ">"{{onePullReq.title}} "</div>
-
-            <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
-        " [popout]="true ">
-              <mz-collapsible-item [active]="false ">
+            <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback" [popout]="true ">
+              <mz-collapsible-item [active]="false">
                 <mz-collapsible-item-header>
                   <b>Click Here for toggle pull details</b>
                 </mz-collapsible-item-header>
@@ -205,21 +204,18 @@
                 </mz-collapsible-item-body>
               </mz-collapsible-item>
             </mz-collapsible>
-
-
             <div>
               <b>Created By:</b> {{onePullReq.user.login}} on {{onePullReq.created_at | date :'short'}}.
               <b>Last Updated:</b> {{onePullReq.updated_at | date :'short'}}
             </div>
           </mz-collection-item>
         </mz-collection>
-
       </mz-collapsible-item-body>
     </mz-collapsible-item>
 
 
 
-    <mz-collapsible-item [active]="false ">
+    <mz-collapsible-item [active]="false">
       <mz-collapsible-item-header>
         <h4>Github Repo Push Events</h4>
       </mz-collapsible-item-header>
