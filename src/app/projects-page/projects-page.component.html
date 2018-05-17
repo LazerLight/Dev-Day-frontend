@@ -1,7 +1,8 @@
 <h2>Projects Page</h2>
 
-
-<button (click)="authUser()">AUTHORIZE TRELLO</button>
+<div *ngIf="!myUser">
+  <button (click)="authUser()">AUTHORIZE TRELLO</button>
+</div>
 
 <h3>BELOW THE PROJECTS LIST</h3>
 <ul>
@@ -29,7 +30,13 @@
     </div>
   </div>
 
-  <hr>
+
+
+  <!-- 
+    CREATE A PROJECT FORM, NOT NEEDED ANYMORE
+    |||||||||||||||||||||||||||||||||||||||||
+   -->
+  <!-- <hr>
 
 <div>
   <h3>BELOW THE FORM TO CREATE A NEW PROJECT</h3>
@@ -62,4 +69,4 @@
     <button>Create</button>
 
   </form>
-</div>
+</div> -->
