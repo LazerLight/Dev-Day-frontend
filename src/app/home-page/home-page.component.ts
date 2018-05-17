@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-home-page",
@@ -6,14 +7,15 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home-page.component.css"]
 })
 export class HomePageComponent implements OnInit {
-  logo: string;
-  
+  devDayLogo: string;
+  githubLogo: string;
+  githubUrl: string;
 
-  constructor(){
-    this.logo = 'assets/images/verticalLogoLight.png' 
-   }
-
-  ngOnInit() {
+  constructor() {
+    this.devDayLogo = "assets/images/verticalLogoDark.png";
+    this.githubLogo = "assets/images/github-logo.png";
+    this.githubUrl = `${environment.backUrl}/api/github/login`;
   }
 
+  ngOnInit() {}
 }

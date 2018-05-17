@@ -1,5 +1,5 @@
-
-<h2>Welcome to "{{board?.name}}"</h2>
+<h2>
+  Welcome to "{{board?.name}}"</h2>
 
 
 
@@ -33,9 +33,9 @@
 
 <h4>{{doingList[0].name}}</h4>
 <ul>
-  <li *ngFor="let oneCard of (doingCards | filterCards: myUser.id)">
+  <li *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)">
     <p>{{oneCard.name}}</p>
-    <button (click)="moveToDone( oneCard.id, lists[2].id )" >Move to DONE</button>
+    <button (click)="moveToDone( oneCard.id, lists[2].id )">Move to DONE</button>
   </li>
 </ul>
 
@@ -43,7 +43,7 @@
 <ul>
   <li *ngFor="let oneCard of backlogCards">
     <p>{{oneCard.name}}</p>
-    <button (click)="moveToDoing( oneCard.id, lists[1].id )" >Move to DOING</button>
+    <button (click)="moveToDoing( oneCard.id, lists[1].id )">Move to DOING</button>
   </li>
 </ul>
 
@@ -125,23 +125,19 @@
       <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
       <div>
         <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
-      </mz-collection-item>
-    </mz-collection>
-  </div>
-  <div class="git-commit-container">
-    <mz-collection>
-      <mz-collection-header>
-        <h4>Latest Open Github Repo Issues</h4>
-      </mz-collection-header>
-      <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
-        <img mz-avatar [src]="oneIssue.user.avatar_url">
-        <div class="title">"{{oneIssue.title}}"</div>
-        
-        <mz-collapsible
-        [mode]="'expandable'"
-        [onClose]="closeFunctionCallback"
-        [onOpen]="openFunctionCallback"
-        [popout]="true">
+    </mz-collection-item>
+  </mz-collection>
+</div>
+<div class="git-commit-container">
+  <mz-collection>
+    <mz-collection-header>
+      <h4>Latest Open Github Repo Issues</h4>
+    </mz-collection-header>
+    <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
+      <img mz-avatar [src]="oneIssue.user.avatar_url">
+      <div class="title">"{{oneIssue.title}}"</div>
+
+      <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback" [popout]="true">
         <mz-collapsible-item [active]="false">
           <mz-collapsible-item-header>
             <b>Click Here for toggle issue details</b>
@@ -149,19 +145,19 @@
           <mz-collapsible-item-body>
             {{oneIssue.body}}
             <br>
-            <b>Total Comments: </b><a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
-            
+            <b>Total Comments: </b>
+            <a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
+
           </mz-collapsible-item-body>
         </mz-collapsible-item>
       </mz-collapsible>
-      
-      
-      
-      <div><b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
+
+
+
+      <div>
+        <b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
         <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
       </div>
     </mz-collection-item>
   </mz-collection>
 </div>
-
-
