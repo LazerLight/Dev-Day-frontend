@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MzButtonModule, MzNavbarModule, MzCollectionModule, MzCollapsibleModule, MzInputModule} from 'ng2-materialize'
+import { MzButtonModule, MzNavbarModule, MzCollectionModule, MzCollapsibleModule, MzInputModule, MzModalModule} from 'ng2-materialize'
 
 const mat_modules = [
     MzNavbarModule,
@@ -8,6 +8,7 @@ const mat_modules = [
     MzCollectionModule,
     MzCollapsibleModule,
     MzInputModule,
+    MzModalModule
 ]
 @NgModule({
     imports: [
