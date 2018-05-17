@@ -52,7 +52,13 @@ export class OneBoardComponent implements OnInit {
       this.fetchBoardData();
       console.log(this.users);
     });
+<<<<<<< HEAD
     // this.fetchUserData()
+=======
+
+    this.getRepoEventsFeed();
+    this.getRepoIssuesFeed();
+>>>>>>> 3127758ac4e535db4f8efb535c64bbcda58ede94
   }
 
   getMyUser() {
@@ -77,16 +83,19 @@ export class OneBoardComponent implements OnInit {
       })
       .then(members => {
         this.members = members;
+<<<<<<< HEAD
         console.log("MEMBERS", this.members);
         // console.log( "MEMBERS HERE" );
         // console.log( this.members );
         return this.trelloThing.getLists(this.boardId);
+=======
+        return this.trelloThing.getLists( this.boardId )
+>>>>>>> 3127758ac4e535db4f8efb535c64bbcda58ede94
       })
       .then(lists => {
         this.lists = lists;
-        // console.log( "LISTS" );
-        // console.log( this.lists );
 
+<<<<<<< HEAD
         this.backlogList = this.lists.filter(l => l.name === "BACKLOG");
         this.doingList = this.lists.filter(l => l.name === "DOING");
         this.donelist = this.lists.filter(l => l.name === "DONE");
@@ -95,9 +104,18 @@ export class OneBoardComponent implements OnInit {
         console.log(this.doingList);
         console.log(this.donelist);
         return this.trelloThing.getCards(this.doingList[0].id);
+=======
+        this.backlogList = this.lists.filter( l => l.name === "BACKLOG" )
+        this.doingList = this.lists.filter( l => l.name === "DOING" )
+        this.donelist = this.lists.filter( l => l.name === "DONE" )
+        console.log( "DOING LIST" );
+        console.log( this.doingList );
+        return this.trelloThing.getCards( this.doingList[0].id );
+>>>>>>> 3127758ac4e535db4f8efb535c64bbcda58ede94
       })
       .then(cards => {
         this.doingCards = cards;
+<<<<<<< HEAD
         console.log("DOING CARDS");
         console.log(this.doingCards);
         console.log(
@@ -106,6 +124,11 @@ export class OneBoardComponent implements OnInit {
         );
         console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
         return this.trelloThing.getCards(this.backlogList[0].id);
+=======
+        console.log( "DOING CARDS" );
+        console.log( this.doingCards );
+        return this.trelloThing.getCards( this.backlogList[0].id );
+>>>>>>> 3127758ac4e535db4f8efb535c64bbcda58ede94
       })
       .then(cards => {
         this.backlogCards = cards;
@@ -113,6 +136,7 @@ export class OneBoardComponent implements OnInit {
       })
       .then(cards => {
         this.doneCards = cards;
+        console.log( "MEMBERS", this.members );
       })
       .catch(error => {
         console.log("fetchBoardData ERROR");
@@ -193,21 +217,28 @@ export class OneBoardComponent implements OnInit {
   //     })
   // }
 
-  setAutocomplete(userList) {
+  setAutocomplete( userList ) {
     this.autocomplete = {
       data: userList
     };
   }
 
+<<<<<<< HEAD
   goToBot(boardId) {
     this.trelloThing
       .getBoard(boardId)
       .then(board => {
         this.resThing.navigateByUrl(`/board/${boardId}/bot`);
+=======
+  goToBot( boardId ) {
+    this.trelloThing.getBoard( boardId )
+      .then(( board ) => {
+        this.resThing.navigateByUrl( `/board/${ boardId }/bot` );
+>>>>>>> 3127758ac4e535db4f8efb535c64bbcda58ede94
       })
       .catch(err => {
-        console.log("goToProject ERROR");
-        console.log(err);
+        console.log( "goToProject ERROR" );
+        console.log( err );
       });
   }
 }

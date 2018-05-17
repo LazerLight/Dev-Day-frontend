@@ -44,7 +44,8 @@ export class TrelloService {
 
   getMembers( boardId: string ) {
     return new Promise(( success, error ) => {
-      Trello.get( `/boards/${ boardId }/members`, success, error );
+      // Trello.get( `/boards/${ boardId }/members`, success, error );
+      Trello.get( `/boards/${ boardId }/memberships/?member=true&member_fields=avatarUrl,fullName`, success, error );
     });
   }
 
