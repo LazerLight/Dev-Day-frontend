@@ -35,12 +35,13 @@
   GITHUB URL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<div *ngIf="isAdmin">
+<div>
 
   <form (ngSubmit)="changeGitHubUrl()">
     <label>Repo's GitHub URL</label>
-    <input [(ngModel)]="gitHubUrl.url" name="GitHubUrl" type="text">
-    <button>Set GitHub URL</button>
+    <input [(ngModel)]="gitHubUrl.repoName" name="GitHubRepoName" type="text" placeholder="GitHub Repo Name">
+    <input [(ngModel)]="gitHubUrl.repoOwner" name="GitHubRepoOwner" type="text" placeholder="GitHub Repo Owner">
+    <button>Set GitHub Feed</button>
   </form>
 
 </div>
@@ -51,6 +52,24 @@
   DISPLAY BOARD MEMBERS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
+
+<!-- <div class="col s12 m3">
+      <button mz-button (click)="basicModal.open()">Modal</button>
+
+      <mz-modal #basicModal>
+        <mz-modal-header>
+          <h4>Modal Title</h4>
+        </mz-modal-header>
+        <mz-modal-content>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </mz-modal-content>
+        <mz-modal-footer>
+          <button mz-button [flat]="true" mz-modal-close>Close</button>
+        </mz-modal-footer>
+      </mz-modal>
+</div> -->
+
+
 <div class="main-container">
   <div class="scheduler">
     <ul class="main">

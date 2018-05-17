@@ -1,42 +1,28 @@
 <header>
-  <mz-navbar>
-    <a routerLink="/projects" class="brand-logo">
-      <img [src]="brandLogo">
-    </a>
-    <mz-navbar-item-container [align]="'right'">
-      <span *ngIf="!userInstance.currentUser">
-        <mz-navbar-item>
-          <a routerLink="/">Home</a>
-        </mz-navbar-item>
-      </span>
-
-
-      <span *ngIf="userInstance.currentUser">
-        <mz-navbar-item>
-          <a routerLink="/projects">Home</a>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <b>{{userInstance.currentUser.username}}</b>
-        </mz-navbar-item>
-        <mz-navbar-item>
-          <a class="waves-effect waves-light btn-large" (click)="logoutClick()">Log Out</a>
-        </mz-navbar-item>
-      </span>
-      <mz-navbar-item>
-        <a routerLink="/">Contact US</a>
-      </mz-navbar-item>
-      <mz-navbar-item>
-        <a routerLink="/">About Us</a>
-      </mz-navbar-item>
-
-
-    </mz-navbar-item-container>
-  </mz-navbar>
+ 
+  <nav>
+    <div class="nav-wrapper">
+      <a routerLink="/projects" class="brand-logo"><img [src]="brandLogo"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <span *ngIf="!userInstance.currentUser">
+          <li><a routerLink="/">Home</a></li>
+        </span>
+        
+        <span *ngIf="userInstance.currentUser">
+          <li><a routerLink="/projects">Home</a></li>
+          <li><a (click)="logoutClick()">Log Out</a></li>
+        </span>
+        <li><a routerLink="/">Contact US</a></li>
+        <li><a routerLink="/">About Us</a></li>
+      </ul>
+    </div>
+  </nav>
+  
 </header>
 
 <body>
 
-  <router-outlet></router-outlet>
+<router-outlet></router-outlet>
 
 </body>
 
@@ -45,26 +31,8 @@
   <div class="container">
     <div class="row">
       <div class="col l12 s12">
-        <!-- <h5 class="white-text">Footer Content</h5> -->
         <h6 class="grey-text text-lighten-4">Dev Day by Leo Punsola, Lucas Montenoise and Rodrigo Ley as their third project at Ironhack</h6>
       </div>
-      <!-- <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <ul>
-          <li>
-            <a class="grey-text text-lighten-3" routerLink="/">Contact Us</a>
-          </li>
-          <li>
-            <a class="grey-text text-lighten-3" routerLink="/">About Us</a>
-          </li>
-          <li>
-            <a target="_blank" class="grey-text text-lighten-3" href="https://github.com/LPsola/Project03-frontend">Github #1</a>
-          </li>
-          <li>
-            <a target="_blank" class="grey-text text-lighten-3" href="https://github.com/LPsola/Project03-backend">Github #2</a>
-          </li>
-        </ul>
-      </div> -->
     </div>
   </div>
 </footer>

@@ -9,19 +9,20 @@ export class GithubApiService {
     private ajaxs: HttpClient
   ) { }
   
-  githubEventsFeed(repoOwner, repoName) {
+  githubEventsFeed(repoName, repoOwner) {
+    console.log(repoOwner, repoName, "githubEventsFeed")
     return this.ajaxs
     .get(`https://api.github.com/networks/${repoOwner}/${repoName}/events`)
     .toPromise();
   }
 
-  githubIssuesFeed(repoOwner, repoName) {
+  githubIssuesFeed(repoName, repoOwner) {
     return this.ajaxs
     .get(`https://api.github.com/repos/${repoOwner}/${repoName}/issues?state=open&sort=created&direction=desc`)
     .toPromise();
   }
 
-  githubPullReqFeed(repoOwner, repoName) {
+  githubPullReqFeed(repoName, repoOwner) {
     return this.ajaxs
     .get(`https://api.github.com/repos/${repoOwner}/${repoName}/pulls`)
     .toPromise();
