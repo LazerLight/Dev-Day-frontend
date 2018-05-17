@@ -28,6 +28,8 @@ export class OneBoardComponent implements OnInit {
   backlogCards;
   doingCards;
   doneCards;
+  gitHubUrl: GitHubUrl = new GitHubUrl();
+  isAdmin: boolean;
   
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
@@ -65,10 +67,19 @@ export class OneBoardComponent implements OnInit {
       .then(( myUser ) => {
         this.myUser = myUser;
         console.log( "MY ID", this.myUser.id );
+        console.log( "MY USER OBJECT", this.myUser );
       })
       .catch(( error ) => {
         console.log( error );
       })
+  }
+
+  isBoardAdmin() {
+    this.members.forEach( m => {
+      if(( m.idMember === this.myUser.id ) && ( m.memberType === "admin" )) {
+        return this.isAdmin = true;
+      }
+    });
   }
 
   fetchBoardData() {
@@ -105,11 +116,20 @@ export class OneBoardComponent implements OnInit {
       .then(( cards ) => {
         this.doneCards = cards;
         console.log( "MEMBERS", this.members );
+        return this.isBoardAdmin();
+      })
+      .then(() => {
+        console.log( "IS ADMIN", this.isAdmin );
       })
       .catch(( error ) => {
         console.log( "fetchBoardData ERROR" );
         console.log( error );
       });
+  }
+
+  changeGitHubUrl() {
+    this.board.desc = this.gitHubUrl.url;
+    console.log( "Board description now is: ", this.board.desc );
   }
 
   moveToDoing( cardId, doingListId ) {
@@ -203,4 +223,8 @@ export class OneBoardComponent implements OnInit {
       });
   }
 
+}
+
+export class GitHubUrl {
+  url: string;
 }
