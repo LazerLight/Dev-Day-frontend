@@ -14,55 +14,95 @@
 
 
 <!-- 
+  GITHUB URL
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+-->
+<div *ngIf="isAdmin">
+
+  <form (ngSubmit)="changeGitHubUrl()">
+    <label>Repo's GitHub URL</label>
+    <input [(ngModel)]="gitHubUrl.url" name="GitHubUrl" type="text">
+    <button>Set GitHub URL</button>
+  </form>
+
+</div>
+
+
+<!-- 
   DISPLAY BOARD MEMBERS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
 <h4>Members</h4>
 <ul>
   <li *ngFor="let oneMember of members">
-    <p>{{oneMember.fullName}}</p>
+    <p>{{oneMember.member.fullName}}</p>
+    <p *ngIf="!oneMember.member.avatarUrl/170.png">
+      <img src="http://widefide.com/wp-content/uploads/2012/07/Facebook-Anonymous.jpg" alt="default avatar">
+    </p>
+    <img src="{{oneMember.member.avatarUrl}}/170.png " alt="User Image ">
   </li>
 </ul>
 
+
+<blockquote class="trello-card">
+  <a href="https://trello.com/c/NWOkZXnG/27-build-single-task-page">Trello Card</a>
+</blockquote>
 
 
 <!-- 
   DISPLAY BOARD LISTS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
+<div *ngIf="doingList && backlogList ">
 
-<h4>{{doingList[0].name}}</h4>
+  <h4>{{doingList[0].name}}</h4>
+  <ul>
+    <li *ngFor="let oneCard of (doingCards | filterCards: myUser?.id) ">
+      <blockquote class="trello-card">
+        <a [href]="oneCard.url">{{oneCard.name}}</a>
+      </blockquote>
+
+      <p>{{oneCard.name}}</p>
+      <button (click)="moveToDone( oneCard.id, lists[2].id ) ">Move to DONE</button>
+    </li>
+  </ul>
+
+  <!-- <h4>{{backlogList[0].name}}</h4>
+  <ul>
+    <li *ngFor="let oneCard of backlogCards ">
+      <p>{{oneCard.name}}</p>
+      <button (click)="moveToDoing( oneCard.id, lists[1].id ) " >Move to DOING</button>
+    </li>
+  </ul> -->
+
+</div>
+
+<!-- <h4>{{backlogList[0].name}}</h4>
 <ul>
-  <li *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)">
+  <li *ngFor="let oneCard of backlogCards ">
     <p>{{oneCard.name}}</p>
-    <button (click)="moveToDone( oneCard.id, lists[2].id )">Move to DONE</button>
+    <button (click)="moveToDoing( oneCard.id, lists[1].id ) ">Move to DOING</button>
   </li>
-</ul>
-
-<h4>{{backlogList[0].name}}</h4>
-<ul>
-  <li *ngFor="let oneCard of backlogCards">
-    <p>{{oneCard.name}}</p>
-    <button (click)="moveToDoing( oneCard.id, lists[1].id )">Move to DOING</button>
-  </li>
-</ul>
-
+</ul> -->
 <!-- 
   MODAL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
 
-<button mz-button (click)="bottomSheetModal.open()">Modal</button>
+<button mz-button (click)="bottomSheetModal.open() ">Modal</button>
 
-<mz-modal #bottomSheetModal [fixedFooter]="true" [bottomSheet]="false" [options]="modalOptions">
+<mz-modal #bottomSheetModal [fixedFooter]="true " [bottomSheet]="false " [options]="modalOptions ">
   <mz-modal-header>
     <h4>Modal</h4>
   </mz-modal-header>
   <mz-modal-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </mz-modal-content>
   <mz-modal-footer>
-    <button mz-button [flat]="true" mz-modal-close>Close</button>
+    <button mz-button [flat]="true " mz-modal-close>Close</button>
   </mz-modal-footer>
 </mz-modal>
 
@@ -70,21 +110,21 @@
   INVITATION FORM
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<!-- <div *ngIf="isOwner">  
+<!-- <div *ngIf="isOwner ">  
   
-  <div class="section">
+  <div class="section ">
     
-    <h5 class="light">Username Search</h5>
+    <h5 class="light ">Username Search</h5>
     
-    <div class="row m-valign-wrapper">
-      <form (ngSubmit)="searchUser()" >
-        <mz-input-container class="col s12 m6">
+    <div class="row m-valign-wrapper ">
+      <form (ngSubmit)="searchUser() " >
+        <mz-input-container class="col s12 m6 ">
           <input mz-input
-          [label]="'User Name'"
-          [autocomplete]="autocomplete"
-          id="autocomplete-input"
-          type="text"
-          name="username" [(ngModel)]="username">
+          [label]=" 'User Name' "
+          [autocomplete]="autocomplete "
+          id="autocomplete-input "
+          type="text "
+          name="username " [(ngModel)]="username ">
         </mz-input-container>
         <button>Search</button>
       </form>
@@ -94,10 +134,10 @@
   
 </div> -->
 
-<!-- <div *ngIf="foundUser">
+<!-- <div *ngIf="foundUser ">
   {{foundUser.username}}
   {{foundUser.email}}
-  <button (click)="addUser()">Add</button>
+  <button (click)="addUser() ">Add</button>
 </div> -->
 
 <hr>
@@ -108,7 +148,7 @@
   CURRENT TASKS AT HAND
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<h3>CURRENTS TASKS AT HAND</h3>
+<!-- <h3>CURRENTS TASKS AT HAND</h3>
 
 <ul>
   <li></li>
@@ -116,7 +156,7 @@
   <li></li>
 </ul>
 
-<hr>
+<hr> -->
 
 
 
@@ -124,9 +164,8 @@
   STATS ABOUT THE PROJECT
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<h3>STATS ABOUT THE PROJECT</h3>
+<!-- <h3>STATS ABOUT THE PROJECT</h3>
 <!-- Make it a separate component? -->
-
 
 
 <!-- 
@@ -134,22 +173,24 @@
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
 
-<div class="github-container">
-  <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback" [popout]="true">
+<div class="github-container ">
+  <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
+        " [popout]="true ">
 
-    <mz-collapsible-item [active]="false">
+    <mz-collapsible-item [active]="false ">
       <mz-collapsible-item-header>
         <h4>Open Github Pull Requests</h4>
       </mz-collapsible-item-header>
       <mz-collapsible-item-body>
 
         <mz-collection>
-          <mz-collection-item *ngFor="let onePullReq of pullReqJSON" [avatar]="true">
-            <img mz-avatar [src]="onePullReq.user.avatar_url">
-            <div class="title">"{{onePullReq.title}}"</div>
+          <mz-collection-item *ngFor="let onePullReq of pullReqJSON " [avatar]="true ">
+            <img mz-avatar [src]="onePullReq.user.avatar_url ">
+            <div class="title ">"{{onePullReq.title}} "</div>
 
-            <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback" [popout]="true">
-              <mz-collapsible-item [active]="false">
+            <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
+        " [popout]="true ">
+              <mz-collapsible-item [active]="false ">
                 <mz-collapsible-item-header>
                   <b>Click Here for toggle pull details</b>
                 </mz-collapsible-item-header>
@@ -160,7 +201,7 @@
                   <br>
                   <b>Requested Reviewers:</b> {{onePullReq.requested_reviewers}}
                   <br>
-                  <a [href]="onePullReq.html_url" target="_blank">Pull Request Link</a>
+                  <a [href]="onePullReq.html_url " target="_blank ">Pull Request Link</a>
                 </mz-collapsible-item-body>
               </mz-collapsible-item>
             </mz-collapsible>
@@ -178,7 +219,7 @@
 
 
 
-    <mz-collapsible-item [active]="false">
+    <mz-collapsible-item [active]="false ">
       <mz-collapsible-item-header>
         <h4>Github Repo Push Events</h4>
       </mz-collapsible-item-header>
@@ -186,9 +227,9 @@
 
 
         <mz-collection>
-          <mz-collection-item *ngFor="let oneEvent of eventsJSON" [avatar]="true">
-            <img mz-avatar [src]="oneEvent.actor.avatar_url">
-            <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
+          <mz-collection-item *ngFor="let oneEvent of eventsJSON " [avatar]="true ">
+            <img mz-avatar [src]="oneEvent.actor.avatar_url ">
+            <div class="title ">"{{oneEvent.payload.commits[0].message}} "</div>
             <div>
               <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
           </mz-collection-item>
@@ -200,19 +241,20 @@
 
 
 
-    <mz-collapsible-item [active]="false">
+    <mz-collapsible-item [active]="false ">
       <mz-collapsible-item-header>
         <h4>Latest Open Github Repo Issues</h4>
       </mz-collapsible-item-header>
       <mz-collapsible-item-body>
         <mz-collection>
 
-          <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
-            <img mz-avatar [src]="oneIssue.user.avatar_url">
-            <div class="title">"{{oneIssue.title}}"</div>
+          <mz-collection-item *ngFor="let oneIssue of issuesJSON " [avatar]="true ">
+            <img mz-avatar [src]="oneIssue.user.avatar_url ">
+            <div class="title ">"{{oneIssue.title}} "</div>
 
-            <mz-collapsible [mode]="'expandable'" [onClose]="closeFunctionCallback" [onOpen]="openFunctionCallback" [popout]="true">
-              <mz-collapsible-item [active]="false">
+            <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
+        " [popout]="true ">
+              <mz-collapsible-item [active]="false ">
                 <mz-collapsible-item-header>
                   <b>Click Here for toggle issue details</b>
                 </mz-collapsible-item-header>
@@ -220,7 +262,7 @@
                   {{oneIssue.body}}
                   <br>
                   <b>Total Comments: </b>
-                  <a [href]="oneIssue.html_url" target="_blank">{{oneIssue.comments}}</a>
+                  <a [href]="oneIssue.html_url " target="_blank ">{{oneIssue.comments}}</a>
 
                 </mz-collapsible-item-body>
               </mz-collapsible-item>
@@ -246,14 +288,14 @@
 
 
 
-<!-- <div class="git-commit-container">
+<!-- <div class="git-commit-container ">
   <mz-collection>
     <mz-collection-header>
       <h4>Github Repo Push Events</h4>
     </mz-collection-header>
-    <mz-collection-item *ngFor="let oneEvent of eventsJSON" [avatar]="true">
-      <img mz-avatar [src]="oneEvent.actor.avatar_url">
-      <div class="title">"{{oneEvent.payload.commits[0].message}}"</div>
+    <mz-collection-item *ngFor="let oneEvent of eventsJSON " [avatar]="true ">
+      <img mz-avatar [src]="oneEvent.actor.avatar_url ">
+      <div class="title ">"{{oneEvent.payload.commits[0].message}} "</div>
       <div>
         <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
       </mz-collection-item>
@@ -261,21 +303,21 @@
   </div> -->
 
 
-<!--  <div class="git-commit-container">
+<!--  <div class="git-commit-container ">
     <mz-collection>
       <mz-collection-header>
         <h4>Latest Open Github Repo Issues</h4>
       </mz-collection-header>
-      <mz-collection-item *ngFor="let oneIssue of issuesJSON" [avatar]="true">
-        <img mz-avatar [src]="oneIssue.user.avatar_url">
-        <div class="title">"{{oneIssue.title}}"</div>
+      <mz-collection-item *ngFor="let oneIssue of issuesJSON " [avatar]="true ">
+        <img mz-avatar [src]="oneIssue.user.avatar_url ">
+        <div class="title ">"{{oneIssue.title}} "</div>
         
         <mz-collapsible
-        [mode]="'expandable'"
-        [onClose]="closeFunctionCallback"
-        [onOpen]="openFunctionCallback"
-        [popout]="true">
-        <mz-collapsible-item [active]="false">
+        [mode]=" 'expandable' "
+        [onClose]="closeFunctionCallback "
+        [onOpen]="openFunctionCallback "
+        [popout]="true ">
+        <mz-collapsible-item [active]="false ">
           <mz-collapsible-item-header>
             <b>Click Here for toggle issue details</b>
           </mz-collapsible-item-header>
@@ -283,7 +325,7 @@
             {{oneIssue.body}}
             <br>
             <b>Total Comments: </b>
-            <a [href]="oneIssue.comments_url" target="_blank">{{oneIssue.comments}}</a>
+            <a [href]="oneIssue.comments_url " target="_blank ">{{oneIssue.comments}}</a>
 
           </mz-collapsible-item-body>
         </mz-collapsible-item>
@@ -300,21 +342,21 @@
 </div>-->
 
 
-<!-- <div class="git-pullReq-container">
+<!-- <div class="git-pullReq-container ">
   <mz-collection>
     <mz-collection-header>
       <h4>Open Github Pull Requests</h4>
     </mz-collection-header>
-    <mz-collection-item *ngFor="let onePullReq of pullReqJSON" [avatar]="true">
-      <img mz-avatar [src]="onePullReq.user.avatar_url">
-      <div class="title">"{{onePullReq.title}}"</div>
+    <mz-collection-item *ngFor="let onePullReq of pullReqJSON " [avatar]="true ">
+      <img mz-avatar [src]="onePullReq.user.avatar_url ">
+      <div class="title ">"{{onePullReq.title}} "</div>
       
       <mz-collapsible
-      [mode]="'expandable'"
-      [onClose]="closeFunctionCallback"
-      [onOpen]="openFunctionCallback"
-      [popout]="true">
-      <mz-collapsible-item [active]="false">
+      [mode]=" 'expandable' "
+      [onClose]="closeFunctionCallback "
+      [onOpen]="openFunctionCallback "
+      [popout]="true ">
+      <mz-collapsible-item [active]="false ">
         <mz-collapsible-item-header>
           <b>Click Here for toggle pull details</b>
         </mz-collapsible-item-header>
@@ -325,7 +367,7 @@
           <br> 
           <b>Requested Reviewers:</b> {{onePullReq.requested_reviewers}}
           <br>
-          <a [href]="onePullReq.html_url" target="_blank">Pull Request Link</a>    
+          <a [href]="onePullReq.html_url " target="_blank ">Pull Request Link</a>    
         </mz-collapsible-item-body>
       </mz-collapsible-item>
     </mz-collapsible>

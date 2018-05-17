@@ -13,7 +13,6 @@ export class FilterCardsPipe implements PipeTransform {
     const filteredCards: any[] = [];
 
     value.forEach(( oneCard ) => {
-      console.log(oneCard.idMembers, currentUserId)
       if( oneCard.idMembers.includes( currentUserId )) {
         filteredCards.push( oneCard );
       }
