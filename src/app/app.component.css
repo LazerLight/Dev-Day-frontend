@@ -1,0 +1,16 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    text-align: center;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+}
+
+header img {
+    height: 80%;
+}

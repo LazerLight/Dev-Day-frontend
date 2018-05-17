@@ -44,7 +44,6 @@ export class ProjectsPageComponent implements OnInit {
       })
       .then(( myUser ) => {
         this.myUser = myUser;
-        console.log( this.myUser );
       })
       .catch(( error ) => {
         console.log( "TRELLO ERROR" );

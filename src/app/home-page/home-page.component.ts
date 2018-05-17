@@ -13,7 +13,7 @@ export class HomePageComponent implements OnInit {
 
   constructor() {
     this.devDayLogo = "assets/images/verticalLogoDark.png";
-    this.githubLogo = "assets/images/github-logo.png";
+    this.githubLogo = "assets/images/github-logo-white.png";
     this.githubUrl = `${environment.backUrl}/api/github/login`;
   }
 
