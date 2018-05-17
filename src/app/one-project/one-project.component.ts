@@ -1,3 +1,18 @@
+//Don't use
+
+//Don't use
+
+//Don't use
+
+//Don't use
+
+//Don't use
+
+//Don't use
+
+//Don't use
+
+
 import { Component, OnInit } from "@angular/core";
 import { Project, ProjectService, addUserInfo } from "../api/project.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -5,7 +20,8 @@ import { User, UserService } from "../api/user.service";
 import {
   GithubApiService,
   githubEventsApiRes,
-  githubIssuesApiRes
+  githubIssuesApiRes,
+
 } from "../api/github-api.service";
 import { TrelloService } from "../api/trello.service";
 
@@ -52,7 +68,6 @@ export class OneProjectComponent implements OnInit {
 
     this.getRepoEventsFeed();
     this.getRepoIssuesFeed();
-    this.getRepoPullReqFeed()
   }
 
   fetchProjectData() {
@@ -103,19 +118,6 @@ export class OneProjectComponent implements OnInit {
       });
   }
 
-  getRepoPullReqFeed() {
-    this.gitAPI
-      .githubPullReqFeed("jaredhanson", "passport")
-      .then((result: any) => {
-        
-        this.issuesJSON = result;
-
-        console.log(`getRepoPullReqFeed results: this.apiInfo`,result)
-      })
-      .catch(err => {
-        console.log(`Error getting github feed: ${err}`);
-      });
-  }
 
   fetchUserData() {
     // Get the info of the connected user

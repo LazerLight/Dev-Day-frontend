@@ -7,6 +7,7 @@ import {
   githubIssuesApiRes
 } from "../api/github-api.service";
 import { TrelloService } from "../api/trello.service";
+import { ProjectService } from "../api/project.service";
 
 @Component({
   selector: 'app-one-board',
@@ -30,8 +31,8 @@ export class OneBoardComponent implements OnInit {
   
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
+  pullReqJSON: Array<githubIssuesApiRes> = [];
   
-  username: string;
 
   autocomplete: { data: { [key: string]: string } };
   users: User[] = [];
@@ -40,7 +41,7 @@ export class OneBoardComponent implements OnInit {
 
   constructor(
     private reqThing: ActivatedRoute,
-    public gitAPI: GithubApiService,
+    private gitAPI: GithubApiService,
     private resThing: Router,
     private userThing: UserService,
     private trelloThing: TrelloService
@@ -48,15 +49,15 @@ export class OneBoardComponent implements OnInit {
 
   ngOnInit() {
     // Get the URL parameters for this route
-    this.reqThing.paramMap.subscribe(myParams => {
+    this.reqThing.paramMap.subscribe( myParams => {
       this.boardId = myParams.get( "boardId" );
       this.getMyUser();
       this.fetchBoardData();
     });
-
-    this.getRepoEventsFeed();
-    this.getRepoIssuesFeed();
+    // this.fetchUserData()
+    
   }
+
 
   getMyUser() {
     this.trelloThing.getMyUser()
@@ -78,14 +79,14 @@ export class OneBoardComponent implements OnInit {
       })
       .then(( members ) => {
         this.members = members;
-        console.log( "MEMBERS HERE" );
-        console.log( this.members );
+        // console.log( "MEMBERS HERE" );
+        // console.log( this.members );
         return this.trelloThing.getLists( this.boardId )
       })
       .then(( lists ) => {
         this.lists = lists;
-        console.log( "LISTS" );
-        console.log( this.lists );
+        // console.log( "LISTS" );
+        // console.log( this.lists );
 
         this.backlogList = this.lists.filter( l => l.name === "BACKLOG" )
         this.doingList = this.lists.filter( l => l.name === "DOING" )
@@ -142,7 +143,6 @@ export class OneBoardComponent implements OnInit {
   getRepoEventsFeed() {
     this.gitAPI
       .githubEventsFeed("LPsola", "Project03-frontend")
-      // this.gitAPI.githubEventsFeed("jaredhanson","passport")
       .then((result: any) => {
         this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result);
       })
@@ -157,28 +157,40 @@ export class OneBoardComponent implements OnInit {
       .then((result: any) => {
         this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result);
 
-        // console.log(`githubIssuesFeed results: this.apiInfo`,result)
       })
       .catch(err => {
         console.log(`Error getting github feed: ${err}`);
       });
   }
 
-  fetchUserData() {
-    // Get the info of the connected user
-    this.userThing.check()
-      .then( result => {
-        console.log( "USER" );
-        console.log( result );
-        this.currentUserId = result.userInfo._id;
-        console.log( "USER ID" );
-        console.log( this.currentUserId );
+  getRepoPullReqFeed() {
+    this.gitAPI
+      .githubPullReqFeed("jaredhanson", "passport")
+      .then((result: any) => {
+        
+        this.pullReqJSON = result;
+
       })
-      .catch(( err ) => {
-        console.log( "fetchUserData ERROR" );
-        console.log( err );
-      })
+      .catch(err => {
+        console.log(`Error getting github feed: ${err}`);
+      });
   }
+  
+  // fetchUserData() {
+  //   // Get the info of the connected user
+  //   this.userThing.check()
+  //     .then( result => {
+  //       console.log( "USER" );
+  //       console.log( result );
+  //       this.currentUserId = result.userInfo._id;
+  //       console.log( "USER ID" );
+  //       console.log( this.currentUserId );
+  //     })
+  //     .catch(( err ) => {
+  //       console.log( "fetchUserData ERROR" );
+  //       console.log( err );
+  //     })
+  // }
 
   setAutocomplete(userList) {
     this.autocomplete = {
@@ -196,4 +208,5 @@ export class OneBoardComponent implements OnInit {
         console.log(err);
       });
   }
+
 }

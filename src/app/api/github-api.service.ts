@@ -66,8 +66,9 @@ export class githubPullsApiRes {
   title: String;
   body: String;
   user: Array<any>;
-  created: String;
-  urlToRequest: String;
+  created_at: String;
+  updated_at: String;
   assignees: Array<any>;
   requested_reviewers: Array<any>;
+  html_url: String;
 }

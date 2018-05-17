@@ -48,9 +48,9 @@ export class TrelloService {
     });
   }
 
-  getLists( boardShortLink: string ) {
+  getLists( boardId: string ) {
     return new Promise(( success, error ) => {
-      Trello.get( `boards/${ boardShortLink }/lists`, success, error );
+      Trello.get( `boards/${ boardId }/lists`, success, error );
     });
   }
 
