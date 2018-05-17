@@ -52,7 +52,7 @@
   <ul>
     <li *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)">
       <p>{{oneCard.name}}</p>
-      <button (click)="moveToDone( oneCard.id, lists[2].id )" >Move to DONE</button>
+      <button (click)="moveToDone( oneCard.id, lists[2].id )">Move to DONE</button>
     </li>
   </ul>
 
@@ -66,6 +66,13 @@
 
 </div>
 
+<!-- <h4>{{backlogList[0].name}}</h4>
+<ul>
+  <li *ngFor="let oneCard of backlogCards">
+    <p>{{oneCard.name}}</p>
+    <button (click)="moveToDoing( oneCard.id, lists[1].id )">Move to DOING</button>
+  </li>
+</ul> -->
 <!-- 
   MODAL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -78,7 +85,10 @@
     <h4>Modal</h4>
   </mz-modal-header>
   <mz-modal-content>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </mz-modal-content>
   <mz-modal-footer>
     <button mz-button [flat]="true" mz-modal-close>Close</button>
@@ -127,7 +137,7 @@
   CURRENT TASKS AT HAND
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<h3>CURRENTS TASKS AT HAND</h3>
+<!-- <h3>CURRENTS TASKS AT HAND</h3>
 
 <ul>
   <li></li>
@@ -135,7 +145,7 @@
   <li></li>
 </ul>
 
-<hr>
+<hr> -->
 
 
 
@@ -143,9 +153,9 @@
   STATS ABOUT THE PROJECT
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<h3>STATS ABOUT THE PROJECT</h3>
+<!-- <h3>STATS ABOUT THE PROJECT</h3>
 <!-- Make it a separate component? -->
-
+-->
 
 
 <!-- 
