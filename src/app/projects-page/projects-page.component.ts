@@ -12,7 +12,7 @@ import { TrelloService } from '../api/trello.service';
 })
 export class ProjectsPageComponent implements OnInit {
 
-
+  myUser;
   boards: any = [];
   newProjectInfo: newProjectInfo = new newProjectInfo();
   currentUserId: string;
@@ -33,14 +33,18 @@ export class ProjectsPageComponent implements OnInit {
 
   authUser() {
     this.trelloService.authUser()
-      .then(( success ) => {
+      .then(() => {
         console.log( "authUser SUCCESS" );
-        console.log( success );
         return this.trelloService.getBoards();
       })
       .then(( boards ) => {
         this.boards = boards;
         this.setAutocomplete(this.boards);
+        return this.trelloService.getMyUser();
+      })
+      .then(( myUser ) => {
+        this.myUser = myUser;
+        console.log( this.myUser );
       })
       .catch(( error ) => {
         console.log( "TRELLO ERROR" );
