@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ProjectService, Project } from "../api/project.service";
 import { UserService, User } from "../api/user.service";
 import { List, Card, CardService } from "../api/card.service";
+import { TrelloService } from "../api/trello.service";
 
 declare var cf: any;
 declare var webkitSpeechRecognition: any;
@@ -13,56 +14,39 @@ declare var webkitSpeechRecognition: any;
   styleUrls: ["./bot-form.component.css"]
 })
 export class BotFormComponent implements OnInit {
-  project: Project;
-  lists: List[] = [];
-  cards: Card[] = [];
-  projectId: string;
-  listId: string;
-  currentUserId: string;
-  formDataList: string;
-  formDataCard: string[] = [];
-  i: number = 0;
-  testArray: string[] = [];
-  taskDurationTotal: number = 0;
-  lastTaskDuration: number = 0;
-  testCardsArray: Object[] = [];
-  testCardsArraySecurity: string[] = [];
-  spliceIndexFinder: string[] = [];
-  testCardsArraySpliceIndex: number;
+  board; // Allows us to retrieve board for one project with getBoard function
+  boardId: string; // getBoard needs boardId as parameter
+  trelloLists; // Allows us to retrieve lists for one board with getLists function
+  backlogCards; // Get cards in list named backlog (not case sensitive)
+  doingCards; // Get cards in list named doing (not case sensitive)
+  trelloUser; // Gets logged in trello user
+  trelloUserId; // Gets his id
+  trelloDoingId: string; // Id of the trello doing list
+
+  // Variables to show backlog cards with the bot and select them
+  formDataCard: string[] = []; // records in an array all live responses in the bot (in flowCallBack)
+  taskDurationTotal: number = 0; // records the sum of all cards' duration
+  lastTaskDuration: number = 0; // records the duration of the last chosen card
+  testCardsArray: Object[] = []; // records all the cards in the backlog to suggest them to user
+  testCardsArraySecurity: string[] = []; // records the name of the cards ==> must correspond to what's in testCardsArray to keep track of the cards in it and not suggest the same ones again
+  spliceIndexFinder: string[] = []; // records the name of the cards ==> must correspond to what's in testCardsArray to get splice index
+  testCardsArraySpliceIndex: number; // splice index from spliceIndexFinder.indexOf(oneCard.name)
 
   constructor(
     private reqThing: ActivatedRoute,
     private resThing: Router,
     public apiProjects: ProjectService,
     public apiUsers: UserService,
-    public apiCards: CardService
+    public apiCards: CardService,
+    public apiTrello: TrelloService
   ) {}
 
   ngOnInit() {
     this.reqThing.paramMap.subscribe(myParams => {
-      this.projectId = myParams.get("projectId");
+      this.boardId = myParams.get("boardId");
       this.fetchProjectData();
       this.fetchUserData();
     });
-
-    // test with projects
-
-    // this.reqThing.paramMap.subscribe(myParams => {
-    //   this.projectId = myParams.get("projectId");
-    //   console.log(this.projectId);
-    //   this.apiProjects
-    //     .getProjects()
-    //     .then((projectsList: Project[]) => {
-    //       this.projects = projectsList;
-    //       console.log(projectsList[0].name);
-    //       this.fetchUserData();
-    //       setTimeout(() => this.botSetup(), 0);
-    //     })
-    //     .catch(err => {
-    //       console.log("getProjects ERROR");
-    //       console.log(err);
-    //     });
-    // });
   }
 
   botSetup() {
@@ -183,6 +167,8 @@ export class BotFormComponent implements OnInit {
       let liveAnswer = botForm.getFormData(true);
       let keys = Object.keys(liveAnswer);
       let liveAnswerKey = keys[keys.length - 1];
+
+      console.log("DOING CARDS: ", this.doingCards);
       console.log("whole answer:", liveAnswer);
       console.log("key:", liveAnswerKey);
       console.log("property:", liveAnswer[liveAnswerKey]);
@@ -194,48 +180,76 @@ export class BotFormComponent implements OnInit {
       console.log("SPLICE INDEX FINDER:", this.spliceIndexFinder);
       console.log(this.formDataCard[this.formDataCard.length - 1]);
       if (this.formDataCard[this.formDataCard.length - 1] === "end-convo") {
-        this.resThing.navigateByUrl(`/project/${this.projectId}`);
+        this.resThing.navigateByUrl(`/board/${this.boardId}`);
       }
+      /// CHECK DOING ARRAY TEST
+
+      //////
       if (this.taskDurationTotal <= 8) {
         let spliceIndex;
-        this.cards.forEach(oneCard => {
+        this.backlogCards.forEach(oneCard => {
           this.formDataCard.forEach(oneDataCard => {
-            let testTag = {};
-            if (
-              oneDataCard === oneCard.name &&
-              this.formDataCard.indexOf(oneDataCard) ===
-                this.formDataCard.length - 1
-            ) {
-              console.log("data vard vs. card loop", oneDataCard, oneCard.name);
-              spliceIndex = this.spliceIndexFinder.indexOf(oneCard.name);
-              if (this.taskDurationTotal + oneCard.taskDuration <= 8) {
-                this.taskDurationTotal += oneCard.taskDuration;
-                this.lastTaskDuration = oneCard.taskDuration;
+            oneCard.labels.forEach(oneLabel => {
+              console.log(
+                "ONE CARD STRUCTURE TO GET LABELS",
+                typeof oneLabel.name
+              );
+              let cardDuration = Number(oneLabel.name);
+              let testTag = {};
+              if (
+                oneDataCard === oneCard.name &&
+                this.formDataCard.indexOf(oneDataCard) ===
+                  this.formDataCard.length - 1
+              ) {
                 console.log(
-                  "total task duration in loop",
-                  this.taskDurationTotal
+                  "data vard vs. card loop",
+                  oneDataCard,
+                  oneCard.name
                 );
+                spliceIndex = this.spliceIndexFinder.indexOf(oneCard.name);
+                if (this.taskDurationTotal + cardDuration <= 8) {
+                  this.taskDurationTotal += cardDuration;
+                  this.lastTaskDuration = cardDuration;
+                  // move to doing
+                  this.apiTrello
+                    .moveToDoing(
+                      oneCard.id,
+                      this.trelloDoingId,
+                      this.trelloUserId
+                    )
+                    .then(() => {
+                      console.log("Card moved to doing!");
+                    })
+                    .catch(err => {
+                      console.log("moveToDoing ERROR");
+                      console.log(err);
+                    });
+                  console.log(
+                    "total task duration in loop",
+                    this.taskDurationTotal
+                  );
+                } else {
+                  alert(
+                    `Looks like you already have 8 hours of work lined up for your day! Should be enough, plus you have to save some for tomorrow 😇`
+                  );
+                  this.resThing.navigateByUrl(`/board/${this.boardId}`);
+                }
+                console.log(oneDataCard, oneCard.name);
+                return;
+              } else if (!this.testCardsArraySecurity.includes(oneCard.name)) {
+                {
+                  (testTag["tag"] = "option"),
+                    (testTag["cf-label"] = oneCard.name),
+                    (testTag["value"] = oneCard.name);
+                }
+                this.testCardsArraySecurity.push(oneCard.name);
+                this.testCardsArray.push(testTag);
+                this.spliceIndexFinder.push(oneCard.name);
+                console.log("testcardsarray: ", this.testCardsArray);
               } else {
-                alert(
-                  `Looks like you already have 8 hours of work lined up for your day! Should be enough, plus you have to save some for tomorrow 😇`
-                );
-                this.resThing.navigateByUrl(`/project/${this.projectId}`);
+                return;
               }
-              console.log(oneDataCard, oneCard.name);
-              return;
-            } else if (!this.testCardsArraySecurity.includes(oneCard.name)) {
-              {
-                (testTag["tag"] = "option"),
-                  (testTag["cf-label"] = oneCard.name),
-                  (testTag["value"] = oneCard.name);
-              }
-              this.testCardsArraySecurity.push(oneCard.name);
-              this.testCardsArray.push(testTag);
-              this.spliceIndexFinder.push(oneCard.name);
-              console.log("testcardsarray: ", this.testCardsArray);
-            } else {
-              return;
-            }
+            });
           });
         });
         console.log("total task duration post loop", this.taskDurationTotal);
@@ -270,7 +284,7 @@ export class BotFormComponent implements OnInit {
           alert(
             `Looks like you are out of tasks for the day! Fill out your Trello board and come back when you're ready`
           );
-          this.resThing.navigateByUrl(`/project/${this.projectId}`);
+          this.resThing.navigateByUrl(`/board/${this.boardId}`);
         }
         if (this.formDataCard.length === 1) {
           botForm.addTags([
@@ -320,7 +334,7 @@ export class BotFormComponent implements OnInit {
         alert(
           `Looks like you already have 8 hours of work lined up for your day! Should be enough, plus you have to save some for tomorrow 😇`
         );
-        this.resThing.navigateByUrl(`/project/${this.projectId}`);
+        this.resThing.navigateByUrl(`/board/${this.boardId}`);
       }
 
       console.log(
@@ -363,43 +377,39 @@ export class BotFormComponent implements OnInit {
         //
         console.log("Formdata:", formData);
         console.log("Formdata, serialized:", formDataSerialized);
-        this.formDataList = formDataSerialized.opinion[0];
-
-        console.log("da fuq?");
-        this.resThing.navigateByUrl(`/project/${this.projectId}`);
+        this.resThing.navigateByUrl(`/board/${this.boardId}`);
       }
     });
   }
 
   fetchProjectData() {
     let backlogId;
-    this.apiProjects
-      .getProject(this.projectId)
-      .then((currentProject: Project) => {
-        this.project = currentProject;
-        console.log("project name: " + this.project.name);
+    this.apiTrello
+      .getBoard(this.boardId)
+      .then((currentBoard: string) => {
+        this.board = currentBoard;
+        console.log("project name: " + this.board.name);
         // fetch list data
-        this.apiCards.getLists(this.projectId).then((projectLists: List[]) => {
-          this.lists = projectLists;
-          projectLists.forEach(oneList => {
+        this.apiTrello.getLists(this.boardId).then(trelloLists => {
+          this.trelloLists = trelloLists;
+          this.trelloLists.forEach(oneList => {
+            console.log("ONE LIST: ", oneList);
             if (oneList.name.toLowerCase() === "backlog") {
-              backlogId = oneList._id;
-            } else {
-              alert(
-                `Looks like you don't have a backlog list in Trello yet. Your PM mustn't be doing his job properly... Please have him create one and come back when you're ready 😁`
-              );
-              this.resThing.navigateByUrl(`/project/${this.projectId}`);
+              backlogId = oneList.id;
+            } else if (oneList.name.toLowerCase() === "doing") {
+              this.trelloDoingId = oneList.id;
             }
           });
           console.log(typeof backlogId);
           // fetch cards data
-          this.apiCards
-            .getCards(this.projectId, backlogId)
-            .then((cardsList: Card[]) => {
-              this.cards = cardsList;
-              setTimeout(() => this.botSetup(), 0);
-              console.log("blahblah" + this.formDataCard);
-            });
+          this.apiTrello.getCards(this.trelloDoingId).then(cardsList => {
+            this.doingCards = cardsList;
+          });
+          this.apiTrello.getCards(backlogId).then(cardsList => {
+            this.backlogCards = cardsList;
+            setTimeout(() => this.botSetup(), 0);
+            console.log("blahblah" + this.formDataCard);
+          });
         });
       })
       .catch(err => {
@@ -408,143 +418,12 @@ export class BotFormComponent implements OnInit {
       });
   }
 
-  // fetchProjectData() {
-  //   let backlogId;
-  //   this.apiProjects
-  //     .getProject(this.projectId)
-  //     .then((currentProject: Project) => {
-  //       this.project = currentProject;
-  //       console.log("project name: " + this.project.name);
-  //       // fetch list data
-  //       this.apiCards.getLists(this.projectId).then((projectLists: List[]) => {
-  //         this.lists = projectLists;
-  //         projectLists.forEach(oneList => {
-  //           if (oneList.name.toLowerCase() === "backlog") {
-  //             backlogId = oneList._id;
-  //           } else {
-  //             alert(
-  //               `Looks like you don't have a backlog list in Trello yet. Your PM mustn't be doing his job properly... Please have him create one and come back when you're ready 😁`
-  //             );
-  //             this.resThing.navigateByUrl(`/project/${this.projectId}`);
-  //           }
-  //         });
-  //         console.log(this.lists);
-  //         console.log(backlogId);
-  //         setTimeout(() => this.botSetup(), 0);
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log("fetchProjectData ERROR");
-  //       console.log(err);
-  //     });
-  // }
-
   fetchUserData() {
     // Get the info of the connected user
-    this.apiUsers.check().then(result => {
-      this.currentUserId = result.userInfo._id;
+    this.apiTrello.getMyUser().then(result => {
+      this.trelloUser = result;
+      this.trelloUserId = this.trelloUser.id;
       console.log("userData success");
     });
   }
 }
-// to get elements create an object like we did in class and in ng oninit fill up that object, then feed database upon submit.
-
-// // In case we want to remove spoken voice and keep mic input
-// var dispatcher = new cf.EventDispatcher(),
-//   synth = null,
-//   recognition = null,
-//   msg = null,
-//   SpeechRecognition = null;
-
-// try {
-//   SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-// } catch (e) {
-//   console.log(
-//     "Example support range: https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility"
-//   );
-// }
-
-// // here we use https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
-// // you can use what ever API you want, ex.: Google Cloud Speech API -> https://cloud.google.com/speech/
-
-// if (SpeechRecognition) {
-//   // here we create our input
-//   var microphoneInput = {
-//     // behaviors needs to follow the cf.IUserInput interface, they will be checked
-//     init: function() {
-//       console.log("voice: init method called from mic integration");
-//     },
-//     // set awaiting callback to false, as we will NOT await the speak in this example
-//     awaitingCallback: false,
-//     cancelInput: function() {
-//       console.log("voice: CANCEL");
-//       finalTranscript = null;
-//       if (recognition) {
-//         recognition.onend = null;
-//         recognition.onerror = null;
-//         recognition.stop();
-//       }
-//     },
-//     input: function(resolve, reject, mediaStream) {
-//       console.log("voice: INPUT");
-//       // input is called when user is interacting with the CF input button (UserVoiceInput)
-
-//       // connect to Speech API (ex. Google Cloud Speech), Watson (https://github.com/watson-developer-cloud/speech-javascript-sdk) or use Web Speech API (like below), resolve with the text returned..
-//       // using Promise pattern -> https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
-//       // if API fails use reject(result.toString())
-//       // if API succedes use resolve(result.toString())
-
-//       if (recognition) recognition.stop();
-
-//       (recognition = new SpeechRecognition()), (finalTranscript = "");
-
-//       recognition.continuous = false; // react only on single input
-//       recognition.interimResults = false; // we don't care about interim, only final.
-
-//       // recognition.onstart = function() {}
-//       recognition.onresult = function(event) {
-//         // var interimTranscript = "";
-//         for (var i = event.resultIndex; i < event.results.length; ++i) {
-//           if (event.results[i].isFinal) {
-//             finalTranscript += event.results[i][0].transcript;
-//           }
-//         }
-//       };
-
-//       recognition.onerror = function(event) {
-//         reject(event.error);
-//       };
-
-//       recognition.onend = function(event) {
-//         if (finalTranscript && finalTranscript !== "") {
-//           resolve(finalTranscript);
-//         }
-//       };
-
-//       recognition.start();
-//     }
-//   };
-// }
-// //
-
-// [
-//   {
-//     // select group
-//     "tag": "select",
-//     "name": "country",
-//     "cf-questions": "First tag value: {first-tag}&& + follow-up",
-//     "cf-input-placeholder": "Some copy",
-//     "multiple": false,
-//     "children":[
-//       {
-//         "tag": "option",
-//         "cf-label": "USA",
-//         "value": "usa"
-//       },
-//       {
-//         "tag": "option",
-//         "cf-label": "UK",
-//         "value": "uk"
-//       }
-//     ]
-//   }]
