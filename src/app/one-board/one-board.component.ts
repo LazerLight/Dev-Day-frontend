@@ -8,6 +8,7 @@ import {
 } from "../api/github-api.service";
 import { TrelloService } from "../api/trello.service";
 import { ProjectService } from "../api/project.service";
+declare var TrelloCards: any;
 
 @Component({
   selector: "app-one-board",
@@ -104,6 +105,14 @@ export class OneBoardComponent implements OnInit {
           typeof this.doingCards[0].idMembers[0]
         );
         console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
+        setTimeout(
+          () =>
+            TrelloCards.load(document, {
+              compact: false,
+              allAnchors: false
+            }),
+          0
+        );
         return this.trelloThing.getCards(this.backlogList[0].id);
       })
       .then(cards => {
