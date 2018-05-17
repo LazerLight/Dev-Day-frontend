@@ -47,3 +47,7 @@ footer{
 .bot-form {
   visibility: hidden;
 }
+
+.page-footer {
+  clear: both;
+}

@@ -1,18 +1,24 @@
+<!-- <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav> -->
+  
 <div class="home-body">
     <div class="brand-container">
         <img [src]="devDayLogo">
-        <h1 class="typed">because every day is D-Day</h1>
+        <h1 class="typed">Because every day is D-Day</h1>
     </div>
 
-    <div class="login-container">
-        <a [href]="githubUrl">
-            <div>
-                <img [src]="githubLogo">
-            </div>
-            <div>
-                <h3>Log In / Sign Up with GitHub!</h3>
-            </div>
-        </a>
-        <!-- <app-login></app-login> -->
-    </div>
+    <a [href]="githubUrl">
+        <div class="github-login">
+            <div><img [src]="githubLogo"></div>
+            <div><p>Log In / Sign Up with GitHub!</p></div>
+        </div>
+    </a>
 </div>
