@@ -56,6 +56,8 @@ export class OneBoardComponent implements OnInit {
       this.getMyUser();
       this.fetchBoardData();
     });
+
+    this.changeGitHubUrl() 
   }
 
   getMyUser() {
@@ -149,12 +151,12 @@ export class OneBoardComponent implements OnInit {
   }
 
   changeGitHubUrl() {
-    this.board.desc = [{'repoName': this.gitHubUrl.repoName}, {'repoOwner': this.gitHubUrl.repoOwner}]
-    this.gitHubUrl.repoName = "Project03-frontend",
-    this.gitHubUrl.repoOwner = "LPsola",
-    this.getRepoEventsFeed(this.gitHubUrl.repoName, this.gitHubUrl.repoOwner)
-    this.getRepoIssuesFeed(this.gitHubUrl.repoName, this.gitHubUrl.repoOwner)
-    this.getRepoPullReqFeed(this.gitHubUrl.repoName, this.gitHubUrl.repoOwner)
+    // this.board.desc = [{'repoName': this.gitHubUrl.repoName}, {'repoOwner': this.gitHubUrl.repoOwner}]
+    let repoName = "Project03-frontend";
+    let repoOwner = "LPsola";
+    this.getRepoEventsFeed(repoName, repoOwner)
+    this.getRepoIssuesFeed(repoName, repoOwner)
+    this.getRepoPullReqFeed(repoName, repoOwner)
     // console.log( "Board description now is: ", this.board.desc );
   }
 

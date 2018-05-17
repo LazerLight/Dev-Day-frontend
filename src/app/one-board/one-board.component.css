@@ -149,3 +149,7 @@ h3 {
 .modal {
   clear: both;
 }
+
+.btn-large{
+  background-color: #96C288 !important;
+}
