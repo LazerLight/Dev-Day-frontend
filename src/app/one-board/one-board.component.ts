@@ -7,6 +7,7 @@ import {
   githubIssuesApiRes
 } from "../api/github-api.service";
 import { TrelloService } from "../api/trello.service";
+import { ProjectService } from "../api/project.service";
 
 @Component({
   selector: 'app-one-board',
@@ -32,7 +33,6 @@ export class OneBoardComponent implements OnInit {
   issuesJSON: Array<githubIssuesApiRes> = [];
   pullReqJSON: Array<githubIssuesApiRes> = [];
   
-  username: string;
 
   autocomplete: { data: { [key: string]: string } };
   users: User[] = [];
@@ -41,7 +41,7 @@ export class OneBoardComponent implements OnInit {
 
   constructor(
     private reqThing: ActivatedRoute,
-    public gitAPI: GithubApiService,
+    private gitAPI: GithubApiService,
     private resThing: Router,
     private userThing: UserService,
     private trelloThing: TrelloService
@@ -54,11 +54,10 @@ export class OneBoardComponent implements OnInit {
       this.getMyUser();
       this.fetchBoardData();
     });
-
-    this.getRepoEventsFeed();
-    this.getRepoIssuesFeed();
-    this.getRepoPullReqFeed();    
+    // this.fetchUserData()
+    
   }
+
 
   getMyUser() {
     this.trelloThing.getMyUser()
@@ -75,7 +74,7 @@ export class OneBoardComponent implements OnInit {
     this.trelloThing.getBoard( this.boardId )
       .then(( board ) => {
         this.board = board;
-        // console.log( "BOARD CONSOLE LOG", this.board );
+        console.log( "BOARD CONSOLE LOG", this.board );
         return this.trelloThing.getMembers( this.boardId )
       })
       .then(( members ) => {
@@ -177,21 +176,21 @@ export class OneBoardComponent implements OnInit {
       });
   }
   
-  fetchUserData() {
-    // Get the info of the connected user
-    this.userThing.check()
-      .then( result => {
-        console.log( "USER" );
-        console.log( result );
-        this.currentUserId = result.userInfo._id;
-        console.log( "USER ID" );
-        console.log( this.currentUserId );
-      })
-      .catch(( err ) => {
-        console.log( "fetchUserData ERROR" );
-        console.log( err );
-      })
-  }
+  // fetchUserData() {
+  //   // Get the info of the connected user
+  //   this.userThing.check()
+  //     .then( result => {
+  //       console.log( "USER" );
+  //       console.log( result );
+  //       this.currentUserId = result.userInfo._id;
+  //       console.log( "USER ID" );
+  //       console.log( this.currentUserId );
+  //     })
+  //     .catch(( err ) => {
+  //       console.log( "fetchUserData ERROR" );
+  //       console.log( err );
+  //     })
+  // }
 
   setAutocomplete(userList) {
     this.autocomplete = {
@@ -209,4 +208,5 @@ export class OneBoardComponent implements OnInit {
         console.log(err);
       });
   }
+
 }

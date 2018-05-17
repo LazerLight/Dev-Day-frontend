@@ -63,7 +63,7 @@ export class ProjectsPageComponent implements OnInit {
     this.apiThing
       .postProject(this.newProjectInfo)
       .then(() => {
-        console.log(this.newProjectInfo);
+        // console.log(this.newProjectInfo);
         this.resThing.navigateByUrl("/projects");
       })
       // })
@@ -76,7 +76,7 @@ export class ProjectsPageComponent implements OnInit {
   goToBoard( boardId ) {
     this.trelloService.getBoard( boardId )
       .then(( success ) => {
-        console.log( "getBoard SUCCESS" );
+        // console.log( "getBoard SUCCESS" );
         // console.log( success );
         this.resThing.navigateByUrl( `/board/${ boardId }` );
       })
