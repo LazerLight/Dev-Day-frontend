@@ -40,3 +40,7 @@ p {
 .bot-form {
   visibility: hidden;
 }
+
+.page-footer {
+  clear: both;
+}

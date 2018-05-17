@@ -3,3 +3,100 @@ h2 {
   font-size: 4vh;
   color: #666666;
 }
+
+.user-container {
+  height: 10vh;
+  margin-bottom: 5vh;
+}
+
+.user-logo img {
+  width: 5vw;
+  border-radius: 50%;
+  float: left;
+}
+.user-logo-default img {
+  width: 5vw;
+  border-radius: 50%;
+  float: left;
+}
+
+.user-logo img:hover + p {
+  display: block;
+}
+.user-logo-default img:hover + p {
+  display: block;
+}
+
+.bot-redirect {
+  margin-top: 10vh;
+  clear: both;
+}
+
+/* test codepen */
+
+ul.main {
+  list-style: none;
+  max-width: 75%;
+  margin: 20px auto;
+  background-color: green;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+.date {
+  width: 17%;
+  padding: 15% 1% 0 0;
+  float: left;
+}
+
+.date h3 {
+  font-size: 1.5em;
+}
+
+.date p {
+  font-size: 0.8em;
+}
+
+.events {
+  float: left;
+  width: 80%;
+  border-left: 1px solid #ccc;
+  margin-top: 10%;
+  padding-top: 3%;
+}
+
+.events-detail {
+  max-width: 550px;
+}
+
+.events-detail li {
+  padding: 10px;
+  border-bottom: 1px dashed #ccc;
+  line-height: 22px;
+  transition: ease 0.4s all;
+}
+
+.events-detail li:hover {
+  background: #e9e9e9;
+}
+
+.event-time {
+  font-weight: 900;
+}
+
+.events-detail li a {
+  text-decoration: none;
+  color: #444;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.event-location {
+  font-size: 0.8em;
+  color: tomato;
+  margin-left: 70px;
+}
