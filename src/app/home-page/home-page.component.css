@@ -1,12 +1,12 @@
 /* Dark green: #00b421 */
 /* Light green: #7ecd88*/
 .home-body {
-  height: 100vh;
+  height: 92vh;
   background-color: rgba(212, 212, 212, 0.2);
-  margin: 2vh 1vw;
+  /* margin: 2vh 1vw; */
 }
 
-.login-container {
+/* .login-container {
   margin: 0 auto;
   max-width: 40vw;
   text-align: center;
@@ -19,6 +19,31 @@
   font-size: 2vh;
   color: rgb(212, 212, 212);
   margin-top: 2vh;
+} */
+
+.login-container {
+  display: flex;
+  flex-direction: row;
+  width: 280px;
+  height: 60px;
+  background: red;
+}
+
+.login-container div {
+  border: 2px solid rgb(51, 51, 51);
+  margin: 0;
+}
+
+.login-container div:first-child {
+  width: 20%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.login-container div:last-child {
+  width: 80%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .brand-container {
