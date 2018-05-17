@@ -39,3 +39,8 @@ h1 {
   color: #2ea30a;
   font-weight: lighter;
 }
+
+nav {
+  background-color: #f4f !important;
+  height: 150px;
+}
