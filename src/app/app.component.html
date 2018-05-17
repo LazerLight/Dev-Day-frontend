@@ -3,7 +3,7 @@
   <nav>
     <div class="nav-wrapper">
       <a routerLink="/projects" class="brand-logo"><img [src]="brandLogo"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <ul id="nav-mobile" class="right hide-on-xs-and-down">
         <span *ngIf="!userInstance.currentUser">
           <li><a routerLink="/">Home</a></li>
         </span>
@@ -22,12 +22,7 @@
 
 <body>
 
-<<<<<<< HEAD
-<router-outlet></router-outlet>
-=======
-
   <router-outlet></router-outlet>
->>>>>>> 43134526898e37cecfff8c72d34042134e35705f
 
 </body>
 

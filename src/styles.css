@@ -34,11 +34,14 @@ p {
 } */
 
 nav{
-  height: 10vh !important;
+  background-color: #666666 !important;
 }
-nav,
+
 footer{
   background-color: #96C288 !important;
+}
+.brand-logo{
+  height: 8vh;
 }
 .bot {
   height: 70vh;
