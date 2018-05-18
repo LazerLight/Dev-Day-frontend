@@ -55,12 +55,13 @@ li p {
 
 li button {
     background: none;
-    border: 1px solid rgb(70, 70, 70);
+    border: 1px solid #96C288;
     border-radius: 2px;
+    color: #96C288;
 }
 
 li button:hover {
-    background: rgb(100, 100, 100);
-    border: 1px solid rgb(100, 100, 100);    
+    background: #96C288;
+    /* border: 1px solid rgb(100, 100, 100); */
     color: white;
 }

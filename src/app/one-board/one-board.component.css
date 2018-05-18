@@ -48,14 +48,18 @@ h2 {
 }
 
 .bot-redirect {
-  margin: 5vh auto;
+  margin: 25px auto;
   width: 50%;
   clear: both;
+  display: flex;
+  justify-content: center;
 }
 
 .bot-redirect button {
-  margin-left: 14vw;
+  /* margin: 14vw; */
+  margin-top: 0;
   margin-bottom: 10vh;
+  background:#96C288;
 }
 
 /* test codepen */
