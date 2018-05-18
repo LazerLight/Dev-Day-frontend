@@ -29,6 +29,9 @@ export class OneBoardComponent implements OnInit {
   backlogCards;
   doingCards;
   doneCards;
+  doingCardDuration: number;
+  startTime: Object[] = [];
+  startTimeNumber: number = 9;
   gitHubUrl: GitHubUrl = new GitHubUrl();
   isAdmin: boolean;
 
@@ -120,6 +123,21 @@ export class OneBoardComponent implements OnInit {
           "TYPE OF CARD MEMBER ID",
           typeof this.doingCards[0].idMembers[0]
         );
+        this.doingCards.forEach(oneCard => {
+          let startTimeObject = {};
+          if (oneCard.idMembers.includes(this.myUser.id)) {
+            {
+              (startTimeObject["time"] = this.startTimeNumber),
+                (startTimeObject["cardId"] = oneCard.id),
+                (startTimeObject["name"] = oneCard.name),
+                (startTimeObject["url"] = oneCard.url);
+            }
+            this.startTimeNumber =
+              Number(oneCard.labels[0].name) + this.startTimeNumber;
+            this.startTime.push(startTimeObject);
+          }
+        });
+
         console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
         setTimeout(
           () =>
