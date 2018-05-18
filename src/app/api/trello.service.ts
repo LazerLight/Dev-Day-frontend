@@ -15,8 +15,8 @@ export class TrelloService {
         type: 'popup',
         name: 'Getting Started Application',
         scope: {
-          read: 'true',
-          write: 'true' },
+          read: true,
+          write: true },
           expiration: 'never',
           success,
           error

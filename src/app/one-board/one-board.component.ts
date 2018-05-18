@@ -59,7 +59,8 @@ export class OneBoardComponent implements OnInit {
       this.getMyUser();
       this.fetchBoardData();
     });
-    // this.fetchUserData()
+
+    this.changeGitHubUrl();
   }
 
   getMyUser() {
@@ -91,7 +92,7 @@ export class OneBoardComponent implements OnInit {
       .getBoard(this.boardId)
       .then(board => {
         this.board = board;
-        console.log("BOARD CONSOLE LOG", this.board);
+        // console.log("BOARD CONSOLE LOG", this.board);
         return this.trelloThing.getMembers(this.boardId);
       })
       .then(members => {
@@ -109,10 +110,10 @@ export class OneBoardComponent implements OnInit {
         this.backlogList = this.lists.filter(l => l.name === "BACKLOG");
         this.doingList = this.lists.filter(l => l.name === "DOING");
         this.donelist = this.lists.filter(l => l.name === "DONE");
-        console.log("DOING LIST");
-        console.log(this.backlogList);
-        console.log(this.doingList);
-        console.log(this.donelist);
+        // console.log("DOING LIST");
+        // console.log(this.backlogList);
+        // console.log(this.doingList);
+        // console.log(this.donelist);
         return this.trelloThing.getCards(this.doingList[0].id);
       })
       .then(cards => {
@@ -168,8 +169,13 @@ export class OneBoardComponent implements OnInit {
   }
 
   changeGitHubUrl() {
-    this.board.desc = this.gitHubUrl.url;
-    console.log("Board description now is: ", this.board.desc);
+    // this.board.desc = [{'repoName': this.gitHubUrl.repoName}, {'repoOwner': this.gitHubUrl.repoOwner}]
+    let repoName = "Project03-frontend";
+    let repoOwner = "LPsola";
+    this.getRepoEventsFeed(repoName, repoOwner);
+    this.getRepoIssuesFeed(repoName, repoOwner);
+    this.getRepoPullReqFeed(repoName, repoOwner);
+    // console.log( "Board description now is: ", this.board.desc );
   }
 
   moveToDoing(cardId, doingListId) {
@@ -196,36 +202,37 @@ export class OneBoardComponent implements OnInit {
       });
   }
 
-  getRepoEventsFeed() {
+  getRepoEventsFeed(repoOwner, repoName) {
     this.gitAPI
-      .githubEventsFeed("LPsola", "Project03-frontend")
+      .githubEventsFeed(repoOwner, repoName)
       .then((result: any) => {
+        console.log("push events feed ===========>", result);
         this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result);
       })
       .catch(err => {
-        console.log(`Error getting github feed: ${err}`);
+        console.log(`Error getting github events feed: ${err}`);
       });
   }
 
-  getRepoIssuesFeed() {
+  getRepoIssuesFeed(repoOwner, repoName) {
     this.gitAPI
-      .githubIssuesFeed("jaredhanson", "passport")
+      .githubIssuesFeed(repoOwner, repoName)
       .then((result: any) => {
         this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result);
       })
       .catch(err => {
-        console.log(`Error getting github feed: ${err}`);
+        console.log(`Error getting github issues feed: ${err}`);
       });
   }
 
-  getRepoPullReqFeed() {
+  getRepoPullReqFeed(repoOwner, repoName) {
     this.gitAPI
-      .githubPullReqFeed("jaredhanson", "passport")
+      .githubPullReqFeed(repoOwner, repoName)
       .then((result: any) => {
         this.pullReqJSON = result;
       })
       .catch(err => {
-        console.log(`Error getting github feed: ${err}`);
+        console.log(`Error getting github pull req feed: ${err}`);
       });
   }
 
@@ -245,11 +252,11 @@ export class OneBoardComponent implements OnInit {
   //     })
   // }
 
-  setAutocomplete(userList) {
-    this.autocomplete = {
-      data: userList
-    };
-  }
+  // setAutocomplete(userList) {
+  //   this.autocomplete = {
+  //     data: userList
+  //   };
+  // }
 
   goToBot(boardId) {
     this.trelloThing
@@ -265,5 +272,6 @@ export class OneBoardComponent implements OnInit {
 }
 
 export class GitHubUrl {
-  url: string;
+  repoName: string;
+  repoOwner: string;
 }

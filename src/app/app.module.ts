@@ -15,6 +15,7 @@ import { OneProjectComponent } from "./one-project/one-project.component";
 import { ProjectService } from "./api/project.service";
 import { AboutPageComponent } from "./about-page/about-page.component";
 import { ContactPageComponent } from "./contact-page/contact-page.component";
+import { OneBoardComponent } from './one-board/one-board.component';
 import { MaterializeModule } from "./app-materialize.module";
 import { BotFormComponent } from "./bot-form/bot-form.component";
 import { GithubApiService } from "./api/github-api.service";
@@ -22,7 +23,6 @@ import { RouteGuardService } from "./api/route-guard.service";
 import { IsContributorPipe } from "./pipes-folder/is-contributor.pipe";
 import { TrelloService } from "./api/trello.service";
 import { CardService } from "./api/card.service";
-import { OneBoardComponent } from './one-board/one-board.component';
 import { FilterCardsPipe } from './pipes-folder/filter-cards.pipe';
 
 @NgModule({
@@ -46,7 +46,7 @@ import { FilterCardsPipe } from './pipes-folder/filter-cards.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MaterializeModule
+    MaterializeModule,    
   ],
   providers: [
     UserService,

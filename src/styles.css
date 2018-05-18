@@ -33,6 +33,16 @@ p {
   color: rgb(212, 212, 212);
 } */
 
+nav{
+  background-color: #666666 !important;
+}
+
+footer{
+  background-color: #666666 !important;
+}
+.brand-logo{
+  height: 8vh;
+}
 .bot {
   height: 70vh;
 }
