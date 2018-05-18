@@ -58,7 +58,7 @@
     <div class="scheduler">
       <ul class="main">
         <li class="date">
-          <h3>{{today | date:short}}</h3>
+          <h3>{{today | date:'short'}}</h3>
           <p>{{board?.name}}</p>
         </li>
         <li class="events">
@@ -74,7 +74,6 @@
                   <blockquote class="trello-card">
                     <a [href]="oneCard.url">{{oneCard?.name}}</a>
                   </blockquote>
-                  <button class="move-done" (click)="moveToDone( oneCard.id, lists[2].id )">Move to DONE</button>
                 </span>
               </a>
             </li>
@@ -90,8 +89,7 @@
   -->
     </div>
     <div class="github-container ">
-      <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
-            " [popout]="true ">
+      <mz-collapsible [mode]=" 'expandable' " [popout]="true ">
 
         <mz-collapsible-item [active]="false ">
           <mz-collapsible-item-header>
