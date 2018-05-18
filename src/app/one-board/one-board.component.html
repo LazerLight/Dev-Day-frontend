@@ -74,7 +74,7 @@
   <div class="scheduler">
     <ul class="main">
       <li class="date">
-        <h3>{{today | date:short}}</h3>
+        <h3>{{today | date:'short'}}</h3>
         <p>{{board?.name}}</p>
       </li>
       <li class="events">
@@ -103,8 +103,7 @@
   -->
   </div>
   <div class="github-container ">
-    <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
-            " [popout]="true ">
+    <mz-collapsible [mode]=" 'expandable' " [popout]="true ">
 
       <mz-collapsible-item [active]="false ">
         <mz-collapsible-item-header>
