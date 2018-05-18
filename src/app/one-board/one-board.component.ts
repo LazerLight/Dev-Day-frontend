@@ -106,7 +106,8 @@ export class OneBoardComponent implements OnInit {
         this.lists = lists;
         // console.log( "LISTS" );
         // console.log( this.lists );
-
+        console.log("LIST", this.lists[2].id);
+        console.log("LISTS", this.lists);
         this.backlogList = this.lists.filter(l => l.name === "BACKLOG");
         this.doingList = this.lists.filter(l => l.name === "DOING");
         this.donelist = this.lists.filter(l => l.name === "DONE");
@@ -131,11 +132,13 @@ export class OneBoardComponent implements OnInit {
               (startTimeObject["time"] = this.startTimeNumber),
                 (startTimeObject["cardId"] = oneCard.id),
                 (startTimeObject["name"] = oneCard.name),
+                (startTimeObject["cardId"] = oneCard.id),
                 (startTimeObject["url"] = oneCard.url);
             }
             this.startTimeNumber =
               Number(oneCard.labels[0].name) + this.startTimeNumber;
             this.startTime.push(startTimeObject);
+            console.log(this.startTime);
           }
         });
 
@@ -190,7 +193,7 @@ export class OneBoardComponent implements OnInit {
       });
   }
 
-  moveToDone(cardId, donelistId) {
+  moveToDone(cardId: string, donelistId: string) {
     this.trelloThing
       .moveToDone(cardId, donelistId)
       .then(() => {

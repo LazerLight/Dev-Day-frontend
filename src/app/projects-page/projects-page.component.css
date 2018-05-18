@@ -1,67 +1,72 @@
-h2, p, button {
-    color: rgb(70, 70, 70);
+h2,
+p,
+button {
+  color: rgb(70, 70, 70);
 }
 
 h2 {
-    font-size: 2.8em;
+  font-size: 2.8em;
 }
 
 .main-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-top: 18vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .board-search {
-    width: 60vw;
-    display: flex;
-    justify-content: center;
+  width: 60vw;
+  display: flex;
+  justify-content: center;
 }
 
 .m-valign-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .m-valign-wrapper mz-input-container {
-    width: 100%;
+  width: 100%;
 }
 
 .boards-wrapper {
-    width: 60vw;
+  width: 60vw;
 }
 
 .boards-wrapper ul {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 170px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 170px;
 }
 
 .boards-wrapper li {
-    width: 30%;
+  width: 30%;
+  margin-bottom: 30px;
 }
 
 li img {
-    width: 100%;
+  width: 100%;
 }
 
 li p {
-    font-size: 1.1em;
-    font-weight: bold;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
 li button {
-    background: none;
-    border: 1px solid #96C288;
-    border-radius: 2px;
-    color: #96C288;
+  background: none;
+  border: 1px solid #96c288;
+  border-radius: 2px;
+  color: #96c288;
 }
 
 li button:hover {
-    background: #96C288;
-    /* border: 1px solid rgb(100, 100, 100); */
-    color: white;
+  background: #96c288;
+  /* border: 1px solid rgb(100, 100, 100); */
+  color: white;
 }

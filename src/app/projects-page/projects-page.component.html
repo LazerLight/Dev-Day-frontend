@@ -12,22 +12,22 @@
   <div *ngIf="!myUser">
     <button (click)="authUser()">AUTHORIZE TRELLO</button>
   </div>
-  
-  
-  
+
+
+
   <!-- 
     BOARD SEARCH
     |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   -->
   <div class="board-search">
 
-      <!-- <h5 class="light">Project Search</h5> -->
+    <!-- <h5 class="light">Project Search</h5> -->
 
-      <div class="row m-valign-wrapper">
-        <mz-input-container>
-          <input mz-input [label]="'Project Name'" [autocomplete]="autocomplete" id="autocomplete-input" type="text">
-        </mz-input-container>
-      </div>
+    <div class="row m-valign-wrapper">
+      <mz-input-container>
+        <input mz-input [label]="'Project Name'" [autocomplete]="autocomplete" id="autocomplete-input" type="text">
+      </mz-input-container>
+    </div>
   </div>
 
 
@@ -39,11 +39,10 @@
   <div class="boards-wrapper">
     <ul>
       <li *ngFor="let oneBoard of boards">
-        <img [src]="oneBoard.prefs && oneBoard.prefs.backgroundImageScaled && oneBoard.prefs.backgroundImageScaled[2] && oneBoard.prefs.backgroundImageScaled[2].url"><br>
+        <img [src]="oneBoard.prefs && oneBoard.prefs.backgroundImageScaled && oneBoard.prefs.backgroundImageScaled[2] && oneBoard.prefs.backgroundImageScaled[2].url">
+        <br>
         <p>{{oneBoard?.name}}</p>
         <button (click)="goToBoard( oneBoard?.id )">Enter the project</button>
       </li>
     </ul>
   </div>
-
-
