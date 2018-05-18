@@ -58,24 +58,25 @@
     <div class="scheduler">
       <ul class="main">
         <li class="date">
-          <h3>{{today | date:'short'}}</h3>
+          <h3>{{today | date:short}}</h3>
           <p>{{board?.name}}</p>
         </li>
         <li class="events">
           <ul class="events-detail">
             <!-- *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)" -->
             <li *ngFor="let oneCard of startTime">
-              <a href="#">
-                <span class="event-time">
-                  {{oneCard.time}}h00- </span>
-                <span class="event-name">{{oneCard?.name}}</span>
-                <br />
-                <span class="event-location">
-                  <blockquote class="trello-card">
-                    <a [href]="oneCard.url">{{oneCard?.name}}</a>
-                  </blockquote>
-                </span>
-              </a>
+
+              <span class="event-time">
+                {{oneCard.time}}h00- </span>
+              <span class="event-name">{{oneCard?.name}}</span>
+              <br />
+              <span class="event-location">
+                <blockquote class="trello-card">
+                  <a [href]="oneCard.url">{{oneCard?.name}}</a>
+                </blockquote>
+                <button (click)="moveToDone( oneCard?.cardId, lists[2].id )">Move to DONE</button>
+              </span>
+
             </li>
           </ul>
         </li>
