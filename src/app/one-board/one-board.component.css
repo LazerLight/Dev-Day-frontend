@@ -1,7 +1,6 @@
 .header-container {
-  margin-top: 2vh;
   padding-top: 5vh;
-  margin: auto;
+  margin: 18vh auto;
   width: 95%;
   background-color: rgba(212, 212, 212, 0.2);
 }
@@ -59,7 +58,7 @@ h2 {
   /* margin: 14vw; */
   margin-top: 0;
   margin-bottom: 10vh;
-  background:#96C288;
+  background: #96c288;
 }
 
 /* test codepen */
@@ -113,6 +112,7 @@ h3 {
   border-bottom: 1px dashed #ccc;
   line-height: 22px;
   transition: ease 0.4s all;
+  text-align: center;
 }
 
 .events-detail li:hover {
@@ -151,6 +151,6 @@ h3 {
   clear: both;
 }
 
-.btn-large{
-  background-color: #96C288 !important;
+.btn-large {
+  background-color: #96c288 !important;
 }

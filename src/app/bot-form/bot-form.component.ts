@@ -318,14 +318,10 @@ export class BotFormComponent implements OnInit {
               // select group
               tag: "select",
               name: "task2",
-              "cf-questions": `Sounds good, you've chosen to work on {previous-answer}. I've booked this task in your dashboard to last ${
+              "cf-questions": `Awesome! You will be working on {previous-answer} which should last ${
                 this.lastTaskDuration
-              } hours as decided by your team. What will you be doing next? (you still have ${8 -
-                this
-                  .taskDurationTotal} hours left in your day) || Cool! {previous-answer} should be a great challenge! It should last ${
-                this.lastTaskDuration
-              } hours according to your PM. What will be your next challenge? (you still have ${8 -
-                this.taskDurationTotal} hours left in your day) `,
+              } hours. What's your next move?  || Cool! {previous-answer} should be a great challenge! What will you work on next? (${8 -
+                this.taskDurationTotal} hours are left in your schedule) `,
               children: this.testCardsArray
             }
           ]);
