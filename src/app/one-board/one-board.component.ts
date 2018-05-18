@@ -29,6 +29,9 @@ export class OneBoardComponent implements OnInit {
   backlogCards;
   doingCards;
   doneCards;
+  doingCardDuration: number;
+  startTime: Object[] = [];
+  startTimeNumber: number = 9;
   gitHubUrl: GitHubUrl = new GitHubUrl();
   isAdmin: boolean;
 
@@ -57,7 +60,7 @@ export class OneBoardComponent implements OnInit {
       this.fetchBoardData();
     });
 
-    this.changeGitHubUrl() 
+    this.changeGitHubUrl();
   }
 
   getMyUser() {
@@ -115,13 +118,28 @@ export class OneBoardComponent implements OnInit {
       })
       .then(cards => {
         this.doingCards = cards;
-        // console.log("DOING CARDS");
-        // console.log(this.doingCards);
-        // console.log(
-        //   "TYPE OF CARD MEMBER ID",
-        //   typeof this.doingCards[0].idMembers[0]
-        // );
-        // console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
+        console.log("DOING CARDS");
+        console.log(this.doingCards);
+        console.log(
+          "TYPE OF CARD MEMBER ID",
+          typeof this.doingCards[0].idMembers[0]
+        );
+        this.doingCards.forEach(oneCard => {
+          let startTimeObject = {};
+          if (oneCard.idMembers.includes(this.myUser.id)) {
+            {
+              (startTimeObject["time"] = this.startTimeNumber),
+                (startTimeObject["cardId"] = oneCard.id),
+                (startTimeObject["name"] = oneCard.name),
+                (startTimeObject["url"] = oneCard.url);
+            }
+            this.startTimeNumber =
+              Number(oneCard.labels[0].name) + this.startTimeNumber;
+            this.startTime.push(startTimeObject);
+          }
+        });
+
+        console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
         setTimeout(
           () =>
             TrelloCards.load(document, {
@@ -154,9 +172,9 @@ export class OneBoardComponent implements OnInit {
     // this.board.desc = [{'repoName': this.gitHubUrl.repoName}, {'repoOwner': this.gitHubUrl.repoOwner}]
     let repoName = "Project03-frontend";
     let repoOwner = "LPsola";
-    this.getRepoEventsFeed(repoName, repoOwner)
-    this.getRepoIssuesFeed(repoName, repoOwner)
-    this.getRepoPullReqFeed(repoName, repoOwner)
+    this.getRepoEventsFeed(repoName, repoOwner);
+    this.getRepoIssuesFeed(repoName, repoOwner);
+    this.getRepoPullReqFeed(repoName, repoOwner);
     // console.log( "Board description now is: ", this.board.desc );
   }
 
@@ -188,7 +206,7 @@ export class OneBoardComponent implements OnInit {
     this.gitAPI
       .githubEventsFeed(repoOwner, repoName)
       .then((result: any) => {
-        console.log("push events feed ===========>",result)
+        console.log("push events feed ===========>", result);
         this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result);
       })
       .catch(err => {

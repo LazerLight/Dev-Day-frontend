@@ -58,18 +58,20 @@
   <div class="scheduler">
     <ul class="main">
       <li class="date">
-        <h3>{{today | date:short}}</h3>
+        <h3>{{today | date:'short'}}</h3>
         <p>{{board?.name}}</p>
       </li>
       <li class="events">
         <ul class="events-detail">
-          <li *ngFor="let oneCard of (doingCards | filterCards: myUser?.id) ">
+          <!-- *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)" -->
+          <li *ngFor="let oneCard of startTime">
             <a href="#">
-              <span class="event-time">2:00pm - </span>
+              <span class="event-time">
+                {{oneCard.time}}h00- </span>
               <span class="event-name">{{oneCard?.name}}</span>
               <br />
               <span class="event-location">
-                <blockquote class="trello-card-compact">
+                <blockquote class="trello-card">
                   <a [href]="oneCard.url">{{oneCard?.name}}</a>
                 </blockquote>
               </span>
@@ -87,8 +89,7 @@
   -->
   </div>
   <div class="github-container ">
-    <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
-            " [popout]="true ">
+    <mz-collapsible [mode]=" 'expandable' " [popout]="true ">
 
       <mz-collapsible-item [active]="false ">
         <mz-collapsible-item-header>
