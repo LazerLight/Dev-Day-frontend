@@ -18,10 +18,12 @@
     <ul>
       <li class="user-logo-container" *ngFor="let oneMember of members">
         <span class="user-logo-default" *ngIf="!oneMember.member.avatarUrl">
-          <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar">
+          <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar"
+          mz-button mz-tooltip [tooltip]="oneMember.member.fullName" [position]="'bottom'" [html]="false" [delay]="300">
         </span>
-        <span class="user-logo" *ngIf="oneMember.member.avatarUrl">
-          <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar">
+        <span class="user-logo" *ngIf="oneMember.member.avatarUrl" >  
+          <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar"
+          mz-button mz-tooltip [tooltip]="oneMember.member.fullName" [position]="'bottom'" [html]="false" [delay]="300">
         </span>
       </li>
     </ul>
