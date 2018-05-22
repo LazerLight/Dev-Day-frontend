@@ -6,10 +6,24 @@ button {
 
 h2 {
   font-size: 2.8em;
+  color: #666666;
+}
+
+.header-container {
+  text-align: center;
+  height: 40vh;
+  padding-top: 5vh;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 10vh;
+  /* background-color: rgba(212, 212, 212, 0.2); */
+}
+
+.header-container img {
+  width: 5vw;
 }
 
 .main-wrapper {
-  margin-top: 18vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,8 +31,26 @@ h2 {
 
 .board-search {
   width: 60vw;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
+}
+
+#btn-sidenav-demo {
+  position: fixed;
+  height: 12vh;
+  top: 2vh;
+  left: 0;
+  background-color: transparent;
+  box-shadow: none !important;
+  z-index: 10000;
+}
+
+#btn-sidenav-demo img {
+  width: 5.6vw;
+}
+mz-sidenav-header div {
+  height: 13vh;
 }
 
 .m-valign-wrapper {

@@ -1,8 +1,14 @@
 footer {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   width: 100vw;
   text-align: center;
+  height: 10vh;
+}
+
+footer a{
+  color: #96C288;
+
 }
 
 header {
@@ -12,10 +18,12 @@ header {
   z-index: 10000;
 }
 
-header img {
+/* header img {
   height: 80%;
-}
-/* 
-body {
-  margin-top: 18vh;
 } */
+
+.nav-wrapper img {
+  top: 1.3vh;
+  position: relative;
+  height: 90%;
+}

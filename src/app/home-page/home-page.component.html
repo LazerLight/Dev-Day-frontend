@@ -8,8 +8,14 @@
       </ul>
     </div>
   </nav> -->
-  
-<div class="home-body">
+
+<div class="home-body parallax-container">
+    <a mz-button id="btn-sidenav-demo">
+        <img [src]="testLogo" alt="">
+    </a>
+    <div class="parallax">
+        <img class="bg-home" [src]="bgHome">
+    </div>
     <div class="brand-container">
         <img [src]="devDayLogo">
         <h1 class="typed">Because every day is D-Day</h1>
@@ -17,8 +23,57 @@
 
     <a [href]="githubUrl">
         <div class="github-login">
-            <div><img [src]="githubLogo"></div>
-            <div><p>Log In / Sign Up with GitHub!</p></div>
+            <div>
+                <img [src]="githubLogo">
+            </div>
+            <div>
+                <p>Log In / Sign Up with GitHub!</p>
+            </div>
         </div>
     </a>
+
 </div>
+
+<div class="home-about" id="home-about">
+    <ul>
+        <li>
+            <img class="bot-icon" src="https://cdn.dribbble.com/users/37530/screenshots/2937858/drib_blink_bot.gif">
+            <h6>Let our Friendly Bot help Organize your Day</h6>
+        </li>
+        <li>
+            <img class="trello-logo" src="http://ecgroup-intl.com/wp-content/uploads/trello-logo-blue.png">
+            <img class="github-logo" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png">
+            <h6>Work with Trello and Github</h6>
+        </li>
+        <li>
+            <img class="focus-icon" [src]="focusIcon">
+            <h6> Focus one what's important!</h6>
+
+        </li>
+    </ul>
+</div>
+
+<mz-sidenav [edge]="'left'" [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [draggable]="'true'" [width]="180">
+    <mz-sidenav-header>
+        <div></div>
+    </mz-sidenav-header>
+    <mz-sidenav-link>
+        <a href="#" class="waves-effect">Home</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+    <mz-sidenav-link>
+        <a href="#home-about" class="waves-effect">About Dev-Day</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+    <mz-sidenav-link>
+        <a href="#" class="waves-effect">How it works</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+    <mz-sidenav-link>
+        <a href="#" class="waves-effect">About the team</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+    <mz-sidenav-link>
+        <a href="#" class="waves-effect">Contact Us</a>
+    </mz-sidenav-link>
+</mz-sidenav>

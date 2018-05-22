@@ -1,28 +1,41 @@
 <header>
- 
-  <nav>
+
+
+  <!-- <nav class="navbar">
     <div class="nav-wrapper">
-      <a routerLink="/projects" class="brand-logo"><img [src]="brandLogo"></a>
+      <a routerLink="/projects" class="brand-logo">
+        <img [src]="brandLogo">
+      </a>
       <ul id="nav-mobile" class="right hide-on-xs-and-down">
         <span *ngIf="!userInstance.currentUser">
-          <li><a routerLink="/">Home</a></li>
+          <li>
+            <a routerLink="/">Home</a>
+          </li>
         </span>
-        
+
         <span *ngIf="userInstance.currentUser">
-          <li><a routerLink="/projects">Home</a></li>
-          <li><a (click)="logoutClick()">Log Out</a></li>
+          <li>
+            <a routerLink="/projects">Home</a>
+          </li>
+          <li>
+            <a (click)="logoutClick()">Log Out</a>
+          </li>
         </span>
-        <li><a routerLink="/">Contact US</a></li>
-        <li><a routerLink="/">About Us</a></li>
+        <li>
+          <a routerLink="/">Contact US</a>
+        </li>
+        <li>
+          <a routerLink="/">About Us</a>
+        </li>
       </ul>
     </div>
-  </nav>
-  
+  </nav> -->
+
 </header>
 
 <body>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 
 </body>
 
@@ -31,7 +44,12 @@
   <div class="container">
     <div class="row">
       <div class="col l12 s12">
-        <h6 class="grey-text text-lighten-4">Dev Day by Leo Punsola, Lucas Montenoise and Rodrigo Ley as their third project at Ironhack</h6>
+        <h6 class="grey-text text-lighten-4">Dev Day by
+          <a href="https://www.linkedin.com/in/leo-punsola/" target="_blank">Leo Punsola</a>,
+          <a href="https://www.linkedin.com/in/lucas-montenoise/" target="_blank">Lucas Montenoise</a> and
+          <a href="https://www.linkedin.com/in/rley1/" target="_blank">Rodrigo Ley</a> as their third project at
+          <a href="https://www.ironhack.com/en" target="_blank">Ironhack</a>
+        </h6>
       </div>
     </div>
   </div>

@@ -1,34 +1,43 @@
 <div class="main-wrapper">
+  <div class="header-container parallax-container">
+    <div class="parallax">
+      <img class="bg-projects" [src]="bgImage">
+    </div>
+    <h2>Current Trello Boards</h2>
 
 
-  <h2>Current Trello Boards</h2>
 
 
-
-  <!-- 
+    <!-- 
     TRELLO AUTHORIZATION
     |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   -->
-  <div *ngIf="!myUser">
-    <button (click)="authUser()">AUTHORIZE TRELLO</button>
-  </div>
+    <div *ngIf="!myUser">
+      <button (click)="authUser()">AUTHORIZE TRELLO</button>
+    </div>
 
 
 
-  <!-- 
+    <!-- 
     BOARD SEARCH
     |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   -->
-  <div class="board-search">
+    <div class="board-search">
 
-    <!-- <h5 class="light">Project Search</h5> -->
+      <!-- <h5 class="light">Project Search</h5> -->
 
-    <div class="row m-valign-wrapper">
-      <mz-input-container>
-        <input mz-input [label]="'Project Name'" [autocomplete]="autocomplete" id="autocomplete-input" type="text">
-      </mz-input-container>
+      <div class="row m-valign-wrapper">
+        <mz-input-container>
+          <input mz-input [label]="'Project Name'" [autocomplete]="autocomplete" id="autocomplete-input" type="text">
+        </mz-input-container>
+      </div>
     </div>
+
+    <a mz-button id="btn-sidenav-demo">
+      <img [src]="testLogo" alt="">
+    </a>
   </div>
+
 
 
 
@@ -39,10 +48,36 @@
   <div class="boards-wrapper">
     <ul>
       <li *ngFor="let oneBoard of boards">
-        <img [src]="oneBoard.prefs && oneBoard.prefs.backgroundImageScaled && oneBoard.prefs.backgroundImageScaled[2] && oneBoard.prefs.backgroundImageScaled[2].url">
-        <br>
-        <p>{{oneBoard?.name}}</p>
-        <button (click)="goToBoard( oneBoard?.id )">Enter the project</button>
+        <span class="project-image-default" *ngIf="oneBoard.prefs.backgroundImage === null">
+          <img src="https://wpcurve.com/wp-content/uploads/2015/01/trello-feature1.png" alt="default image">
+          <br>
+          <p>{{oneBoard?.name}}</p>
+          <button (click)="goToBoard( oneBoard?.id )">Enter the project</button>
+        </span>
+        <span class="project-image-default" *ngIf="oneBoard.prefs.backgroundImage">
+          <img [src]="oneBoard.prefs && oneBoard.prefs.backgroundImageScaled && oneBoard.prefs.backgroundImageScaled[2] && oneBoard.prefs.backgroundImageScaled[2].url"
+            alt="project image">
+          <br>
+          <p>{{oneBoard?.name}}</p>
+          <button (click)="goToBoard( oneBoard?.id )">Enter the project</button>
+        </span>
       </li>
     </ul>
   </div>
+
+  <!-- <span class="user-logo-default" *ngIf="!oneMember.member.avatarUrl">
+    <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar">
+  </span>
+  <span class="user-logo" *ngIf="oneMember.member.avatarUrl">
+    <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar">
+  </span> -->
+
+  <mz-sidenav [edge]="'left'" [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [draggable]="'true'" [width]="180">
+    <mz-sidenav-header>
+      <div></div>
+    </mz-sidenav-header>
+    <mz-sidenav-link>
+      <a (click)="logoutClick()" class="waves-effect">Log Out</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+  </mz-sidenav>

@@ -29,11 +29,13 @@ export class OneBoardComponent implements OnInit {
   backlogCards;
   doingCards;
   doneCards;
+  currentBoardId: string;
   doingCardDuration: number;
-  startTime: Object[] = [];
+  startTime: any[] = [];
   startTimeNumber: number = 9;
   gitHubUrl: GitHubUrl = new GitHubUrl();
   isAdmin: boolean;
+  testLogo: string;
 
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
@@ -48,10 +50,12 @@ export class OneBoardComponent implements OnInit {
     private gitAPI: GithubApiService,
     private resThing: Router,
     private userThing: UserService,
-    private trelloThing: TrelloService
+    private trelloThing: TrelloService,
+    private userInstance: UserService
   ) {}
 
   ngOnInit() {
+    this.testLogo = "assets/images/clickable-logo.png";
     this.today = new Date();
     // Get the URL parameters for this route
     this.reqThing.paramMap.subscribe(myParams => {
@@ -197,6 +201,12 @@ export class OneBoardComponent implements OnInit {
     this.trelloThing
       .moveToDone(cardId, donelistId)
       .then(() => {
+        this.startTime.forEach(oneTime => {
+          if (oneTime.cardId === cardId) {
+            this.startTime.splice(this.startTime.indexOf(oneTime), 1);
+          }
+        });
+
         console.log("Card moved to done!");
       })
       .catch(err => {
@@ -265,10 +275,22 @@ export class OneBoardComponent implements OnInit {
     this.trelloThing
       .getBoard(boardId)
       .then(board => {
+        this.currentBoardId = boardId;
         this.resThing.navigateByUrl(`/board/${boardId}/bot`);
       })
       .catch(err => {
         console.log("goToProject ERROR");
+        console.log(err);
+      });
+  }
+  logoutClick() {
+    this.userInstance
+      .logout()
+      .then(() => {
+        this.resThing.navigateByUrl("/");
+      })
+      .catch(err => {
+        console.log("App logout error");
         console.log(err);
       });
   }
