@@ -1,12 +1,23 @@
+
 /* Dark green: #00b421 */
 /* Light green: #7ecd88*/
 
-/* HOME BODY STYLING  */
+/* 
+ HOME BODY STYLING
+ *******************************************
+ */
 
 .home-body {
   height: 100vh;
   background-color: rgba(212, 212, 212, 0.2);
 }
+
+
+
+/* 
+ GITHUB BUTTON
+ *******************************************
+ */
 
 .github-login {
   display: flex;
@@ -46,6 +57,13 @@
   align-items: center;
 }
 
+
+
+/* 
+ HOME MAIN SECTION
+ *******************************************
+ */
+
 .brand-container {
   text-align: center;
   margin: 10vh auto;
@@ -75,29 +93,48 @@ nav {
   width: 5vw;
 }
 
-/* HOME ABOUT STYLING */
+
+
+
+/* 
+ HOME ABOUT
+ *******************************************
+ */
 
 .home-about {
-  height: 50vh;
-  margin-top: 10vh;
+  width: 80vw;
+  margin: 0 auto;
+  padding: 70px 0;
 }
 .home-about ul {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
-.bot-icon {
-  height: 10vh;
+.home-about li {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.trello-logo {
-  height: 10vh;
+.home-about img {
+  height: 11vw;
+  margin-bottom: 20px;
 }
-.github-logo {
-  height: 10vh;
+
+.home-about p {
+  font-size: 1.1em;
+  color: #606060;
+  line-height: 1.5em;
+  text-align: center;
+  margin: 0;
 }
-.focus-icon {
-  height: 10vh;
+
+.home-about h4 {
+  font-weight: bold;
+  color: #404040;
+  font-size: 1.7em;
 }
 
 #btn-sidenav-demo {
@@ -115,4 +152,77 @@ nav {
 
 mz-sidenav-header div {
   height: 13vh;
+}
+
+
+
+
+/* 
+ HOW TO
+ *******************************************
+ */
+
+.how-to {
+  background: #666666;
+  color: white;
+  font-size: 2.2em;
+  padding: 60px 140px;
+}
+
+.how-to li {
+  list-style: none;
+  border-left: 6px solid #2ea30a;
+  margin-bottom: 60px;
+  padding-left: 30px;
+}
+
+
+
+
+/* 
+ ABOUT US
+ *******************************************
+ */
+
+.about-us {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  align-items: center;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.about-us h3 {
+  margin-bottom: 50px;
+}
+
+.about-us li {
+  display: flex;
+  margin-bottom: 70px;
+}
+
+.about-us h4 {
+  font-size: 1.6em;
+  color: #404040;
+}
+
+.about-us li div:first-child {
+  margin-right: 40px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.about-us li div:first-child img {
+  width: 150px;
+}
+
+.about-us h5 {
+  font-size: 1.3em;
+  color: #404040;
+}
+
+.about-us p {
+  color: #909090;
+  margin-bottom: 35px;
 }
