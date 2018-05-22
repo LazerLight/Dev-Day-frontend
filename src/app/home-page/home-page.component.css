@@ -171,10 +171,19 @@ mz-sidenav-header div {
 
 .how-to li {
   list-style: none;
-  border-left: 6px solid #2ea30a;
+  /* border-left: 6px solid #2ea30a; */
   margin-bottom: 60px;
   padding-left: 30px;
+  display: flex;
+  align-items: center;
 }
+
+.how-to li div:first-child {
+  font-size: 3em;
+  color: #2ea30a;
+  min-width: 140px;
+}
+
 
 
 
