@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Project, ProjectService, newProjectInfo } from "../api/project.service";
-import { Router } from '@angular/router';
-import { UserService, User } from '../api/user.service';
-import { TrelloService } from '../api/trello.service';
-
+import { Component, OnInit } from "@angular/core";
+import {
+  Project,
+  ProjectService,
+  newProjectInfo
+} from "../api/project.service";
+import { Router } from "@angular/router";
+import { UserService, User } from "../api/user.service";
+import { TrelloService } from "../api/trello.service";
 
 @Component({
   selector: "app-projects-page",
@@ -11,47 +14,54 @@ import { TrelloService } from '../api/trello.service';
   styleUrls: ["./projects-page.component.css"]
 })
 export class ProjectsPageComponent implements OnInit {
-
   myUser;
   boards: any = [];
   newProjectInfo: newProjectInfo = new newProjectInfo();
   currentUserId: string;
   autocomplete: { data: { [key: string]: string } };
+  bgImage: string;
+  testLogo: string;
 
   constructor(
     private userThing: UserService,
     private apiThing: ProjectService,
     private resThing: Router,
-    private trelloService: TrelloService
-  ) { }
+    private trelloService: TrelloService,
+    private userInstance: UserService
+  ) {}
 
   ngOnInit() {
+    this.bgImage = "assets/images/bg-projects.jpg";
+    this.testLogo = "assets/images/clickable-logo.png";
+    $(document).ready(function() {
+      $(".parallax").parallax();
+    });
     this.fetchUserData();
     this.authUser();
   }
 
-
   authUser() {
-    this.trelloService.authUser()
+    this.trelloService
+      .authUser()
       .then(() => {
-        console.log( "authUser SUCCESS" );
+        console.log("authUser SUCCESS");
         return this.trelloService.getBoards();
       })
-      .then(( boards ) => {
+      .then(boards => {
         this.boards = boards;
+        console.log(this.boards);
         this.setAutocomplete(this.boards);
         return this.trelloService.getMyUser();
       })
-      .then(( myUser ) => {
+      .then(myUser => {
         this.myUser = myUser;
       })
-      .catch(( error ) => {
-        console.log( "TRELLO ERROR" );
-        console.log( error );
-      })
+      .catch(error => {
+        console.log("TRELLO ERROR");
+        console.log(error);
+      });
   }
 
-  
   fetchUserData() {
     // Get the info of the connected user
     return this.userThing.check().then(result => {
@@ -76,21 +86,23 @@ export class ProjectsPageComponent implements OnInit {
       });
   }
 
-  goToBoard( boardId ) {
-    this.trelloService.getBoard( boardId )
-      .then(( success ) => {
+  goToBoard(boardId) {
+    this.trelloService
+      .getBoard(boardId)
+      .then(success => {
         // console.log( "getBoard SUCCESS" );
         // console.log( success );
-        this.resThing.navigateByUrl( `/board/${ boardId }` );
+        this.resThing.navigateByUrl(`/board/${boardId}`);
       })
-      .catch(( error ) => {
-        console.log( "getBoard ERROR" );
-        console.log( error );
-      })
+      .catch(error => {
+        console.log("getBoard ERROR");
+        console.log(error);
+      });
   }
 
   goToProject(projectId) {
-    this.apiThing.getProject(projectId)
+    this.apiThing
+      .getProject(projectId)
       .then((project: Project) => {
         this.resThing.navigateByUrl(`/project/${project._id}`);
       })
@@ -109,5 +121,16 @@ export class ProjectsPageComponent implements OnInit {
     this.autocomplete = {
       data: autoCompleteData
     };
+  }
+  logoutClick() {
+    this.userInstance
+      .logout()
+      .then(() => {
+        this.resThing.navigateByUrl("/");
+      })
+      .catch(err => {
+        console.log("App logout error");
+        console.log(err);
+      });
   }
 }

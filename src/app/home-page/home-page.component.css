@@ -1,10 +1,12 @@
 /* Dark green: #00b421 */
 /* Light green: #7ecd88*/
+
+/* HOME BODY STYLING  */
+
 .home-body {
-  height: 92vh;
+  height: 100vh;
   background-color: rgba(212, 212, 212, 0.2);
 }
-
 
 .github-login {
   display: flex;
@@ -46,12 +48,13 @@
 
 .brand-container {
   text-align: center;
-  margin: 0 auto 12vh;
+  margin: 10vh auto;
 }
+
 .brand-container img {
-  margin-top: 10vh;
   width: 45vh;
 }
+
 .brand-container h1 {
   margin-top: 1.6vh;
   font-family: sans-serif;
@@ -67,4 +70,49 @@ h1 {
 nav {
   background-color: #f4f !important;
   height: 150px;
+}
+.parallax img {
+  width: 5vw;
+}
+
+/* HOME ABOUT STYLING */
+
+.home-about {
+  height: 50vh;
+  margin-top: 10vh;
+}
+.home-about ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.bot-icon {
+  height: 10vh;
+}
+
+.trello-logo {
+  height: 10vh;
+}
+.github-logo {
+  height: 10vh;
+}
+.focus-icon {
+  height: 10vh;
+}
+
+#btn-sidenav-demo {
+  position: fixed;
+  height: 10vh;
+  top: 2vh;
+  background-color: transparent;
+  box-shadow: none !important;
+  z-index: 10000;
+}
+
+#btn-sidenav-demo img {
+  height: 10vh;
+}
+
+mz-sidenav-header div {
+  height: 13vh;
 }

@@ -1,4 +1,7 @@
 <div class="header-container">
+  <a mz-button id="btn-sidenav-demo">
+    <img [src]="testLogo" alt="">
+  </a>
 
   <div class="title-container">
     <h2>
@@ -15,10 +18,12 @@
     <ul>
       <li class="user-logo-container" *ngFor="let oneMember of members">
         <span class="user-logo-default" *ngIf="!oneMember.member.avatarUrl">
-          <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar">
+          <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar"
+          mz-button mz-tooltip [tooltip]="oneMember.member.fullName" [position]="'bottom'" [html]="false" [delay]="300">
         </span>
-        <span class="user-logo" *ngIf="oneMember.member.avatarUrl">
-          <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar">
+        <span class="user-logo" *ngIf="oneMember.member.avatarUrl" >  
+          <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar"
+          mz-button mz-tooltip [tooltip]="oneMember.member.fullName" [position]="'bottom'" [html]="false" [delay]="300">
         </span>
       </li>
     </ul>
@@ -30,18 +35,18 @@
 
 
 
-<!-- 
+  <!-- 
   BOT REDIRECT
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
 
 
 
-<!-- 
+  <!-- 
   GITHUB URL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 -->
-<!-- <div>
+  <!-- <div>
 
   <form (ngSubmit)="changeGitHubUrl()">
     <label>Repo's GitHub URL</label>
@@ -54,18 +59,18 @@
 
 
 
-<div class="main-container">
-  <div class="scheduler">
-    <ul class="main">
-      <li class="date">
-        <h3>{{today | date:'short'}}</h3>
-        <p>{{board?.name}}</p>
-      </li>
-      <li class="events">
-        <ul class="events-detail">
-          <!-- *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)" -->
-          <li *ngFor="let oneCard of startTime">
-            <a href="#">
+  <div class="main-container">
+    <div class="scheduler">
+      <ul class="main">
+        <li class="date">
+          <h3>{{today | date:short}}</h3>
+          <p>{{board?.name}}</p>
+        </li>
+        <li class="events">
+          <ul class="events-detail">
+            <!-- *ngFor="let oneCard of (doingCards | filterCards: myUser?.id)" -->
+            <li *ngFor="let oneCard of startTime">
+
               <span class="event-time">
                 {{oneCard.time}}h00- </span>
               <span class="event-name">{{oneCard?.name}}</span>
@@ -74,15 +79,10 @@
                 <blockquote class="trello-card">
                   <a [href]="oneCard.url">{{oneCard?.name}}</a>
                 </blockquote>
+                <button (click)="moveToDone( oneCard?.cardId, lists[2].id )">Move to DONE</button>
               </span>
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    
-    
 
+<<<<<<< HEAD
   <!-- 
   GITHUB FEEDS
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -90,123 +90,152 @@
   </div>
   <div class="github-container ">
     <mz-collapsible [mode]=" 'expandable' " [popout]="true">
+=======
+            </li>
+          </ul>
+        </li>
+      </ul>
+>>>>>>> 53e7c945d6d8b6fbfe5e11d0b4ac5c1583337831
 
-      <mz-collapsible-item [active]="false ">
-        <mz-collapsible-item-header>
-          <h4>Open Github Pull Requests</h4>
-        </mz-collapsible-item-header>
-        <mz-collapsible-item-body>
 
-          <mz-collection>
-            <mz-collection-item *ngFor="let onePullReq of pullReqJSON " [avatar]="true ">
-              <img mz-avatar [src]="onePullReq.user.avatar_url ">
-              <div class="title ">"{{onePullReq.title}} "</div>
 
-              <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
+      <!-- 
+  GITHUB FEEDS
+  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  -->
+    </div>
+    <div class="github-container ">
+      <mz-collapsible [mode]=" 'expandable' " [popout]="true ">
+
+        <mz-collapsible-item [active]="false ">
+          <mz-collapsible-item-header>
+            <h4>Open Github Pull Requests</h4>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+
+            <mz-collection>
+              <mz-collection-item *ngFor="let onePullReq of pullReqJSON " [avatar]="true ">
+                <img mz-avatar [src]="onePullReq.user.avatar_url ">
+                <div class="title ">"{{onePullReq.title}} "</div>
+
+                <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
             " [popout]="true ">
-                <mz-collapsible-item [active]="false ">
-                  <mz-collapsible-item-header>
-                    <b>Click Here for toggle pull details</b>
-                  </mz-collapsible-item-header>
-                  <mz-collapsible-item-body>
-                    {{onePullReq.body}}
-                    <br>
-                    <b>Assignees:</b> {{onePullReq.assignees}}
-                    <br>
-                    <b>Requested Reviewers:</b> {{onePullReq.requested_reviewers}}
-                    <br>
-                    <a [href]="onePullReq.html_url " target="_blank ">Pull Request Link</a>
-                  </mz-collapsible-item-body>
-                </mz-collapsible-item>
-              </mz-collapsible>
+                  <mz-collapsible-item [active]="false ">
+                    <mz-collapsible-item-header>
+                      <b>Click Here for toggle pull details</b>
+                    </mz-collapsible-item-header>
+                    <mz-collapsible-item-body>
+                      {{onePullReq.body}}
+                      <br>
+                      <b>Assignees:</b> {{onePullReq.assignees}}
+                      <br>
+                      <b>Requested Reviewers:</b> {{onePullReq.requested_reviewers}}
+                      <br>
+                      <a [href]="onePullReq.html_url " target="_blank ">Pull Request Link</a>
+                    </mz-collapsible-item-body>
+                  </mz-collapsible-item>
+                </mz-collapsible>
 
 
-              <div>
-                <b>Created By:</b> {{onePullReq.user.login}} on {{onePullReq.created_at | date :'short'}}.
-                <b>Last Updated:</b> {{onePullReq.updated_at | date :'short'}}
-              </div>
-            </mz-collection-item>
-          </mz-collection>
+                <div>
+                  <b>Created By:</b> {{onePullReq.user.login}} on {{onePullReq.created_at | date :'short'}}.
+                  <b>Last Updated:</b> {{onePullReq.updated_at | date :'short'}}
+                </div>
+              </mz-collection-item>
+            </mz-collection>
 
-        </mz-collapsible-item-body>
-      </mz-collapsible-item>
-
-
-
-      <mz-collapsible-item [active]="false ">
-        <mz-collapsible-item-header>
-          <h4>Github Repo Push Events</h4>
-        </mz-collapsible-item-header>
-        <mz-collapsible-item-body>
-
-
-          <mz-collection>
-            <mz-collection-item *ngFor="let oneEvent of eventsJSON " [avatar]="true ">
-              <img mz-avatar [src]="oneEvent.actor.avatar_url ">
-              <div class="title ">"{{oneEvent.payload.commits[0].message}} "</div>
-              <div>
-                <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
-            </mz-collection-item>
-          </mz-collection>
-
-        </mz-collapsible-item-body>
-      </mz-collapsible-item>
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
 
 
 
+        <mz-collapsible-item [active]="false ">
+          <mz-collapsible-item-header>
+            <h4>Github Repo Push Events</h4>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
 
-      <mz-collapsible-item [active]="false ">
-        <mz-collapsible-item-header>
-          <h4>Latest Open Github Repo Issues</h4>
-        </mz-collapsible-item-header>
-        <mz-collapsible-item-body>
-          <mz-collection>
 
-            <mz-collection-item *ngFor="let oneIssue of issuesJSON " [avatar]="true ">
-              <img mz-avatar [src]="oneIssue.user.avatar_url ">
-              <div class="title ">"{{oneIssue.title}} "</div>
+            <mz-collection>
+              <mz-collection-item *ngFor="let oneEvent of eventsJSON " [avatar]="true ">
+                <img mz-avatar [src]="oneEvent.actor.avatar_url ">
+                <div class="title ">"{{oneEvent.payload.commits[0].message}} "</div>
+                <div>
+                  <b>Pushed By:</b> {{oneEvent.actor.login}} on {{oneEvent.created_at | date :'short'}}</div>
+              </mz-collection-item>
+            </mz-collection>
 
-              <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
+
+
+
+
+        <mz-collapsible-item [active]="false ">
+          <mz-collapsible-item-header>
+            <h4>Latest Open Github Repo Issues</h4>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+            <mz-collection>
+
+              <mz-collection-item *ngFor="let oneIssue of issuesJSON " [avatar]="true ">
+                <img mz-avatar [src]="oneIssue.user.avatar_url ">
+                <div class="title ">"{{oneIssue.title}} "</div>
+
+                <mz-collapsible [mode]=" 'expandable' " [onClose]="closeFunctionCallback " [onOpen]="openFunctionCallback
             " [popout]="true ">
-                <mz-collapsible-item [active]="false ">
-                  <mz-collapsible-item-header>
-                    <b>Click Here for toggle issue details</b>
-                  </mz-collapsible-item-header>
-                  <mz-collapsible-item-body>
-                    {{oneIssue.body}}
-                    <br>
-                    <b>Total Comments: </b>
-                    <a [href]="oneIssue.html_url " target="_blank ">{{oneIssue.comments}}</a>
+                  <mz-collapsible-item [active]="false ">
+                    <mz-collapsible-item-header>
+                      <b>Click Here for toggle issue details</b>
+                    </mz-collapsible-item-header>
+                    <mz-collapsible-item-body>
+                      {{oneIssue.body}}
+                      <br>
+                      <b>Total Comments: </b>
+                      <a [href]="oneIssue.html_url " target="_blank ">{{oneIssue.comments}}</a>
 
-                  </mz-collapsible-item-body>
-                </mz-collapsible-item>
-              </mz-collapsible>
+                    </mz-collapsible-item-body>
+                  </mz-collapsible-item>
+                </mz-collapsible>
 
-              <div>
-                <b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
-                <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
-              </div>
-            </mz-collection-item>
-          </mz-collection>
+                <div>
+                  <b>Created By:</b> {{oneIssue.user.login}} on {{oneIssue.created_at | date :'short'}}.
+                  <b>Last Updated:</b> {{oneIssue.updated_at | date :'short'}}
+                </div>
+              </mz-collection-item>
+            </mz-collection>
 
-        </mz-collapsible-item-body>
-
-
+          </mz-collapsible-item-body>
 
 
-      </mz-collapsible-item>
-    </mz-collapsible>
+
+
+        </mz-collapsible-item>
+      </mz-collapsible>
+    </div>
   </div>
-</div>
 
 
+  <mz-sidenav [edge]="'left'" [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [draggable]="'true'" [width]="180">
+    <mz-sidenav-header>
+      <div></div>
+    </mz-sidenav-header>
+    <mz-sidenav-link>
+      <a routerLink="/projects" class="waves-effect">Your Projects</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+    <mz-sidenav-link>
+      <a (click)="logoutClick()" class="waves-effect">Log Out</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+  </mz-sidenav>
 
-<!-- 
+  <!-- 
   MODAL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   -->
 
-<!-- <div class="modal">
+  <!-- <div class="modal">
   <button mz-button (click)="bottomSheetModal.open() ">Modal</button>
   <mz-modal #bottomSheetModal [fixedFooter]="true " [bottomSheet]="false " [options]="modalOptions ">
     <mz-modal-header>
