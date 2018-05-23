@@ -1,4 +1,7 @@
 <div class="header-container">
+  <a mz-button id="btn-sidenav-demo">
+    <img [src]="testLogo" alt="">
+  </a>
 
   <div class="title-container">
     <h2>
@@ -205,6 +208,19 @@
   </div>
 </div>
 
+  <mz-sidenav [edge]="'left'" [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [draggable]="'true'" [width]="180">
+    <mz-sidenav-header>
+      <div></div>
+    </mz-sidenav-header>
+    <mz-sidenav-link>
+      <a routerLink="/projects" class="waves-effect">Your Projects</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+    <mz-sidenav-link>
+      <a (click)="logoutClick()" class="waves-effect">Log Out</a>
+    </mz-sidenav-link>
+    <mz-sidenav-divider></mz-sidenav-divider>
+  </mz-sidenav>
 
   <!-- 
   MODAL

@@ -31,13 +31,16 @@ export class OneBoardComponent implements OnInit {
   backlogCards;
   doingCards;
   doneCards;
+  currentBoardId: string;
   doingCardDuration: number;
-  startTime: Object[] = [];
+  startTime: any[] = [];
   startTimeNumber: number = 9;
   gitHubUrl: string;
   isAdmin: boolean;
   projectDocument;
   
+  testLogo: string;
+
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
   pullReqJSON: Array<githubIssuesApiRes> = [];
@@ -49,12 +52,13 @@ export class OneBoardComponent implements OnInit {
     private reqThing: ActivatedRoute,
     private gitAPI: GithubApiService,
     private resThing: Router,
-    private userThing: UserService,
+    private userInstance: UserService,
     private trelloThing: TrelloService,
     private project: ProjectService,
   ) {}
   
   ngOnInit() {
+    this.testLogo = "assets/images/clickable-logo.png";
     this.today = new Date();
     // Get the URL parameters for this route
     this.reqThing.paramMap.subscribe(myParams => {
@@ -202,14 +206,20 @@ export class OneBoardComponent implements OnInit {
   
   moveToDone(cardId: string, donelistId: string) {
     this.trelloThing
-    .moveToDone(cardId, donelistId)
-    .then(() => {
-      console.log("Card moved to done!");
-    })
-    .catch(err => {
-      console.log("moveToDone ERROR");
-      console.log(err);
-    });
+      .moveToDone(cardId, donelistId)
+      .then(() => {
+        this.startTime.forEach(oneTime => {
+          if (oneTime.cardId === cardId) {
+            this.startTime.splice(this.startTime.indexOf(oneTime), 1);
+          }
+        });
+
+        console.log("Card moved to done!");
+      })
+      .catch(err => {
+        console.log("moveToDone ERROR");
+        console.log(err);
+      });
   }
   
   updateGitHubUrl() {
@@ -297,14 +307,26 @@ export class OneBoardComponent implements OnInit {
   
   goToBot(boardId) {
     this.trelloThing
-    .getBoard(boardId)
-    .then(board => {
-      this.resThing.navigateByUrl(`/board/${boardId}/bot`);
-    })
-    .catch(err => {
-      console.log("goToProject ERROR");
-      console.log(err);
-    });
+      .getBoard(boardId)
+      .then(board => {
+        this.currentBoardId = boardId;
+        this.resThing.navigateByUrl(`/board/${boardId}/bot`);
+      })
+      .catch(err => {
+        console.log("goToProject ERROR");
+        console.log(err);
+      });
+  }
+  logoutClick() {
+    this.userInstance
+      .logout()
+      .then(() => {
+        this.resThing.navigateByUrl("/");
+      })
+      .catch(err => {
+        console.log("App logout error");
+        console.log(err);
+      });
   }
 }
 
