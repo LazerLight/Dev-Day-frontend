@@ -167,7 +167,7 @@ h3 {
   clear: both;
 }
 
-.btn-large,
-.btn {
+/* .btn-large, */
+.github-button {
   background-color: #96c288 !important;
 }

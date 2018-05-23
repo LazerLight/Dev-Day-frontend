@@ -18,12 +18,12 @@
     <ul>
       <li class="user-logo-container" *ngFor="let oneMember of members">
         <span class="user-logo-default" *ngIf="!oneMember.member.avatarUrl">
-          <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar"
-          mz-button mz-tooltip [tooltip]="oneMember.member.fullName" [position]="'bottom'" [html]="false" [delay]="300">
+          <img src="https://cdn.onlinewebfonts.com/svg/img_504570.png" alt="default avatar" mz-button mz-tooltip [tooltip]="oneMember.member.fullName"
+            [position]="'bottom'" [html]="false" [delay]="300">
         </span>
-        <span class="user-logo" *ngIf="oneMember.member.avatarUrl" >  
-          <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar"
-          mz-button mz-tooltip [tooltip]="oneMember.member.fullName" [position]="'bottom'" [html]="false" [delay]="300">
+        <span class="user-logo" *ngIf="oneMember.member.avatarUrl">
+          <img src="{{oneMember.member.avatarUrl}}/170.png" alt="default avatar" mz-button mz-tooltip [tooltip]="oneMember.member.fullName"
+            [position]="'bottom'" [html]="false" [delay]="300">
         </span>
       </li>
     </ul>
@@ -63,7 +63,7 @@
     <div class="scheduler">
       <ul class="main">
         <li class="date">
-          <h3>{{today | date: 'short'}}</h3>
+          <h3>{{today | date}}</h3>
           <p>{{board?.name}}</p>
         </li>
         <li class="events">
@@ -202,32 +202,32 @@
 
         </mz-collapsible-item>
       </mz-collapsible>
-    <input type="text" [(ngModel)]="githubRepoUrl" placeholder="https://github.com/LPsola/Project03-frontend">
-    <button (click)="updateGitHubUrl()" class="waves-effect waves-light btn"> Update Github Repo URL </button>
-  </div>
+      <input type="text" [(ngModel)]="githubRepoUrl" placeholder="https://github.com/LPsola/Project03-frontend">
+      <button (click)="updateGitHubUrl()" class="waves-effect waves-light btn github-button"> Update Github Repo URL </button>
+    </div>
   </div>
 </div>
 
-  <mz-sidenav [edge]="'left'" [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [draggable]="'true'" [width]="180">
-    <mz-sidenav-header>
-      <div></div>
-    </mz-sidenav-header>
-    <mz-sidenav-link>
-      <a routerLink="/projects" class="waves-effect">Your Projects</a>
-    </mz-sidenav-link>
-    <mz-sidenav-divider></mz-sidenav-divider>
-    <mz-sidenav-link>
-      <a (click)="logoutClick()" class="waves-effect">Log Out</a>
-    </mz-sidenav-link>
-    <mz-sidenav-divider></mz-sidenav-divider>
-  </mz-sidenav>
+<mz-sidenav [edge]="'left'" [id]="'sidenav-demo'" [collapseButtonId]="'btn-sidenav-demo'" [draggable]="'true'" [width]="180">
+  <mz-sidenav-header>
+    <div></div>
+  </mz-sidenav-header>
+  <mz-sidenav-link>
+    <a routerLink="/projects" class="waves-effect">Your Projects</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link>
+    <a (click)="logoutClick()" class="waves-effect">Log Out</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+</mz-sidenav>
 
-  <!-- 
+<!-- 
   MODAL
   |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   -->
 
-  <!-- <div class="modal">
+<!-- <div class="modal">
   <button mz-button (click)="bottomSheetModal.open() ">Modal</button>
   <mz-modal #bottomSheetModal [fixedFooter]="true " [bottomSheet]="false " [options]="modalOptions ">
     <mz-modal-header>
