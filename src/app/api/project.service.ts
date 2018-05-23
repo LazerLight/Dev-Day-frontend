@@ -12,14 +12,15 @@ export class ProjectService {
     private ajaxThing: HttpClient
   ) { }
 
-  // GET /api/projects
-  getProjects() {
+  
+  // GET /api/project/:projectId
+  getProject( trelloBoardId ) {
     return this.ajaxThing
-      .get( `${environment.backUrl}/api/projects` )
-      .toPromise();
+    .get( `${environment.backUrl}/api/project/${ trelloBoardId }` )
+    .toPromise();
   }
-
-  // POST /api/projects
+  
+  // // POST /api/projects
   postProject( info: newProjectInfo ) {
     return this.ajaxThing
       .post(
@@ -28,34 +29,35 @@ export class ProjectService {
       )
       .toPromise();
   }
+  
+  // GET /api/projects
+  // getProjects() {
+  //   return this.ajaxThing
+  //     .get( `${environment.backUrl}/api/projects` )
+  //     .toPromise();
+  // }
 
-  // GET /api/project/:projectId
-  getProject( projectId: string ) {
-    return this.ajaxThing
-      .get( `${environment.backUrl}/api/project/${ projectId }` )
-      .toPromise();
-  }
 
-  getUser( username: string ) {
-    return this.ajaxThing
-      .get( `${environment.backUrl}/api/search-user/${ username }` )
-      .toPromise();
-  }
+  // getUser( username: string ) {
+  //   return this.ajaxThing
+  //     .get( `${environment.backUrl}/api/search-user/${ username }` )
+  //     .toPromise();
+  // }
 
-  postUser( info: addUserInfo ) {
-    return this.ajaxThing
-      .post(
-        `${environment.backUrl}/api/add-contributor`,
-        info
-      )
-      .toPromise();
-  }
+  // postUser( info: addUserInfo ) {
+  //   return this.ajaxThing
+  //     .post(
+  //       `${environment.backUrl}/api/add-contributor`,
+  //       info
+  //     )
+  //     .toPromise();
+  // }
 
-  getUsers(){
-    return this.ajaxThing
-    .get( `${environment.backUrl}/api/all-users` )
-    .toPromise();
-  }
+  // getUsers(){
+  //   return this.ajaxThing
+  //   .get( `${environment.backUrl}/api/all-users` )
+  //   .toPromise();
+  // }
 
 
 }
@@ -63,26 +65,26 @@ export class ProjectService {
 export class Project {
   _id: string;
   owner: string;
-  name: string;
-  imageUrl: string;
-  githubRepoName: string;
+  githubRepoUrl: string;
   trelloBoardId: string;
-  contributors: string[] = [];
-  activityFeed: Object[];
   createdAt?: Date;
   updatedAt?: Date;
+  // name: string;
+  // imageUrl: string;
+  // contributors: string[] = [];
+  // activityFeed: Object[];
 }
 
 export class newProjectInfo {
-  owner: string; // Specify that the creating user becomes the owner
-  name: string;
-  imageUrl: string;
-  githubRepoName: string;
+  githubRepoUrl: string;
   trelloBoardId: string;
-  contributors: string[] = []; // Specify that the creating user becomes the first member
+  // owner: string; // Specify that the creating user becomes the owner
+  // name: string;
+  // imageUrl: string;
+  // contributors: string[] = []; // Specify that the creating user becomes the first member
 }
 
-export class addUserInfo {
-  userId: string;
-  projectId: string;
-}
+// export class addUserInfo {
+//   userId: string;
+//   projectId: string;
+// }

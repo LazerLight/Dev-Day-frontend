@@ -13,11 +13,11 @@ export class IsContributorPipe implements PipeTransform {
 
     const filteredProjects: Project[] = [];
 
-    value.forEach(( oneProject ) => {
-      if( oneProject.contributors.includes( currentUserId )) {
-        filteredProjects.push( oneProject );
-      }
-    });
+    // value.forEach(( oneProject ) => {
+    //   if( oneProject.contributors.includes( currentUserId )) {
+    //     filteredProjects.push( oneProject );
+    //   }
+    //});
 
     // PRO WAY
     // return value.filter( oneProject => {

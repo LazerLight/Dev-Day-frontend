@@ -60,7 +60,7 @@
     <div class="scheduler">
       <ul class="main">
         <li class="date">
-          <h3>{{today | date:short}}</h3>
+          <h3>{{today | date: 'short'}}</h3>
           <p>{{board?.name}}</p>
         </li>
         <li class="events">
@@ -199,9 +199,11 @@
 
         </mz-collapsible-item>
       </mz-collapsible>
-    </div>
+    <input type="text" [(ngModel)]="githubRepoUrl" placeholder="https://github.com/LPsola/Project03-frontend">
+    <button (click)="updateGitHubUrl()" class="waves-effect waves-light btn"> Update Github Repo URL </button>
   </div>
-
+  </div>
+</div>
 
 
   <!-- 

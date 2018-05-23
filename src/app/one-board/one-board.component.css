@@ -151,6 +151,7 @@ h3 {
   clear: both;
 }
 
-.btn-large {
+.btn-large,
+.btn {
   background-color: #96c288 !important;
 }

@@ -18,7 +18,9 @@ declare var TrelloCards: any;
 export class OneBoardComponent implements OnInit {
   currentUserId: string;
   myUser;
-
+  
+  githubRepoUrl;
+  
   boardId: string;
   board;
   members;
@@ -32,25 +34,26 @@ export class OneBoardComponent implements OnInit {
   doingCardDuration: number;
   startTime: Object[] = [];
   startTimeNumber: number = 9;
-  gitHubUrl: GitHubUrl = new GitHubUrl();
+  gitHubUrl: string;
   isAdmin: boolean;
-
+  projectDocument;
+  
   eventsJSON: Array<githubEventsApiRes> = [];
   issuesJSON: Array<githubIssuesApiRes> = [];
   pullReqJSON: Array<githubIssuesApiRes> = [];
-
-  autocomplete: { data: { [key: string]: string } };
+  
   users: User[] = [];
   today: Date;
-
+  
   constructor(
     private reqThing: ActivatedRoute,
     private gitAPI: GithubApiService,
     private resThing: Router,
     private userThing: UserService,
-    private trelloThing: TrelloService
+    private trelloThing: TrelloService,
+    private project: ProjectService,
   ) {}
-
+  
   ngOnInit() {
     this.today = new Date();
     // Get the URL parameters for this route
@@ -60,23 +63,36 @@ export class OneBoardComponent implements OnInit {
       this.fetchBoardData();
     });
 
-    this.changeGitHubUrl();
-  }
+    this.fetchProjectData()
 
+
+  }
+  
   getMyUser() {
     this.trelloThing
-      .getMyUser()
-      .then(myUser => {
-        this.myUser = myUser;
-        console.log("MY ID", this.myUser.id);
-        console.log("MY USER OBJECT", this.myUser);
+    .getMyUser()
+    .then(myUser => {
+      this.myUser = myUser;
+      // console.log("MY ID", this.myUser.id);
+      // console.log("MY USER OBJECT", this.myUser);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+  
+  fetchProjectData() {
+    this.project.getProject(this.boardId)
+      .then( results =>{
+        this.projectDocument = results
       })
-      .catch(error => {
-        console.log(error);
+      .then(()=>{
+        this.githubFeedTrigger()
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(err =>{
+        console.log("fetchProjectData error: ", err)
+      })
+
   }
 
   isBoardAdmin() {
@@ -86,162 +102,185 @@ export class OneBoardComponent implements OnInit {
       }
     });
   }
-
+  
   fetchBoardData() {
     this.trelloThing
-      .getBoard(this.boardId)
-      .then(board => {
-        this.board = board;
-        // console.log("BOARD CONSOLE LOG", this.board);
-        return this.trelloThing.getMembers(this.boardId);
-      })
-      .then(members => {
-        this.members = members;
-        console.log("MEMBERS", this.members);
-        // console.log( "MEMBERS HERE" );
-        // console.log( this.members );
-        return this.trelloThing.getLists(this.boardId);
-      })
-      .then(lists => {
-        this.lists = lists;
-        // console.log( "LISTS" );
-        // console.log( this.lists );
-        console.log("LIST", this.lists[2].id);
-        console.log("LISTS", this.lists);
-        this.backlogList = this.lists.filter(l => l.name === "BACKLOG");
-        this.doingList = this.lists.filter(l => l.name === "DOING");
-        this.donelist = this.lists.filter(l => l.name === "DONE");
-        // console.log("DOING LIST");
-        // console.log(this.backlogList);
-        // console.log(this.doingList);
-        // console.log(this.donelist);
-        return this.trelloThing.getCards(this.doingList[0].id);
-      })
-      .then(cards => {
-        this.doingCards = cards;
-        console.log("DOING CARDS");
-        console.log(this.doingCards);
-        console.log(
-          "TYPE OF CARD MEMBER ID",
-          typeof this.doingCards[0].idMembers[0]
-        );
-        this.doingCards.forEach(oneCard => {
-          let startTimeObject = {};
-          if (oneCard.idMembers.includes(this.myUser.id)) {
-            {
-              (startTimeObject["time"] = this.startTimeNumber),
-                (startTimeObject["cardId"] = oneCard.id),
-                (startTimeObject["name"] = oneCard.name),
-                (startTimeObject["cardId"] = oneCard.id),
-                (startTimeObject["url"] = oneCard.url);
-            }
-            this.startTimeNumber =
-              Number(oneCard.labels[0].name) + this.startTimeNumber;
-            this.startTime.push(startTimeObject);
-            console.log(this.startTime);
+    .getBoard(this.boardId)
+    .then(board => {
+      this.board = board;
+      // console.log("BOARD CONSOLE LOG", this.board);
+      return this.trelloThing.getMembers(this.boardId);
+    })
+    .then(members => {
+      this.members = members;
+      // console.log("MEMBERS", this.members);
+      // console.log( "MEMBERS HERE" );
+      // console.log( this.members );
+      return this.trelloThing.getLists(this.boardId);
+    })
+    .then(lists => {
+      this.lists = lists;
+      // console.log( "LISTS" );
+      // console.log( this.lists );
+      // console.log("LIST", this.lists[2].id);
+      // console.log("LISTS", this.lists);
+      this.backlogList = this.lists.filter(l => l.name === "BACKLOG");
+      this.doingList = this.lists.filter(l => l.name === "DOING");
+      this.donelist = this.lists.filter(l => l.name === "DONE");
+      // console.log("DOING LIST");
+      // console.log(this.backlogList);
+      // console.log(this.doingList);
+      // console.log(this.donelist);
+      return this.trelloThing.getCards(this.doingList[0].id);
+    })
+    .then(cards => {
+      this.doingCards = cards;
+      // console.log("DOING CARDS");
+      // console.log(this.doingCards);
+      // console.log(
+      //   "TYPE OF CARD MEMBER ID",
+      //   typeof this.doingCards[0].idMembers[0]
+      // );
+      this.doingCards.forEach(oneCard => {
+        let startTimeObject = {};
+        if (oneCard.idMembers.includes(this.myUser.id)) {
+          {
+            (startTimeObject["time"] = this.startTimeNumber),
+            (startTimeObject["cardId"] = oneCard.id),
+            (startTimeObject["name"] = oneCard.name),
+            (startTimeObject["cardId"] = oneCard.id),
+            (startTimeObject["url"] = oneCard.url);
           }
-        });
-
-        console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
-        setTimeout(
-          () =>
-            TrelloCards.load(document, {
-              compact: false,
-              allAnchors: false
-            }),
-          0
-        );
-        return this.trelloThing.getCards(this.backlogList[0].id);
-      })
-      .then(cards => {
-        this.backlogCards = cards;
-        return this.trelloThing.getCards(this.donelist[0].id);
-      })
-      .then(cards => {
-        this.doneCards = cards;
-        console.log("MEMBERS", this.members);
-        return this.isBoardAdmin();
-      })
-      .then(() => {
-        console.log("IS ADMIN", this.isAdmin);
-      })
-      .catch(error => {
-        console.log("fetchBoardData ERROR");
-        console.log(error);
+          this.startTimeNumber =
+          Number(oneCard.labels[0].name) + this.startTimeNumber;
+          this.startTime.push(startTimeObject);
+          console.log(this.startTime);
+        }
       });
+      
+      // console.log("TYPE OF CURRENT USER ID", typeof this.currentUserId);
+      setTimeout(
+        () =>
+        TrelloCards.load(document, {
+          compact: false,
+          allAnchors: false
+        }),
+        0
+      );
+      return this.trelloThing.getCards(this.backlogList[0].id);
+    })
+    .then(cards => {
+      this.backlogCards = cards;
+      return this.trelloThing.getCards(this.donelist[0].id);
+    })
+    .then(cards => {
+      this.doneCards = cards;
+      // console.log("MEMBERS", this.members);
+      return this.isBoardAdmin();
+    })
+    .then(() => {
+      // console.log("IS ADMIN", this.isAdmin);
+    })
+    .catch(error => {
+      console.log("fetchBoardData ERROR");
+      console.log(error);
+    });
   }
-
-  changeGitHubUrl() {
-    // this.board.desc = [{'repoName': this.gitHubUrl.repoName}, {'repoOwner': this.gitHubUrl.repoOwner}]
-    let repoName = "Project03-frontend";
-    let repoOwner = "LPsola";
-    this.getRepoEventsFeed(repoName, repoOwner);
-    this.getRepoIssuesFeed(repoName, repoOwner);
-    this.getRepoPullReqFeed(repoName, repoOwner);
-    // console.log( "Board description now is: ", this.board.desc );
-  }
-
+  
+  
   moveToDoing(cardId, doingListId) {
     this.trelloThing
-      .moveToDoing(cardId, doingListId, this.myUser.id)
-      .then(() => {
-        console.log("Card moved to doing!");
-      })
-      .catch(err => {
-        console.log("moveToDoing ERROR");
-        console.log(err);
-      });
+    .moveToDoing(cardId, doingListId, this.myUser.id)
+    .then(() => {
+      console.log("Card moved to doing!");
+    })
+    .catch(err => {
+      console.log("moveToDoing ERROR");
+      console.log(err);
+    });
   }
-
+  
   moveToDone(cardId: string, donelistId: string) {
     this.trelloThing
-      .moveToDone(cardId, donelistId)
-      .then(() => {
-        console.log("Card moved to done!");
-      })
-      .catch(err => {
-        console.log("moveToDone ERROR");
-        console.log(err);
-      });
+    .moveToDone(cardId, donelistId)
+    .then(() => {
+      console.log("Card moved to done!");
+    })
+    .catch(err => {
+      console.log("moveToDone ERROR");
+      console.log(err);
+    });
   }
+  
+  updateGitHubUrl() {
+    let url =     this.githubRepoUrl + "/"
+    let beginUrlSection = url.indexOf("github.com/");
+    if(beginUrlSection < 0){
+      return false
+    }
+    
+    let firstSlash = url.indexOf("/", beginUrlSection + 11);
+    let secondSlash = url.indexOf("/", firstSlash + 1);
+    let githubRepoUrlSection = url.slice(beginUrlSection + 11, secondSlash);
+    
+    
 
-  getRepoEventsFeed(repoOwner, repoName) {
+    const projectInfo = {
+      "githubRepoUrl" : githubRepoUrlSection,
+      "trelloBoardId" : this.boardId
+    }
+    
+    this.getRepoEventsFeed(githubRepoUrlSection);
+    this.getRepoIssuesFeed(githubRepoUrlSection);
+    this.getRepoPullReqFeed(githubRepoUrlSection);
+
+    this.project.postProject(projectInfo)
+
+  }
+  
+  getRepoEventsFeed(repoUrlSection) {
     this.gitAPI
-      .githubEventsFeed(repoOwner, repoName)
-      .then((result: any) => {
-        console.log("push events feed ===========>", result);
-        this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result);
-      })
-      .catch(err => {
-        console.log(`Error getting github events feed: ${err}`);
-      });
+    .githubEventsFeed(repoUrlSection)
+    .then((result: any) => {
+      this.eventsJSON = this.gitAPI.filterGithubEventsFeed(result);
+    })
+    .catch(err => {
+      console.log(`Error getting github events feed: ${err}`);
+    });
   }
-
-  getRepoIssuesFeed(repoOwner, repoName) {
+  
+  getRepoIssuesFeed(repoUrlSection) {
     this.gitAPI
-      .githubIssuesFeed(repoOwner, repoName)
-      .then((result: any) => {
-        this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result);
-      })
-      .catch(err => {
-        console.log(`Error getting github issues feed: ${err}`);
-      });
+    .githubIssuesFeed(repoUrlSection)
+    .then((result: any) => {
+      this.issuesJSON = this.gitAPI.filterGithubIssuesFeed(result);
+    })
+    .catch(err => {
+      console.log(`Error getting github issues feed: ${err}`);
+    });
   }
-
-  getRepoPullReqFeed(repoOwner, repoName) {
+  
+  getRepoPullReqFeed(repoUrlSection) {
     this.gitAPI
-      .githubPullReqFeed(repoOwner, repoName)
-      .then((result: any) => {
-        this.pullReqJSON = result;
-      })
-      .catch(err => {
-        console.log(`Error getting github pull req feed: ${err}`);
-      });
+    .githubPullReqFeed(repoUrlSection)
+    .then((result: any) => {
+      this.pullReqJSON = result;
+    })
+    .catch(err => {
+      console.log(`Error getting github pull req feed: ${err}`);
+    });
   }
 
+  githubFeedTrigger(){
+    if(this.projectDocument.githubRepoUrl){
+      this.getRepoEventsFeed(this.projectDocument.githubRepoUrl);
+      this.getRepoIssuesFeed(this.projectDocument.githubRepoUrl);
+      this.getRepoPullReqFeed(this.projectDocument.githubRepoUrl);
+    }
+  }
   // fetchUserData() {
   //   // Get the info of the connected user
-  //   this.userThing.check()
+    // this.userThing.check()
   //     .then( result => {
   //       console.log( "USER" );
   //       console.log( result );
@@ -254,23 +293,18 @@ export class OneBoardComponent implements OnInit {
   //       console.log( err );
   //     })
   // }
-
-  // setAutocomplete(userList) {
-  //   this.autocomplete = {
-  //     data: userList
-  //   };
-  // }
-
+  
+  
   goToBot(boardId) {
     this.trelloThing
-      .getBoard(boardId)
-      .then(board => {
-        this.resThing.navigateByUrl(`/board/${boardId}/bot`);
-      })
-      .catch(err => {
-        console.log("goToProject ERROR");
-        console.log(err);
-      });
+    .getBoard(boardId)
+    .then(board => {
+      this.resThing.navigateByUrl(`/board/${boardId}/bot`);
+    })
+    .catch(err => {
+      console.log("goToProject ERROR");
+      console.log(err);
+    });
   }
 }
 

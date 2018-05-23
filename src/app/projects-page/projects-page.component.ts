@@ -60,8 +60,8 @@ export class ProjectsPageComponent implements OnInit {
   }
 
   createProject() {
-    this.newProjectInfo.owner = this.currentUserId;
-    this.newProjectInfo.contributors.push(this.currentUserId);
+    // this.newProjectInfo.owner = this.currentUserId;
+    // this.newProjectInfo.contributors.push(this.currentUserId);
 
     this.apiThing
       .postProject(this.newProjectInfo)
