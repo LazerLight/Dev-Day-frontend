@@ -1,27 +1,56 @@
-# Project03Frontend
+# Dev Day
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
+![Ironhack logo](./public/images/ironhack-logo.png)
+## Ironhack Project #3
+From March to June 2018 I attended a **Full Stack Web Development Bootcamp** in Paris with [Ironhack](http://www.ironhack.com/en).
 
-## Development server
+The program was very dense yet well structured and I learnt the following tech stack & tools:
+- Angular 5
+- Node.js
+- MongoDB
+- Mongoose
+- Express.js
+- Javascript & Typescript
+- HTML 5 / CSS 3
+- GitHub
+- Bash CLI
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Dev Day is the second of three projects I did during the bootcamp. It was created with my fellow Ironhackers @LazerLight and @LPsola, hope you enjoy it!
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### [>>Here's the app!](https://dev-day33.herokuapp.com/)
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Context
+The 3rd project happened after five weeks of learning. At this point, we had covered:
+- advanced HTML 5 & CSS 3 manipulation, some animations
+- advanced JS manipulations
+- various APIs integration (Google Maps, Trello, GitHub, etc.)
+- Handlebars
+- Heroku app hosting platform
+- front-end stack:
+  - Angular.io (latest version)
+  - front and back-end connection
+- back-end stack:
+  - Node.js 
+  - Express.js
+  - MongoDB
+  - Mongoose
 
-## Running unit tests
+The insctructions were to create an app that would:
+- involve as much as possible the technologies learnt so far
+- actually be useful :)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## What is the app about?
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## How does the tech work under the hood?
+
+
+
+## Summary
+This was
+
+Hope you enjoyed using it, and don't hesitate to give me any (constructive) feedback!
