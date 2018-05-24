@@ -50,7 +50,18 @@ By the end of the bootcamp we realized us developers actually have (at least) tw
 Those two main jobs, combined, actually require us to use a big bunch of apps and services to stay updated and in sync. Juggling through them all could quickly become confusing.
 
 ### This is why we created Dev Day
-Dev Dav is an app that basically brings together Trello and GitHub to provide you with the most important information from both platforms. 
+Dev Dav is an app that basically brings together Trello and GitHub to provide you with the most important information from both platforms.
+
+Upon loging in (GitHub is the only option), you're prompted to authorize Trello. When you do, the app retrieves info from it and shows all the active boards on your account. Entering one will present your with a simple interface showing some basic info, like:
+- the members of the board
+- a couple GitHub feeds like pull requests, issues and pushes
+- a button that says "start your day"
+
+Clicking on the button launches a chatbot interface that will get you started through your day. It retrieves all the cards available in your Trello backlog and asks you which ones you'd like to work on today. It takes into account the complexity of each chosen task, ends the process when you reach an approximated 8 hours work load and redirects you to the project page.
+
+> If you check your actual Trello, you will see the tasks you chose were actually moved from the backlog to the "doing" list, and were assigned to you.
+
+Then on the project page, the dashboard will now display a list of the tasks at hand, with the possibility to comment them and check their info. When you finish one, simply clicking on "Move to done" pushes it from the "doing" to the "done" list, and disapears from your Dev Dav dashboard so it's not cluttered with unnecessary information.
 
 
 ## How does the tech work under the hood?
