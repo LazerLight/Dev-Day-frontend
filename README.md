@@ -1,6 +1,6 @@
 # Dev Day
 
-![Ironhack logo](./public/images/ironhack-logo.png)
+![Ironhack logo](./src/assets/images/ironhack-logo.png)
 ## Ironhack Project #3
 From March to June 2018 I attended a **Full Stack Web Development Bootcamp** in Paris with [Ironhack](http://www.ironhack.com/en).
 
