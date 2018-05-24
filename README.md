@@ -43,7 +43,14 @@ The insctructions were to create an app that would:
 
 
 ## What is the app about?
+By the end of the bootcamp we realized us developers actually have (at least) two jobs:
+1. actually do what we do, which is writing code and making incredible products
+2. working in teams with other developers, and actually organize so we don't cross each others or break somebody's work
 
+Those two main jobs, combined, actually require us to use a big bunch of apps and services to stay updated and in sync. Juggling through them all could quickly become confusing.
+
+### This is why we created Dev Day
+Dev Dav is an app that basically brings together Trello and GitHub to provide you with the most important information from both platforms. 
 
 
 ## How does the tech work under the hood?
