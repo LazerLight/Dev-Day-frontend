@@ -69,8 +69,10 @@ At first, since we didn't have any experience with the Trello API, we set our MV
 
 Then, we switched from the regular back-end to the Trello API, to feed our dashboards and chatbots with real trello boards data. It took us a little while to figure out how to properly request and redirect data, but eventually it worked fine and everyone from the bootcamp could start using our app with their own data!
 
+For the styling, we used a combination of Materialize for Angular, and native hand-written CSS.
+
 
 ## Summary
-This was
+This was our last, obviously most complex but also most exciting project. We had to make everything we learnt so far work together properly, make the right combinations choices and setups and not break everybody else's code while implementing our features!
 
 Hope you enjoyed using it, and don't hesitate to give me any (constructive) feedback!
