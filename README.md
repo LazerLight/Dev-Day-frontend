@@ -65,7 +65,9 @@ Then on the project page, the dashboard will now display a list of the tasks at 
 
 
 ## How does the tech work under the hood?
+At first, since we didn't have any experience with the Trello API, we set our MVP to work with a regular back-end using MongoDB: we had users, projects, lists and cards models. We implemented GitHub connect and feeds and got the whole thing running fine.
 
+Then, we switched from the regular back-end to the Trello API, to feed our dashboards and chatbots with real trello boards data. It took us a little while to figure out how to properly request and redirect data, but eventually it worked fine and everyone from the bootcamp could start using our app with their own data!
 
 
 ## Summary
